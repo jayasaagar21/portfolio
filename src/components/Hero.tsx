@@ -6,7 +6,7 @@ export default function Hero() {
       <div className="container">
         <div className="hero-inner">
           <h1 className="hero-name">Jayasaagar C</h1>
-          <p className="hero-role">AI(Product x Marketing)</p>
+          <p className="hero-role">AI ( Product + Marketing )</p>
           <p className="hero-bio">
             I'm obsessed with one specific problem: what happens to products before, during and after they launch? Are we reaching our customers, if not what can we do to make it happen? That's where I thrive.
           </p>
