@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Settings } from 'lucide-react';
-import MotionToggle from './MotionToggle';
+import ThemeToggle from './ThemeToggle';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 
 interface HeaderProps {
@@ -51,7 +51,7 @@ export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderPro
               ))}
             </div>
           )}
-          <MotionToggle />
+          <ThemeToggle />
           <button onClick={onAdmin} className="header-icon-btn" aria-label="Admin">
             <Settings size={15} />
           </button>

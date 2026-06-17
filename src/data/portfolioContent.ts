@@ -106,3 +106,6 @@ export function certYear(date: string): string {
   const match = date.match(/\d{4}/);
   return match?.[0] ?? date;
 }
+
+export const SITE_EYEBROW = 'Portfolio · Product · Marketing · Business Analytics';
+export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';

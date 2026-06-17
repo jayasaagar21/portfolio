@@ -19,7 +19,7 @@ export default function ToolsSection() {
           chapter="02"
           label="Tools"
           title="What I work with"
-          desc="The stack behind product decisions, analytics, and go-to-market."
+          desc="The stack behind product, marketing, business analytics, and go-to-market."
         />
 
         <div className="tools-grid">

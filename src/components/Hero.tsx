@@ -1,8 +1,14 @@
 import { Mail, Linkedin, Newspaper, ArrowDown } from 'lucide-react';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
+import { SITE_EYEBROW, SITE_EXPERTISE } from '../data/portfolioContent';
 
 const domains = ['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'];
+
+const pillars = {
+  left: ['Product', 'Marketing'],
+  right: ['Business Analytics', 'AI'],
+};
 
 export default function Hero() {
   const { isDynamic } = useMotion();
@@ -10,10 +16,23 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true">
+        <div className="hero-pillar hero-pillar--left">
+          {pillars.left.map(label => (
+            <span key={label} className="hero-pillar-label">{label}</span>
+          ))}
+        </div>
+        <div className="hero-pillar hero-pillar--right">
+          {pillars.right.map(label => (
+            <span key={label} className="hero-pillar-label">{label}</span>
+          ))}
+        </div>
+      </div>
+
       <div className="container">
         <div className="hero-inner">
           <Reveal delay={0}>
-            <p className="hero-eyebrow">Portfolio · Product & Marketing</p>
+            <p className="hero-eyebrow">{SITE_EYEBROW}</p>
           </Reveal>
 
           <Reveal delay={1}>
@@ -24,13 +43,14 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={2}>
-            <p className="hero-role">AI · Product · Marketing</p>
+            <p className="hero-role">{SITE_EXPERTISE}</p>
           </Reveal>
 
           <Reveal delay={3}>
             <p className="hero-bio">
               I focus on what happens before, during, and after launch — how products reach
-              customers, where they fall short, and what to do next. That is where I do my best work.
+              customers, where data and marketing fall short, and what to do next.
+              That is where I do my best work.
             </p>
           </Reveal>
 
