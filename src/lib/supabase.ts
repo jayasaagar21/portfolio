@@ -12,7 +12,7 @@ export type PortfolioItem = {
   role: string;
   timeline: string;
   platform: string;
-  category: 'marketing' | 'product' | 'analytics';
+  category: 'marketing' | 'product' | 'analytics' | 'ai';
   overview: string;
   problem: string;
   solution: string;

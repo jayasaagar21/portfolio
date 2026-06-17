@@ -8,7 +8,7 @@ type FormData = Omit<PortfolioItem, 'id' | 'created_at' | 'updated_at'> & { id?:
 
 const empty = (): FormData => ({
   title: '', company: '', role: '', timeline: '', platform: '',
-  category: 'product', overview: '', problem: '', solution: '',
+  category: 'marketing', overview: '', problem: '', solution: '',
   features: [], metrics: [], technologies: '', learnings: '',
   image: '', tags: [], description: '', sort_order: 0, published: true,
 });
@@ -170,7 +170,7 @@ export default function AdminPanel({ onClose }: Props) {
                 <div className="field">
                   <label>Category<span>*</span></label>
                   <select value={form.category} onChange={e => set('category', e.target.value)}>
-                    <option value="product">Product</option>
+                    <option value="ai">AI</option>
                     <option value="marketing">Marketing</option>
                     <option value="analytics">Analytics</option>
                   </select>
