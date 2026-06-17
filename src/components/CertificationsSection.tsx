@@ -1,5 +1,6 @@
 import { Award } from 'lucide-react';
-import { useInView } from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
+import Reveal from './Reveal';
 
 const certifications = [
   { title: 'Advanced Certificate in Business and Data Analytics', institution: 'IIM Udaipur', date: 'July 2025' },
@@ -11,27 +12,24 @@ const certifications = [
 ];
 
 export default function CertificationsSection() {
-  const { ref, inView } = useInView(0.1);
-
   return (
-    <section className="section" ref={ref as React.RefObject<HTMLElement>}>
+    <section className="section section--alt">
       <div className="container">
-        <div className={`section-header fade-up${inView ? ' visible' : ''}`}>
-          <p className="section-label">Certifications</p>
-          <h2 className="section-title">Credentials</h2>
-        </div>
+        <SectionHeader chapter="04" label="Certifications" title="Credentials" />
 
         <div className="cert-list">
           {certifications.map((cert, i) => (
-            <div key={i} className={`cert-item fade-up stagger-${Math.min(i + 1, 6)}${inView ? ' visible' : ''}`}>
-              <div className="cert-icon">
-                <Award size={16} color="var(--grey-600)" />
+            <Reveal key={cert.title} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+              <div className="cert-item">
+                <div className="cert-icon">
+                  <Award size={16} />
+                </div>
+                <div className="cert-info">
+                  <h4>{cert.title}</h4>
+                  <p>{cert.institution} · {cert.date}</p>
+                </div>
               </div>
-              <div className="cert-info">
-                <h4>{cert.title}</h4>
-                <p>{cert.institution} · {cert.date}</p>
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

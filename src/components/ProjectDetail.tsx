@@ -2,6 +2,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { projectImage } from '../data/projectImages';
+import Reveal from './Reveal';
 
 interface Props {
   projectId: string | null;
@@ -227,89 +228,114 @@ export default function ProjectDetail({ projectId, onBack }: Props) {
 
   return (
     <div className="detail">
-      <button onClick={onBack} className="detail-back">
-        <ArrowLeft size={15} /> Back
-      </button>
+      <Reveal>
+        <button onClick={onBack} className="detail-back">
+          <ArrowLeft size={15} /> Back to projects
+        </button>
+      </Reveal>
 
-      <h1 className="detail-title">{project.title}</h1>
+      <Reveal delay={1}>
+        <p className="detail-eyebrow">Case study</p>
+        <h1 className="detail-title">{project.title}</h1>
+      </Reveal>
 
-      <dl className="detail-meta">
-        <div><dt>Company</dt><dd>{project.company}</dd></div>
-        <div><dt>Role</dt><dd>{project.role}</dd></div>
-        <div><dt>Timeline</dt><dd>{project.timeline}</dd></div>
-        <div><dt>Platform</dt><dd>{project.platform}</dd></div>
-      </dl>
+      <Reveal delay={2}>
+        <dl className="detail-meta">
+          <div><dt>Company</dt><dd>{project.company}</dd></div>
+          <div><dt>Role</dt><dd>{project.role}</dd></div>
+          <div><dt>Timeline</dt><dd>{project.timeline}</dd></div>
+          <div><dt>Platform</dt><dd>{project.platform}</dd></div>
+        </dl>
+      </Reveal>
 
-      <div className="detail-img">
-        <img src={project.image} alt={project.title} />
-      </div>
+      <Reveal delay={3}>
+        <div className="detail-img">
+          <img src={project.image} alt={project.title} />
+        </div>
+      </Reveal>
 
       {project.video && (
-        <section className="detail-section">
-          <h2>Demo Video</h2>
-          <a href={project.video} target="_blank" rel="noopener noreferrer" className="detail-video-link">
-            Watch Demo Video
-          </a>
-        </section>
+        <Reveal delay={1}>
+          <section className="detail-section">
+            <h2>Demo Video</h2>
+            <a href={project.video} target="_blank" rel="noopener noreferrer" className="detail-video-link">
+              Watch Demo Video
+            </a>
+          </section>
+        </Reveal>
       )}
 
-      <section className="detail-section">
-        <h2>Overview</h2>
-        <p>{project.overview}</p>
-      </section>
+      <Reveal delay={1}>
+        <section className="detail-section">
+          <h2>Overview</h2>
+          <p>{project.overview}</p>
+        </section>
+      </Reveal>
 
-      <section className="detail-section">
-        <h2>Problem</h2>
-        <p>{project.problem}</p>
-      </section>
+      <Reveal delay={2}>
+        <section className="detail-section">
+          <h2>Problem</h2>
+          <p>{project.problem}</p>
+        </section>
+      </Reveal>
 
-      <section className="detail-section">
-        <h2>Solution</h2>
-        <p>{project.solution}</p>
-      </section>
+      <Reveal delay={3}>
+        <section className="detail-section">
+          <h2>Solution</h2>
+          <p>{project.solution}</p>
+        </section>
+      </Reveal>
 
       {project.features?.length > 0 && (
-        <section className="detail-section">
-          <h2>Key Features</h2>
-          <div className="detail-features">
-            {project.features.map((f, i) => (
-              <div key={i} className="detail-feature">
-                <h3>{f.title}</h3>
-                <p>{f.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <Reveal delay={1}>
+          <section className="detail-section">
+            <h2>Key Features</h2>
+            <div className="detail-features">
+              {project.features.map((f, i) => (
+                <div key={i} className="detail-feature">
+                  <h3>{f.title}</h3>
+                  <p>{f.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
       )}
 
       {project.metrics?.length > 0 && (
-        <section className="detail-section">
-          <h2>Results</h2>
-          <div className="detail-metrics">
-            {project.metrics.map((m, i) => (
-              <div key={i} className="detail-metric">
-                <div className="detail-metric-val">{m.value}</div>
-                <div className="detail-metric-lbl">{m.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <Reveal delay={2}>
+          <section className="detail-section">
+            <h2>Results</h2>
+            <div className="detail-metrics">
+              {project.metrics.map((m, i) => (
+                <div key={i} className="detail-metric">
+                  <div className="detail-metric-val">{m.value}</div>
+                  <div className="detail-metric-lbl">{m.label}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
       )}
 
       {project.technologies && (
-        <section className="detail-section">
-          <h2>Technologies</h2>
-          <div className="detail-tech">
-            {project.technologies.split(',').map((t, i) => <span key={i}>{t.trim()}</span>)}
-          </div>
-        </section>
+        <Reveal delay={3}>
+          <section className="detail-section">
+            <h2>Technologies</h2>
+            <div className="detail-tech">
+              {project.technologies.split(',').map((t, i) => <span key={i}>{t.trim()}</span>)}
+            </div>
+          </section>
+        </Reveal>
       )}
 
       {project.learnings && (
-        <section className="detail-section">
-          <h2>Learnings</h2>
-          <p>{project.learnings}</p>
-        </section>
+        <Reveal delay={4}>
+          <section className="detail-section detail-section--last">
+            <h2>Learnings</h2>
+            <p>{project.learnings}</p>
+          </section>
+        </Reveal>
       )}
     </div>
   );

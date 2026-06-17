@@ -1,12 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useInView(threshold = 0.15) {
+type Options = {
+  disabled?: boolean;
+  threshold?: number;
+};
+
+export function useInView(threshold = 0.15, options?: Options) {
   const ref = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(options?.disabled ?? false);
 
   useEffect(() => {
+    if (options?.disabled) {
+      setInView(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -14,11 +25,12 @@ export function useInView(threshold = 0.15) {
           observer.disconnect();
         }
       },
-      { threshold }
+      { threshold: options?.threshold ?? threshold }
     );
+
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, options?.disabled, options?.threshold]);
 
   return { ref, inView };
 }

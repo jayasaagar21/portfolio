@@ -9,19 +9,36 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import ProjectDetail from './components/ProjectDetail';
 import AdminPanel from './components/AdminPanel';
+import ScrollProgress from './components/ScrollProgress';
+import { useMotion } from './context/MotionContext';
 
 type View = 'home' | 'project' | 'admin';
 
 export default function App() {
   const [view, setView] = useState<View>('home');
   const [projectId, setProjectId] = useState<string | null>(null);
+  const { isDynamic } = useMotion();
 
-  const goHome = () => { setView('home'); setProjectId(null); window.scrollTo(0, 0); };
-  const goProject = (id: string) => { setProjectId(id); setView('project'); window.scrollTo(0, 0); };
-  const goAdmin = () => { setView('admin'); window.scrollTo(0, 0); };
+  const goHome = () => {
+    setView('home');
+    setProjectId(null);
+    window.scrollTo({ top: 0, behavior: isDynamic ? 'smooth' : 'auto' });
+  };
+
+  const goProject = (id: string) => {
+    setProjectId(id);
+    setView('project');
+    window.scrollTo({ top: 0, behavior: isDynamic ? 'smooth' : 'auto' });
+  };
+
+  const goAdmin = () => {
+    setView('admin');
+    window.scrollTo({ top: 0, behavior: isDynamic ? 'smooth' : 'auto' });
+  };
 
   return (
     <div className="app">
+      <ScrollProgress />
       <Header
         onBack={goHome}
         showBack={view !== 'home'}
@@ -29,31 +46,23 @@ export default function App() {
         showNav={view === 'home'}
       />
 
-      {view === 'home' && (
-        <>
-          <Hero />
-          <ExperienceSection />
-          <ToolsSection />
-          <ProjectsSection onProjectClick={goProject} />
-          <CertificationsSection />
-          <ContactSection />
-          <Footer />
-        </>
-      )}
+      <main className={`page-shell page-shell--${view}${isDynamic ? ' page-enter' : ''}`} key={view}>
+        {view === 'home' && (
+          <>
+            <Hero />
+            <ExperienceSection />
+            <ToolsSection />
+            <ProjectsSection onProjectClick={goProject} />
+            <CertificationsSection />
+            <ContactSection />
+          </>
+        )}
 
-      {view === 'project' && (
-        <>
-          <ProjectDetail projectId={projectId} onBack={goHome} />
-          <Footer />
-        </>
-      )}
+        {view === 'project' && <ProjectDetail projectId={projectId} onBack={goHome} />}
+        {view === 'admin' && <AdminPanel onClose={goHome} />}
+      </main>
 
-      {view === 'admin' && (
-        <>
-          <AdminPanel onClose={goHome} />
-          <Footer />
-        </>
-      )}
+      <Footer />
     </div>
   );
 }

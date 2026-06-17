@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { type LucideIcon, Briefcase, GraduationCap, Users } from 'lucide-react';
-import { useInView } from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
+import Reveal from './Reveal';
+import { useMotion } from '../context/MotionContext';
 
 type Tab = 'professional' | 'education' | 'volunteering';
 
@@ -34,50 +36,64 @@ const experiences = {
 export default function ExperienceSection() {
   const [activeTab, setActiveTab] = useState<Tab>('professional');
   const items = experiences[activeTab];
-  const { ref, inView } = useInView(0.1);
+  const { isDynamic } = useMotion();
 
   return (
-    <section id="experience" className="section" ref={ref as React.RefObject<HTMLElement>}>
+    <section id="experience" className="section section--story">
       <div className="container">
-        <div className={`section-header fade-up${inView ? ' visible' : ''}`}>
-          <p className="section-label">Experience</p>
-          <h2 className="section-title">Where I've worked</h2>
-          <p className="section-desc">Professional roles, education, and community work across seven domains.</p>
-        </div>
+        <SectionHeader
+          chapter="01"
+          label="Experience"
+          title="Where I've worked"
+          desc="Professional roles, education, and community work across seven domains."
+        />
 
-        <div className={`exp-tabs fade-up stagger-1${inView ? ' visible' : ''}`}>
-          {tabs.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              className={`exp-tab${activeTab === id ? ' active' : ''}`}
-              onClick={() => setActiveTab(id)}
-            >
-              <Icon size={14} />
-              {label}
-            </button>
-          ))}
-        </div>
+        <Reveal delay={2}>
+          <div className="exp-tabs" role="tablist" aria-label="Experience categories">
+            {tabs.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                role="tab"
+                aria-selected={activeTab === id}
+                className={`exp-tab${activeTab === id ? ' active' : ''}`}
+                onClick={() => setActiveTab(id)}
+              >
+                <Icon size={14} />
+                {label}
+              </button>
+            ))}
+          </div>
+        </Reveal>
 
-        <div className="exp-list">
+        <div
+          key={activeTab}
+          className={`exp-list${isDynamic ? ' panel-enter' : ''}`}
+          role="tabpanel"
+        >
           {items.map((exp, i) => (
-            <div key={`${activeTab}-${i}`} className={`exp-item fade-up stagger-${Math.min(i + 2, 6)}${inView ? ' visible' : ''}`}>
-              <div className="exp-meta">
-                <span className="exp-period">{exp.period}</span>
-                <span className={`exp-domain ${exp.domainClass}`}>{exp.domain}</span>
-              </div>
-              <div className="exp-body">
-                <h3>{exp.title}</h3>
-                <p className="exp-company">{exp.company} · {exp.location}</p>
-                <p className="exp-desc">{exp.summary}</p>
-                {'tags' in exp && (exp as any).tags && (
-                  <div className="exp-tags">
-                    {((exp as any).tags as string[]).map(tag => (
-                      <span key={tag} className="exp-tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+            <Reveal key={`${activeTab}-${i}`} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+              <article className="exp-item">
+                <div className="exp-rail" aria-hidden="true">
+                  <span className="exp-rail-dot" />
+                </div>
+                <div className="exp-meta">
+                  <span className="exp-period">{exp.period}</span>
+                  <span className={`exp-domain ${exp.domainClass}`}>{exp.domain}</span>
+                </div>
+                <div className="exp-body">
+                  <h3>{exp.title}</h3>
+                  <p className="exp-company">{exp.company} · {exp.location}</p>
+                  <p className="exp-desc">{exp.summary}</p>
+                  {'tags' in exp && (exp as { tags?: string[] }).tags && (
+                    <div className="exp-tags">
+                      {((exp as { tags: string[] }).tags).map(tag => (
+                        <span key={tag} className="exp-tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
       </div>

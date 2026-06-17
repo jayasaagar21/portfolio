@@ -1,5 +1,6 @@
-import { Mail, Linkedin, MapPin, Calendar } from 'lucide-react';
-import { useInView } from '../hooks/useInView';
+import { Mail, Linkedin, MapPin, Calendar, ArrowUpRight } from 'lucide-react';
+import SectionHeader from './SectionHeader';
+import Reveal from './Reveal';
 
 const contacts = [
   {
@@ -29,15 +30,10 @@ const contacts = [
 ];
 
 export default function ContactSection() {
-  const { ref, inView } = useInView(0.1);
-
   return (
-    <section id="contact" className="section" ref={ref as React.RefObject<HTMLElement>}>
+    <section id="contact" className="section section--story section--contact">
       <div className="container">
-        <div className={`section-header fade-up${inView ? ' visible' : ''}`}>
-          <p className="section-label">Contact</p>
-          <h2 className="section-title">Get in touch</h2>
-        </div>
+        <SectionHeader chapter="05" label="Contact" title="Get in touch" />
 
         <div className="contact-grid">
           {contacts.map((c, i) => {
@@ -51,30 +47,32 @@ export default function ContactSection() {
                   <h3>{c.label}</h3>
                   <p>{c.value}</p>
                 </div>
+                {c.href && <ArrowUpRight size={16} className="contact-card-arrow" />}
               </>
             );
 
-            const className = `contact-card fade-up stagger-${Math.min(i + 1, 6)}${inView ? ' visible' : ''}`;
+            const className = 'contact-card';
 
             if (c.href) {
               const isExternal = c.href.startsWith('http');
               return (
-                <a
-                  key={i}
-                  href={c.href}
-                  target={isExternal ? '_blank' : undefined}
-                  rel={isExternal ? 'noopener noreferrer' : undefined}
-                  className={className}
-                >
-                  {inner}
-                </a>
+                <Reveal key={c.label} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+                  <a
+                    href={c.href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    className={className}
+                  >
+                    {inner}
+                  </a>
+                </Reveal>
               );
             }
 
             return (
-              <div key={i} className={className}>
-                {inner}
-              </div>
+              <Reveal key={c.label} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+                <div className={className}>{inner}</div>
+              </Reveal>
             );
           })}
         </div>

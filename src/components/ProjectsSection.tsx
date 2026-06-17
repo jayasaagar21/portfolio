@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Loader } from 'lucide-react';
 import { supabase, type PortfolioItem } from '../lib/supabase';
-import { useInView } from '../hooks/useInView';
 import { projectImage } from '../data/projectImages';
+import SectionHeader from './SectionHeader';
+import Reveal from './Reveal';
+import { useMotion } from '../context/MotionContext';
 
 type Category = 'product' | 'marketing' | 'analytics' | 'ai';
 
@@ -41,7 +43,7 @@ export default function ProjectsSection({ onProjectClick }: Props) {
   const [active, setActive] = useState<Category>('product');
   const [dbItems, setDbItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const { ref, inView } = useInView(0.1);
+  const { isDynamic } = useMotion();
 
   useEffect(() => {
     supabase
@@ -61,48 +63,59 @@ export default function ProjectsSection({ onProjectClick }: Props) {
   })();
 
   return (
-    <section id="projects" className="section" ref={ref as React.RefObject<HTMLElement>}>
+    <section id="projects" className="section section--story">
       <div className="container">
-        <div className={`section-header fade-up${inView ? ' visible' : ''}`}>
-          <p className="section-label">Projects</p>
-          <h2 className="section-title">What I've built</h2>
-          <p className="section-desc">Case studies across product, marketing, and analytics.</p>
-        </div>
+        <SectionHeader
+          chapter="03"
+          label="Projects"
+          title="What I've built"
+          desc="Case studies across product, marketing, analytics, and AI."
+        />
 
-        <div className={`proj-tabs fade-up stagger-1${inView ? ' visible' : ''}`}>
-          {categories.map(({ id, label, desc }) => (
-            <button key={id} className={`proj-tab${active === id ? ' active' : ''}`} onClick={() => setActive(id)}>
-              <span className="proj-tab-label">{label}</span>
-              <span className="proj-tab-desc">{desc}</span>
-            </button>
-          ))}
-        </div>
+        <Reveal delay={2}>
+          <div className="proj-tabs" role="tablist" aria-label="Project categories">
+            {categories.map(({ id, label, desc }) => (
+              <button
+                key={id}
+                role="tab"
+                aria-selected={active === id}
+                className={`proj-tab${active === id ? ' active' : ''}`}
+                onClick={() => setActive(id)}
+              >
+                <span className="proj-tab-label">{label}</span>
+                <span className="proj-tab-desc">{desc}</span>
+              </button>
+            ))}
+          </div>
+        </Reveal>
 
         {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '48px 0' }}>
-            <Loader size={20} className="spinner" style={{ color: 'var(--grey-400)' }} />
+          <div className="proj-loading">
+            <Loader size={20} className="spinner" />
           </div>
         ) : (
-          <div className="proj-grid">
+          <div key={active} className={`proj-grid${isDynamic ? ' panel-enter' : ''}`}>
             {items.map((project, i) => (
-              <div key={project.id} className={`proj-card fade-up stagger-${Math.min(i + 2, 6)}${inView ? ' visible' : ''}`}>
-                <button className="proj-card-btn" onClick={() => onProjectClick(project.id)}>
-                  <div className="proj-card-img">
-                    {project.image && <img src={project.image} alt={project.title} loading="lazy" />}
-                    <div className="proj-card-overlay">
-                      <span>View <ArrowRight size={13} /></span>
+              <Reveal key={project.id} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+                <article className="proj-card">
+                  <button className="proj-card-btn" onClick={() => onProjectClick(project.id)}>
+                    <div className="proj-card-img">
+                      {project.image && <img src={project.image} alt={project.title} loading="lazy" />}
+                      <div className="proj-card-overlay">
+                        <span>View case study <ArrowRight size={13} /></span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="proj-card-body">
-                    <div className="proj-card-tags">
-                      {(Array.isArray(project.tags) ? project.tags : []).map((t, j) => <span key={j}>{t}</span>)}
+                    <div className="proj-card-body">
+                      <div className="proj-card-tags">
+                        {(Array.isArray(project.tags) ? project.tags : []).map((t, j) => <span key={j}>{t}</span>)}
+                      </div>
+                      <h3 className="proj-card-title">{project.title}</h3>
+                      <p className="proj-card-company">{project.company}</p>
+                      <p className="proj-card-desc">{project.description}</p>
                     </div>
-                    <h3 className="proj-card-title">{project.title}</h3>
-                    <p className="proj-card-company">{project.company}</p>
-                    <p className="proj-card-desc">{project.description}</p>
-                  </div>
-                </button>
-              </div>
+                  </button>
+                </article>
+              </Reveal>
             ))}
           </div>
         )}

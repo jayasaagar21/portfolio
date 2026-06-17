@@ -1,5 +1,6 @@
 import { BarChart2, Cpu, Megaphone, Users, Code2, FileSpreadsheet } from 'lucide-react';
-import { useInView } from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
+import Reveal from './Reveal';
 
 const groups = [
   { category: 'Product Management', icon: Cpu, tools: ['Jira', 'Confluence', 'Notion', 'Linear', 'Productboard', 'Miro', 'Figma'] },
@@ -11,28 +12,29 @@ const groups = [
 ];
 
 export default function ToolsSection() {
-  const { ref, inView } = useInView(0.1);
-
   return (
-    <section id="tools" className="section" ref={ref as React.RefObject<HTMLElement>}>
+    <section id="tools" className="section section--alt">
       <div className="container">
-        <div className={`section-header fade-up${inView ? ' visible' : ''}`}>
-          <p className="section-label">Tools</p>
-          <h2 className="section-title">What I work with</h2>
-          <p className="section-desc">The tools I reach for across product, analytics, marketing, and AI.</p>
-        </div>
+        <SectionHeader
+          chapter="02"
+          label="Tools"
+          title="What I work with"
+          desc="The stack behind product decisions, analytics, and go-to-market."
+        />
 
         <div className="tools-grid">
           {groups.map(({ category, icon: Icon, tools }, i) => (
-            <div key={category} className={`tool-group fade-up stagger-${Math.min(i + 1, 6)}${inView ? ' visible' : ''}`}>
-              <div className="tool-group-header">
-                <Icon size={16} />
-                <h3>{category}</h3>
+            <Reveal key={category} delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}>
+              <div className="tool-group">
+                <div className="tool-group-header">
+                  <Icon size={16} />
+                  <h3>{category}</h3>
+                </div>
+                <div className="tool-tags">
+                  {tools.map(t => <span key={t} className="tool-tag">{t}</span>)}
+                </div>
               </div>
-              <div className="tool-tags">
-                {tools.map(t => <span key={t} className="tool-tag">{t}</span>)}
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

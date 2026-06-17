@@ -1,34 +1,86 @@
-import { Mail, Linkedin, Newspaper } from 'lucide-react';
+import { Mail, Linkedin, Newspaper, ArrowDown } from 'lucide-react';
+import Reveal from './Reveal';
+import { useMotion } from '../context/MotionContext';
+
+const domains = ['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'];
 
 export default function Hero() {
+  const { isDynamic } = useMotion();
+
   return (
     <section className="hero">
+      <div className="hero-bg" aria-hidden="true" />
       <div className="container">
         <div className="hero-inner">
-          <h1 className="hero-name">Jayasaagar C</h1>
-          <p className="hero-role">AI ( Product + Marketing )</p>
-          <p className="hero-bio">
-            I'm obsessed with one specific problem: what happens to products before, during and after they launch? Are we reaching our customers, if not what can we do to make it happen? That's where I thrive.
-          </p>
-          <div className="hero-domains">
-            {['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'].map(d => (
-              <span key={d} className="hero-domain">{d}</span>
-            ))}
-          </div>
-          <div className="hero-contact">
-            <a href="mailto:jayasaagar21@gmail.com">
-              <Mail size={15} />
-              jayasaagar21@gmail.com
+          <Reveal delay={0}>
+            <p className="hero-eyebrow">Portfolio · Product & Marketing</p>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <h1 className="hero-name">
+              <span className="hero-name-line">Jayasaagar</span>
+              <span className="hero-name-line hero-name-accent">Chandrashekar</span>
+            </h1>
+          </Reveal>
+
+          <Reveal delay={2}>
+            <p className="hero-role">AI · Product · Marketing</p>
+          </Reveal>
+
+          <Reveal delay={3}>
+            <p className="hero-bio">
+              I focus on what happens before, during, and after launch — how products reach
+              customers, where they fall short, and what to do next. That is where I do my best work.
+            </p>
+          </Reveal>
+
+          <Reveal delay={4}>
+            <div className="hero-domains">
+              {domains.map((d, i) => (
+                <span
+                  key={d}
+                  className="hero-domain"
+                  style={isDynamic ? { transitionDelay: `${i * 40}ms` } : undefined}
+                >
+                  {d}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={5}>
+            <div className="hero-contact">
+              <a href="mailto:jayasaagar21@gmail.com" className="hero-link">
+                <Mail size={15} />
+                jayasaagar21@gmail.com
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jayasaagarc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-link"
+              >
+                <Linkedin size={15} />
+                LinkedIn
+              </a>
+              <a
+                href="https://lnkd.in/e2pGdt7B"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-link"
+              >
+                <Newspaper size={15} />
+                Newsletter
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={6}>
+            <a href="#experience" className="hero-scroll-cue">
+              <span>Explore the story</span>
+              <ArrowDown size={14} className={isDynamic ? 'hero-scroll-icon' : ''} />
             </a>
-            <a href="https://www.linkedin.com/in/jayasaagarc/" target="_blank" rel="noopener noreferrer">
-              <Linkedin size={15} />
-              LinkedIn
-            </a>
-            <a href="https://lnkd.in/e2pGdt7B" target="_blank" rel="noopener noreferrer">
-              <Newspaper size={15} />
-              Newsletter
-            </a>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
