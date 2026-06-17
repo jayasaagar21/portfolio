@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Loader } from 'lucide-react';
-import { supabase, type PortfolioItem } from '../lib/supabase';
+import { supabase, isSupabaseConfigured, type PortfolioItem } from '../lib/supabase';
 import { projectImage } from '../data/projectImages';
 import { PROJECT_CATEGORIES, type ProjectCategory } from '../data/portfolioContent';
 import SectionHeader from './SectionHeader';
@@ -41,6 +41,11 @@ export default function ProjectsSection({ onProjectClick }: Props) {
   const { isDynamic } = useMotion();
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     supabase
       .from('portfolio_items')
       .select('*')

@@ -35,7 +35,7 @@ export default function CertificationsSection() {
                   </header>
 
                   <ul className="cert-course-list">
-                    {provider.courses.map(item => (
+                    {provider.courses.map((item, ci) => (
                       <li key={item.course} className="cert-course-row">
                         <div className="cert-course-track" aria-hidden="true">
                           <span className="cert-course-node" />
