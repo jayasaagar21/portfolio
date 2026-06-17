@@ -11,7 +11,6 @@ export const PROJECT_IMAGE_IDS: Record<string, number> = {
   'water-drought-analysis': 6438729, // cracked arid earth — drought
   'fitness-tracker': 3822861, // smartwatch during workout
   'konnect-ai': 3184292, // professional team meeting — networking
-  'volund-ai': 1181354, // data-center servers — MLOps
   'ai-voice-agent': 8867265, // call-center agents with headsets
   'ai-executive-dashboard': 5716052, // stock analytics on laptop screen
 };
