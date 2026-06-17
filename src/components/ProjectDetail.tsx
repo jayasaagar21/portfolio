@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { projectImage } from '../data/projectImages';
 
 interface Props {
   projectId: string | null;
@@ -26,7 +27,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '500', label: 'Downloads' }, { value: '4.5', label: 'Star Rating' }, { value: '70%', label: 'Retention' }],
     technologies: 'React Native, Node.js, MongoDB, TensorFlow, Firebase',
     learnings: 'Balancing feature complexity with user experience. We initially over-built, then simplified onboarding through iterative testing — significantly improving retention.',
-    image: 'https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('pascal', true),
   },
   'fitness-tracker': {
     title: 'Agentic AI Fitness Tracker',
@@ -46,7 +47,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '3x', label: 'Goal Achievement' }, { value: '92%', label: 'Satisfaction' }, { value: '67%', label: 'Fewer Injuries' }],
     technologies: 'Python, LangChain, GPT-4, React, FastAPI, PostgreSQL',
     learnings: 'Agentic AI requires defining guardrails instead of rigid flows — letting the system make decisions while maintaining safety.',
-    image: 'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('fitness-tracker', true),
   },
   'konnect-ai': {
     title: 'Konnect AI',
@@ -66,7 +67,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '1st', label: 'Place' }, { value: '200+', label: 'Competitors' }, { value: '48h', label: 'Build Time' }],
     technologies: 'Falcon LLM, React, Node.js, Neo4j, OpenAI',
     learnings: 'Ruthless prioritization. With 48 hours we focused on one core proposition and executed it perfectly — winning over broader but weaker attempts.',
-    image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('konnect-ai', true),
   },
   'volund-ai': {
     title: 'Volund AI',
@@ -86,7 +87,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '80%', label: 'Faster Deploy' }, { value: '10+', label: 'Enterprise Clients' }, { value: '99.9%', label: 'Uptime' }],
     technologies: 'Python, Kubernetes, Docker, MLflow, FastAPI, PostgreSQL',
     learnings: 'Enterprise demands reliability and compliance from day one. Security reviews and audit logging must be planned upfront, not retrofitted.',
-    image: 'https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('volund-ai', true),
   },
   'powerbi-analytics': {
     title: 'Data Analytics Platform',
@@ -106,7 +107,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '75%', label: 'Less Analysis Time' }, { value: '5K+', label: 'Daily Users' }, { value: '40%', label: 'More Data Decisions' }],
     technologies: 'Power BI, Azure, Python, GPT-4, Azure Cognitive Services',
     learnings: 'Understanding user workflows deeply. Simplifying data connectivity had far more impact than sophisticated algorithms.',
-    image: '/Data_Analytics.PNG',
+    image: projectImage('powerbi-analytics', true),
   },
   'water-drought-analysis': {
     title: 'U.S. Water Shortage & Drought Risk Analysis',
@@ -126,7 +127,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '0.99996', label: 'R-Squared' }, { value: '28,142', label: 'Locations Analyzed' }, { value: '4', label: 'Models Compared' }],
     technologies: 'Python, pandas, scikit-learn, scipy, matplotlib, seaborn',
     learnings: 'Land-use and soil characteristics contain sufficient signal to function as standalone predictors when hydrological data is unavailable. Forest cover emerged as the dominant driver, reframing conservation as a water security investment.',
-    image: 'https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('water-drought-analysis', true),
   },
   'ai-voice-agent': {
     title: 'AI Voice Agent',
@@ -146,7 +147,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '30%', label: 'Higher Response Rate' }, { value: '2x', label: 'Lead Qualification Speed' }, { value: '45%', label: 'Better Conversion' }],
     technologies: 'Voice AI, NLP, HubSpot, CRM APIs, Real-time Processing',
     learnings: 'Voice AI adoption depends on trust. Users need to feel the AI understands context before they engage meaningfully. Gradual disclosure of AI nature increased engagement.',
-    image: '/image.png',
+    image: projectImage('ai-voice-agent', true),
     video: 'https://player.vimeo.com/video/1130603790',
   },
   'ai-executive-dashboard': {
@@ -167,7 +168,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '80%', label: 'Faster Insights' }, { value: '3x', label: 'More Data-Driven Decisions' }, { value: '95%', label: 'Exec Adoption' }],
     technologies: 'AI/ML, NLP, React, Python, Cloud Analytics, Real-time Data',
     learnings: 'Executive tools must be zero-friction. The moment a dashboard requires more than one click or a typed question, adoption drops. Proactive push beats reactive pull.',
-    image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('ai-executive-dashboard', true),
     video: 'https://vimeo.com/1139691359/c3a440b1a6?fl=ip&fe=ec',
   },
   'pandemic-innovation': {
@@ -188,7 +189,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '60%', label: 'Less Wait Time' }, { value: '15+', label: 'Hospitals' }, { value: '50K+', label: 'Patients' }],
     technologies: 'React Native, Node.js, PostgreSQL, Twilio, Firebase',
     learnings: 'Rapid execution and simplicity. Shipped MVP in 3 weeks by focusing ruthlessly on core functionality.',
-    image: 'https://images.pexels.com/photos/3952048/pexels-photo-3952048.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('pandemic-innovation', true),
   },
   'ankura-homes': {
     title: 'Product Marketing Strategy',
@@ -208,7 +209,7 @@ const hardcoded: Record<string, { title: string; company: string; role: string; 
     metrics: [{ value: '300%', label: 'More Leads' }, { value: '150%', label: 'Traffic Growth' }, { value: '45%', label: 'Lower CAC' }],
     technologies: 'Google Analytics, HubSpot, SEMrush, Google Ads, Power BI',
     learnings: 'Customer psychology matters. In real estate the decision is long and emotional — addressing concerns at each funnel stage outperforms generic promotion.',
-    image: 'https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: projectImage('ankura-homes', true),
   },
 };
 

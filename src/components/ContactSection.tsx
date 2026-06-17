@@ -1,4 +1,4 @@
-import { Mail, Phone, Linkedin, MapPin, Calendar } from 'lucide-react';
+import { Mail, Linkedin, MapPin, Calendar } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 
 const contacts = [
@@ -7,12 +7,6 @@ const contacts = [
     label: 'Email',
     value: 'jayasaagar21@gmail.com',
     href: 'mailto:jayasaagar21@gmail.com',
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+1 (716) 303-9362',
-    href: 'tel:+17163039362',
   },
   {
     icon: Linkedin,

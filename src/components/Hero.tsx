@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Phone, Newspaper } from 'lucide-react';
+import { Mail, Linkedin, Newspaper } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -16,10 +16,6 @@ export default function Hero() {
             ))}
           </div>
           <div className="hero-contact">
-            <a href="tel:+17163039362">
-              <Phone size={15} />
-              +1 (716) 303-9362
-            </a>
             <a href="mailto:jayasaagar21@gmail.com">
               <Mail size={15} />
               jayasaagar21@gmail.com

@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Phone } from 'lucide-react';
+import { Mail, Linkedin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -11,9 +11,6 @@ export default function Footer() {
           </a>
           <a href="mailto:jayasaagar21@gmail.com">
             <Mail size={14} /> Email
-          </a>
-          <a href="tel:+17163039362">
-            <Phone size={14} /> Phone
           </a>
         </div>
       </div>
