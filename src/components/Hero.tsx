@@ -1,7 +1,7 @@
 import { Mail, Linkedin, Newspaper, ArrowDown } from 'lucide-react';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
-import { SITE_EYEBROW, SITE_EXPERTISE } from '../data/portfolioContent';
+import { SITE_EXPERTISE } from '../data/portfolioContent';
 
 const domains = ['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'];
 
@@ -32,21 +32,17 @@ export default function Hero() {
       <div className="container">
         <div className="hero-inner">
           <Reveal delay={0}>
-            <p className="hero-eyebrow">{SITE_EYEBROW}</p>
-          </Reveal>
-
-          <Reveal delay={1}>
             <h1 className="hero-name">
               <span className="hero-name-line">Jayasaagar</span>
               <span className="hero-name-line hero-name-accent">Chandrashekar</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={2}>
+          <Reveal delay={1}>
             <p className="hero-role">{SITE_EXPERTISE}</p>
           </Reveal>
 
-          <Reveal delay={3}>
+          <Reveal delay={2}>
             <p className="hero-bio">
               I focus on what happens before, during, and after launch — how products reach
               customers, where data and marketing fall short, and what to do next.
@@ -54,7 +50,7 @@ export default function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={4}>
+          <Reveal delay={3}>
             <div className="hero-domains">
               {domains.map((d, i) => (
                 <span
@@ -68,7 +64,7 @@ export default function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={5}>
+          <Reveal delay={4}>
             <div className="hero-contact">
               <a href="mailto:jayasaagar21@gmail.com" className="hero-link">
                 <Mail size={15} />
@@ -95,7 +91,7 @@ export default function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={6}>
+          <Reveal delay={5}>
             <a href="#experience" className="hero-scroll-cue">
               <span>Explore the story</span>
               <ArrowDown size={14} className={isDynamic ? 'hero-scroll-icon' : ''} />

@@ -77,12 +77,10 @@ export type Certification = {
 export const CERTIFICATIONS: Certification[] = [
   { title: 'Advanced Certificate in Business and Data Analytics', institution: 'IIM Udaipur', date: 'Jul 2025', theme: 'analytics', span: 6 },
   { title: 'AI Generalist Accelerator Program', institution: 'Outskills', date: 'Jul 2025', theme: 'ai', span: 4 },
-  { title: "Master's in Business Analytics", institution: 'University at Buffalo · SUNY', date: 'Jun 2026', theme: 'academic', span: 6 },
   { title: 'Falcon-AI Hackathon', institution: 'LablabAI', date: 'Jul 2024', theme: 'ai', span: 4 },
   { title: 'International Certificate in Product Management', institution: 'Institute of Product Leadership', date: 'Nov 2022', theme: 'product', span: 4 },
   { title: 'Professional Certificate in Product Management', institution: 'LinkedIn', date: 'Jun 2021', theme: 'product', span: 4 },
   { title: 'Google Digital Marketing', institution: 'Google Digital Garage', date: 'Jun 2020', theme: 'marketing', span: 4 },
-  { title: 'Bachelor of Engineering', institution: 'Visvesvaraya Technological University', date: 'Aug 2018', theme: 'academic', span: 4 },
 ];
 
 export const CERT_THEME_META: Record<Exclude<CertTheme, 'anthropic' | 'google'>, { label: string; icon: LucideIcon }> = {
@@ -107,5 +105,4 @@ export function certYear(date: string): string {
   return match?.[0] ?? date;
 }
 
-export const SITE_EYEBROW = 'Portfolio · Product · Marketing · Business Analytics';
 export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';

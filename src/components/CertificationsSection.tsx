@@ -1,4 +1,5 @@
-import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import Reveal from './Reveal';
 import {
@@ -10,6 +11,17 @@ import {
 } from '../data/portfolioContent';
 
 export default function CertificationsSection() {
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  const toggleProvider = (id: string) => {
+    setExpanded(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   return (
     <section className="section section--alt">
       <div className="container">
@@ -17,43 +29,62 @@ export default function CertificationsSection() {
 
         <div className="cert-layout">
           <div className="cert-providers">
-            {AI_CERT_PROVIDERS.map((provider, pi) => (
-              <Reveal key={provider.id} delay={Math.min(pi + 1, 2) as 0 | 1 | 2}>
-                <article className={`cert-provider cert-provider--${provider.theme}`}>
-                  <div className="cert-provider-glow" aria-hidden="true" />
-                  <header className="cert-provider-head">
-                    <div className="cert-provider-logo">{provider.mono}</div>
-                    <div className="cert-provider-intro">
-                      <h3 className="cert-provider-title">{provider.title}</h3>
-                      <p className="cert-provider-meta">
-                        {provider.institution}
-                        <span className="cert-card-dot">·</span>
-                        <time>{provider.date}</time>
-                      </p>
-                    </div>
-                    <span className="cert-provider-count">{provider.courses.length} courses</span>
-                  </header>
+            {AI_CERT_PROVIDERS.map((provider, pi) => {
+              const isOpen = expanded.has(provider.id);
 
-                  <ul className="cert-course-list">
-                    {provider.courses.map((item, ci) => (
-                      <li key={item.course} className="cert-course-row">
-                        <div className="cert-course-track" aria-hidden="true">
-                          <span className="cert-course-node" />
-                          {ci < provider.courses.length - 1 && <span className="cert-course-line" />}
-                        </div>
-                        <div className="cert-course-body">
-                          <p className="cert-course-name">{item.course}</p>
-                          <div className="cert-course-link" aria-hidden="true">
-                            <ArrowRight size={12} />
-                          </div>
-                          <span className="cert-course-skill">{item.skill}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              </Reveal>
-            ))}
+              return (
+                <Reveal key={provider.id} delay={Math.min(pi + 1, 2) as 0 | 1 | 2}>
+                  <article
+                    className={`cert-provider cert-provider--${provider.theme}${isOpen ? ' cert-provider--open' : ''}`}
+                  >
+                    <div className="cert-provider-glow" aria-hidden="true" />
+                    <button
+                      type="button"
+                      className="cert-provider-toggle"
+                      onClick={() => toggleProvider(provider.id)}
+                      aria-expanded={isOpen}
+                      aria-controls={`cert-courses-${provider.id}`}
+                    >
+                      <div className="cert-provider-logo">{provider.mono}</div>
+                      <div className="cert-provider-intro">
+                        <h3 className="cert-provider-title">{provider.title}</h3>
+                        {isOpen && (
+                          <p className="cert-provider-meta">
+                            {provider.institution}
+                            <span className="cert-card-dot">·</span>
+                            <time>{provider.date}</time>
+                          </p>
+                        )}
+                      </div>
+                      {isOpen && (
+                        <span className="cert-provider-count">{provider.courses.length} courses</span>
+                      )}
+                      <ChevronDown size={16} className="cert-provider-chevron" aria-hidden="true" />
+                    </button>
+
+                    {isOpen && (
+                      <ul className="cert-course-list" id={`cert-courses-${provider.id}`}>
+                        {provider.courses.map((item, ci) => (
+                          <li key={item.course} className="cert-course-row">
+                            <div className="cert-course-track" aria-hidden="true">
+                              <span className="cert-course-node" />
+                              {ci < provider.courses.length - 1 && <span className="cert-course-line" />}
+                            </div>
+                            <div className="cert-course-body">
+                              <p className="cert-course-name">{item.course}</p>
+                              <div className="cert-course-link" aria-hidden="true">
+                                <ArrowRight size={12} />
+                              </div>
+                              <span className="cert-course-skill">{item.skill}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
 
           <div className="cert-bento">

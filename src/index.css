@@ -1037,6 +1037,46 @@ html[data-motion="static"] .hero-scroll-icon { animation: none; }
   z-index: 1;
 }
 
+.cert-provider-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  font: inherit;
+  color: inherit;
+}
+
+.cert-provider--open .cert-provider-toggle {
+  margin-bottom: 18px;
+}
+
+.cert-provider-chevron {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--grey-400);
+  transition: transform var(--dur) var(--ease-out), color var(--dur) var(--ease);
+}
+
+.cert-provider--open .cert-provider-chevron {
+  transform: rotate(180deg);
+  color: var(--grey-600);
+}
+
+.cert-provider-toggle:hover .cert-provider-chevron {
+  color: var(--black);
+}
+
+.cert-provider-toggle:hover .cert-provider-title {
+  color: var(--grey-700);
+}
+
 .cert-provider-logo {
   width: 42px;
   height: 42px;
