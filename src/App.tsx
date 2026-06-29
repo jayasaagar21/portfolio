@@ -51,9 +51,9 @@ export default function App() {
           <>
             <Hero />
             <ExperienceSection />
-            <ToolsSection />
             <ProjectsSection onProjectClick={goProject} />
             <CertificationsSection />
+            <ToolsSection />
             <ContactSection />
           </>
         )}

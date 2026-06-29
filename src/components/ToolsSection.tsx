@@ -16,7 +16,7 @@ export default function ToolsSection() {
     <section id="tools" className="section section--alt">
       <div className="container">
         <SectionHeader
-          chapter="02"
+          chapter="04"
           label="Tools"
           title="What I work with"
           desc="The stack behind product, marketing, business analytics, and go-to-market."

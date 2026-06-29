@@ -11,7 +11,7 @@ interface HeaderProps {
   showNav: boolean;
 }
 
-const NAV_SECTIONS = ['experience', 'tools', 'projects', 'contact'];
+const NAV_SECTIONS = ['experience', 'projects', 'tools', 'contact'];
 
 export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
