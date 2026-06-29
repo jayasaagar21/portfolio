@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, Settings } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { RESUME_DOWNLOAD_URL } from '../data/portfolioContent';
 
 interface HeaderProps {
   onBack: () => void;
@@ -49,6 +50,14 @@ export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderPro
                   {id.charAt(0).toUpperCase() + id.slice(1)}
                 </a>
               ))}
+              <a
+                href={RESUME_DOWNLOAD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="header-link-resume"
+              >
+                Download resume
+              </a>
             </div>
           )}
           <ThemeToggle />

@@ -262,6 +262,21 @@ html[data-motion="static"] .panel-enter { animation: none; }
 .header-links a.active::after,
 .header-links a:hover::after { transform: scaleX(1); }
 
+.header-link-resume::after { display: none; }
+
+.header-link-resume {
+  padding: 6px 12px;
+  border: 1px solid var(--grey-200);
+  border-radius: 100px;
+  background: var(--white);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.header-link-resume:hover {
+  border-color: var(--grey-400);
+  background: var(--grey-50);
+}
+
 .header-icon-btn {
   display: inline-flex;
   align-items: center;
@@ -1583,6 +1598,59 @@ html[data-motion="static"] .hero-scroll-icon { animation: none; }
   color: var(--grey-500);
   line-height: 1.4;
 }
+
+.cert-card--expandable { padding-bottom: 0; }
+
+.cert-card-toggle {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-card-toggle .cert-card-head { margin-bottom: 12px; }
+
+.cert-card-chevron {
+  margin-left: auto;
+  color: var(--grey-400);
+  transition: transform var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.cert-card--open .cert-card-chevron {
+  transform: rotate(180deg);
+  color: var(--black);
+}
+
+.cert-card-toggle:hover .cert-card-title { color: var(--grey-700); }
+
+.cert-card-count {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 100px;
+  background: var(--grey-100);
+  color: var(--grey-600);
+  white-space: nowrap;
+}
+
+.cert-course-list--bento {
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+  padding: 8px 0 4px;
+  border-top: 1px solid var(--grey-100);
+}
+
+.cert-card--analytics .cert-course-row:hover .cert-course-node { background: #0369a1; }
+.cert-card--ai .cert-course-row:hover .cert-course-node { background: #5b21b6; }
 
 .cert-card-dot { color: var(--grey-300); }
 

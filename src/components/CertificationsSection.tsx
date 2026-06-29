@@ -11,10 +11,20 @@ import {
 } from '../data/portfolioContent';
 
 export default function CertificationsSection() {
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [expandedProviders, setExpandedProviders] = useState<Set<string>>(new Set());
+  const [expandedCerts, setExpandedCerts] = useState<Set<string>>(new Set());
 
   const toggleProvider = (id: string) => {
-    setExpanded(prev => {
+    setExpandedProviders(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleCert = (id: string) => {
+    setExpandedCerts(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -30,7 +40,7 @@ export default function CertificationsSection() {
         <div className="cert-layout">
           <div className="cert-providers">
             {AI_CERT_PROVIDERS.map((provider, pi) => {
-              const isOpen = expanded.has(provider.id);
+              const isOpen = expandedProviders.has(provider.id);
 
               return (
                 <Reveal key={provider.id} delay={Math.min(pi + 1, 2) as 0 | 1 | 2}>
@@ -93,29 +103,84 @@ export default function CertificationsSection() {
               const Icon = meta.icon;
               const year = certYear(cert.date);
               const mono = institutionMonogram(cert.institution);
+              const hasCourses = Boolean(cert.courses?.length && cert.id);
+              const isOpen = cert.id ? expandedCerts.has(cert.id) : false;
 
               return (
                 <Reveal
-                  key={cert.title}
+                  key={cert.id ?? cert.title}
                   delay={Math.min(i + 1, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6}
                   className={`cert-cell cert-cell--span-${cert.span ?? 4}`}
                 >
-                  <article className={`cert-card cert-card--${cert.theme}`}>
+                  <article
+                    className={`cert-card cert-card--${cert.theme}${hasCourses ? ' cert-card--expandable' : ''}${isOpen ? ' cert-card--open' : ''}`}
+                  >
                     <span className="cert-card-year" aria-hidden="true">{year}</span>
                     <div className="cert-card-glow" aria-hidden="true" />
-                    <div className="cert-card-head">
-                      <div className="cert-card-mono">{mono}</div>
-                      <span className="cert-card-theme">
-                        <Icon size={12} />
-                        {meta.label}
-                      </span>
-                    </div>
-                    <h4 className="cert-card-title">{cert.title}</h4>
-                    <p className="cert-card-meta">
-                      <span>{cert.institution}</span>
-                      <span className="cert-card-dot">·</span>
-                      <time>{cert.date}</time>
-                    </p>
+
+                    {hasCourses ? (
+                      <button
+                        type="button"
+                        className="cert-card-toggle"
+                        onClick={() => cert.id && toggleCert(cert.id)}
+                        aria-expanded={isOpen}
+                        aria-controls={cert.id ? `cert-bento-courses-${cert.id}` : undefined}
+                      >
+                        <div className="cert-card-head">
+                          <div className="cert-card-mono">{mono}</div>
+                          <span className="cert-card-theme">
+                            <Icon size={12} />
+                            {meta.label}
+                          </span>
+                          {isOpen && (
+                            <span className="cert-card-count">{cert.courses!.length} courses</span>
+                          )}
+                          <ChevronDown size={14} className="cert-card-chevron" aria-hidden="true" />
+                        </div>
+                        <h4 className="cert-card-title">{cert.title}</h4>
+                        <p className="cert-card-meta">
+                          <span>{cert.institution}</span>
+                          <span className="cert-card-dot">·</span>
+                          <time>{cert.date}</time>
+                        </p>
+                      </button>
+                    ) : (
+                      <>
+                        <div className="cert-card-head">
+                          <div className="cert-card-mono">{mono}</div>
+                          <span className="cert-card-theme">
+                            <Icon size={12} />
+                            {meta.label}
+                          </span>
+                        </div>
+                        <h4 className="cert-card-title">{cert.title}</h4>
+                        <p className="cert-card-meta">
+                          <span>{cert.institution}</span>
+                          <span className="cert-card-dot">·</span>
+                          <time>{cert.date}</time>
+                        </p>
+                      </>
+                    )}
+
+                    {hasCourses && isOpen && (
+                      <ul className="cert-course-list cert-course-list--bento" id={`cert-bento-courses-${cert.id}`}>
+                        {cert.courses!.map((item, ci) => (
+                          <li key={item.course} className="cert-course-row">
+                            <div className="cert-course-track" aria-hidden="true">
+                              <span className="cert-course-node" />
+                              {ci < cert.courses!.length - 1 && <span className="cert-course-line" />}
+                            </div>
+                            <div className="cert-course-body">
+                              <p className="cert-course-name">{item.course}</p>
+                              <div className="cert-course-link" aria-hidden="true">
+                                <ArrowRight size={12} />
+                              </div>
+                              <span className="cert-course-skill">{item.skill}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </article>
                 </Reveal>
               );

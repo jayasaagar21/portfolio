@@ -1,7 +1,7 @@
-import { Mail, Linkedin, Newspaper, ArrowDown, Github, FileText, Download } from 'lucide-react';
+import { Mail, Linkedin, Newspaper, ArrowDown, Github } from 'lucide-react';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
-import { GITHUB_URL, RESUME_DOWNLOAD_URL, RESUME_URL, SITE_EXPERTISE } from '../data/portfolioContent';
+import { GITHUB_URL, SITE_EXPERTISE } from '../data/portfolioContent';
 
 const domains = ['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'];
 
@@ -96,24 +96,6 @@ export default function Hero() {
               >
                 <Github size={15} />
                 GitHub
-              </a>
-              <a
-                href={RESUME_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-link"
-              >
-                <FileText size={15} />
-                Resume
-              </a>
-              <a
-                href={RESUME_DOWNLOAD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-link"
-              >
-                <Download size={15} />
-                Download resume
               </a>
             </div>
           </Reveal>

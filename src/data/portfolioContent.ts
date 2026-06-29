@@ -68,17 +68,46 @@ export const AI_CERT_PROVIDERS: CertProviderGroup[] = [
 ];
 
 export type Certification = {
+  id?: string;
   title: string;
   institution: string;
   date: string;
   theme: CertTheme;
   span?: number;
+  courses?: CertCourse[];
 };
 
 export const CERTIFICATIONS: Certification[] = [
-  { title: 'Advanced Certificate in Business and Data Analytics', institution: 'IIM Udaipur', date: 'Jul 2025', theme: 'analytics', span: 6 },
-  { title: 'AI Generalist Accelerator Program', institution: 'Outskills', date: 'Jul 2025', theme: 'ai', span: 4 },
-  { title: 'Falcon-AI Hackathon', institution: 'LablabAI', date: 'Jul 2024', theme: 'ai', span: 4 },
+  {
+    id: 'iim-udaipur',
+    title: 'Advanced Certificate in Business and Data Analytics',
+    institution: 'IIM Udaipur',
+    date: 'Jul 2025',
+    theme: 'analytics',
+    span: 6,
+    courses: [
+      { course: 'Applied Mathematics and Statistics', skill: 'Applied Mathematics and Statistics' },
+      { course: 'Business Development Management', skill: 'Business Development Management' },
+      { course: 'Marketing Strategy and Analytics', skill: 'Marketing Strategy and Analytics' },
+      { course: 'Programming in Business Analytics', skill: 'Programming in Business Analytics' },
+    ],
+  },
+  {
+    id: 'outskills',
+    title: 'AI Generalist Accelerator Program',
+    institution: 'Outskills',
+    date: 'Jul 2025',
+    theme: 'ai',
+    span: 4,
+    courses: [
+      { course: 'Prompt Engineering', skill: 'Prompt Engineering' },
+      { course: 'Workflow Automation', skill: 'Workflow Automation' },
+      { course: 'No code product development', skill: 'No-Code Product Development' },
+      { course: 'Voice agent Orchestration', skill: 'Voice Agent Orchestration' },
+      { course: 'MCP Integration & Deployment', skill: 'MCP Integration and Deployment' },
+      { course: 'Multimodal AI & Cloning', skill: 'Multimodal AI and Cloning' },
+    ],
+  },
   { title: 'International Certificate in Product Management', institution: 'Institute of Product Leadership', date: 'Nov 2022', theme: 'product', span: 4 },
   { title: 'Professional Certificate in Product Management', institution: 'LinkedIn', date: 'Jun 2021', theme: 'product', span: 4 },
   { title: 'Google Digital Marketing', institution: 'Google Digital Garage', date: 'Jun 2020', theme: 'marketing', span: 4 },
