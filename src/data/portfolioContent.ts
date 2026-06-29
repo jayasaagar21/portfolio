@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import { BarChart2, Brain, GraduationCap, Megaphone, Sparkles } from 'lucide-react';
+import { projectImage } from './projectImages';
 
 export type ProjectCategory = 'ai' | 'marketing' | 'analytics';
 
@@ -106,3 +107,81 @@ export function certYear(date: string): string {
 }
 
 export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';
+export const YEARS_EXPERIENCE = '5+';
+
+export type FeaturedProject = {
+  id: string;
+  title: string;
+  company: string;
+  description: string;
+  outcome: string;
+  category: ProjectCategory;
+  tags: string[];
+  image: string;
+  externalUrl: string;
+  linkLabel: string;
+  featured?: boolean;
+};
+
+export const FEATURED_PROJECTS: FeaturedProject[] = [
+  {
+    id: 'executive-ai-dashboard',
+    title: 'Executive AI Analytics Dashboard',
+    company: 'Campaign & Lead Intelligence',
+    description:
+      'Dashboard that converts reports — campaigns, leads — into analytics and AI-recommended insights for faster reporting and decision-making.',
+    outcome: 'Leaders get answers in minutes, not days.',
+    category: 'analytics',
+    tags: ['AI Insights', 'Executive BI', 'Campaign Analytics'],
+    image: projectImage('executive-ai-dashboard'),
+    linkLabel: 'View dashboard',
+    featured: true,
+  },
+  {
+    id: 'standup-ai',
+    title: 'StandupAI',
+    company: 'AI Prototype',
+    description:
+      'Reduce meeting time from hours to minutes with a live AI bot that runs standups and assigns tasks in real time.',
+    outcome: 'Teams spend less time in meetings, more time shipping.',
+    category: 'ai',
+    tags: ['Agentic AI', 'Meetings', 'Task Automation'],
+    image: projectImage('standup-ai'),
+    linkLabel: 'View prototype',
+  },
+  {
+    id: 'student-housing-copilot',
+    title: 'Next Gen Student Housing Co-pilot',
+    company: 'AI Chatbot',
+    description: 'Make housing and campus life easy for students — answers, guidance, and support in one conversational experience.',
+    outcome: 'Students find housing help without the runaround.',
+    category: 'ai',
+    tags: ['Chatbot', 'EdTech', 'Student Experience'],
+    image: projectImage('student-housing-copilot'),
+    linkLabel: 'Watch demo',
+  },
+  {
+    id: 'ai-analytics-paper',
+    title: 'Experimenting AI with Data Analytics',
+    company: 'International Business Analytics · Selected Abstract',
+    description:
+      'Research exploring how AI and data analytics work together — selected as an abstract for International Business Analytics.',
+    outcome: 'Turns complex data into ideas teams can act on.',
+    category: 'analytics',
+    tags: ['Research', 'AI + Analytics', 'Academic'],
+    image: projectImage('ai-analytics-paper'),
+    linkLabel: 'Read paper',
+  },
+  {
+    id: 'fmcg-commercial-ad',
+    title: 'Commercial Ad for FMCG',
+    company: 'Cricket Chips · Brand Film',
+    description:
+      'A cinematic, eco-conscious snack ad that turns Cricket Chips into a premium fitness fuel.',
+    outcome: 'A product story that connects with health-conscious buyers.',
+    category: 'marketing',
+    tags: ['Brand Film', 'FMCG', 'Creative'],
+    image: projectImage('fmcg-commercial-ad'),
+    linkLabel: 'Watch ad',
+  },
+];

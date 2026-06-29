@@ -4,15 +4,20 @@ export function pexels(id: number, width = 800): string {
 }
 
 export const PROJECT_IMAGE_IDS: Record<string, number> = {
-  pascal: 40568, // smartphone wellness / mobile health
-  'ankura-homes': 3288102, // modern home exterior — real estate
-  'pandemic-innovation': 263402, // hospital corridor — queue management
-  'powerbi-analytics': 6801643, // laptop with business charts
-  'water-drought-analysis': 6438729, // cracked arid earth — drought
-  'fitness-tracker': 3822861, // smartwatch during workout
-  'konnect-ai': 3184292, // professional team meeting — networking
-  'ai-voice-agent': 8867265, // call-center agents with headsets
-  'ai-executive-dashboard': 5716052, // stock analytics on laptop screen
+  'executive-ai-dashboard': 5716052,
+  'standup-ai': 3184298,
+  'student-housing-copilot': 207691,
+  'ai-analytics-paper': 6801643,
+  'fmcg-commercial-ad': 1435904,
+  pascal: 40568,
+  'ankura-homes': 3288102,
+  'pandemic-innovation': 263402,
+  'powerbi-analytics': 6801643,
+  'water-drought-analysis': 6438729,
+  'fitness-tracker': 3822861,
+  'konnect-ai': 3184292,
+  'ai-voice-agent': 8867265,
+  'ai-executive-dashboard': 5716052,
 };
 
 export function projectImage(id: string, detail = false): string {

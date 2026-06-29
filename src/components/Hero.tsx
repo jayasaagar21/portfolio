@@ -1,7 +1,7 @@
 import { Mail, Linkedin, Newspaper, ArrowDown } from 'lucide-react';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
-import { SITE_EXPERTISE } from '../data/portfolioContent';
+import { SITE_EXPERTISE, YEARS_EXPERIENCE } from '../data/portfolioContent';
 
 const domains = ['Real Estate', 'SaaS', 'AI', 'eCommerce', 'Telecom', 'Compliance', 'Finance'];
 
@@ -32,25 +32,32 @@ export default function Hero() {
       <div className="container">
         <div className="hero-inner">
           <Reveal delay={0}>
+            <p className="hero-experience">
+              <span className="hero-experience-years">{YEARS_EXPERIENCE}</span>
+              years building user-centric products
+            </p>
+          </Reveal>
+
+          <Reveal delay={1}>
             <h1 className="hero-name">
               <span className="hero-name-line">Jayasaagar</span>
               <span className="hero-name-line hero-name-accent">Chandrashekar</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={1}>
+          <Reveal delay={2}>
             <p className="hero-role">{SITE_EXPERTISE}</p>
           </Reveal>
 
-          <Reveal delay={2}>
+          <Reveal delay={3}>
             <p className="hero-bio">
-              I focus on what happens before, during, and after launch — how products reach
-              customers, where data and marketing fall short, and what to do next.
-              That is where I do my best work.
+              I help teams ship what users actually need — AI that cuts meeting time,
+              dashboards that speed up decisions, and campaigns that speak to real people.
+              Every project starts with the person on the other side.
             </p>
           </Reveal>
 
-          <Reveal delay={3}>
+          <Reveal delay={4}>
             <div className="hero-domains">
               {domains.map((d, i) => (
                 <span
@@ -64,7 +71,7 @@ export default function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={4}>
+          <Reveal delay={5}>
             <div className="hero-contact">
               <a href="mailto:jayasaagar21@gmail.com" className="hero-link">
                 <Mail size={15} />
@@ -91,7 +98,7 @@ export default function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={5}>
+          <Reveal delay={6}>
             <a href="#experience" className="hero-scroll-cue">
               <span>Explore the story</span>
               <ArrowDown size={14} className={isDynamic ? 'hero-scroll-icon' : ''} />

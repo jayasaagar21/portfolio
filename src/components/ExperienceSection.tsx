@@ -3,6 +3,7 @@ import { type LucideIcon, Briefcase, GraduationCap, Users } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
+import { YEARS_EXPERIENCE } from '../data/portfolioContent';
 
 type Tab = 'professional' | 'education' | 'volunteering';
 
@@ -14,12 +15,12 @@ const tabs: { id: Tab; label: string; icon: LucideIcon }[] = [
 
 const experiences = {
   professional: [
-    { period: 'Jan 2026 – Present', title: 'Growth Strategy PM Intern', company: 'RHM Innovations Inc. (Strategy Consultant)', location: 'USA', domain: 'SaaS / AI', domainClass: 'exp-domain--teal', summary: 'Developed AI tools for enterprise that boosted response rates by 30% and enhanced lead qualification. Integrated HubSpot to improve conversion and combined UX thinking with database architecture to streamline the purchase journey.', tags: ['CRM', 'Voice AI', 'Website Revamp'] },
-    { period: 'Nov 2024 – May 2025', title: 'Product Manager', company: 'Ankura Homes', location: 'Hyderabad, India', domain: 'Real Estate / PropTech', domainClass: 'exp-domain--blue', summary: 'Led end-to-end product marketing strategy for a real estate tech platform — driving user acquisition, shaping positioning, and building cross-functional alignment between product, sales, and design teams.', tags: ['CRM', 'Dashboard', 'Analytics', 'Marketing Automations', 'GTM'] },
-    { period: 'Jun 2023 – Jul 2024', title: 'Technical Product Owner', company: 'REACH (US)', location: 'Bangalore, India', domain: 'SaaS / eCommerce / Telecom', domainClass: 'exp-domain--teal', summary: 'Managed product roadmaps and discovery cycles for US market expansion. Conducted deep user research, ran competitive analysis, and coordinated sprint delivery with engineering and design.', tags: ['Platform Launch', 'Dashboard Analytics', 'Client', 'Project Management'] },
-    { period: 'Jun 2022 – Feb 2023', title: 'Product Consultant', company: 'Replicacia & Lightsout Studio', location: 'Bangalore, India', domain: 'SaaS / eCommerce', domainClass: 'exp-domain--teal', summary: 'Provided product strategy consulting to early-stage startups — defining GTM frameworks, improving product-market fit, and delivering data-backed prioritization frameworks.', tags: ['B2C', 'B2B', 'Design', 'Low Code Platform', 'Project Management'] },
-    { period: 'Dec 2020 – May 2022', title: 'Product Specialist', company: 'Firstsource Pvt Ltd (UK)', location: 'Bangalore, India', domain: 'Telecom / Finance', domainClass: 'exp-domain--amber', summary: 'Managed high-volume B2C sales for UK telecom and financial clients. Consistently exceeded targets while developing customer success playbooks and mentoring junior reps.', tags: ['Sales', 'Customer Support', 'Finance', 'Process Management', 'Team Lead'] },
-    { period: 'Jun 2020 – Nov 2020', title: 'Project and Account Manager', company: 'Aparajitha Corporate Services Pvt. Ltd.', location: 'India', domain: 'Compliance / Finance', domainClass: 'exp-domain--amber', summary: 'Exclusive Pan-India project coordinator for Amazon\'s licensing activities. Conducted compliance audits mitigating weaknesses that saved 20 factories from closure and applied financial analytics to identify invoice discrepancies.', tags: ['Compliance', 'Auditor', 'Finance Management', 'Operations Management', 'Manufacturing'] },
+    { period: 'Jan 2026 – Present', title: 'Growth Strategy PM Intern', company: 'RHM Innovations Inc. (Strategy Consultant)', location: 'USA', domain: 'SaaS / AI', domainClass: 'exp-domain--teal', summary: 'Built AI tools that helped users get faster responses and better-qualified leads — boosting response rates by 30%. Simplified the purchase journey by pairing UX thinking with data architecture.', tags: ['CRM', 'Voice AI', 'Website Revamp'] },
+    { period: 'Nov 2024 – May 2025', title: 'Product Manager', company: 'Ankura Homes', location: 'Hyderabad, India', domain: 'Real Estate / PropTech', domainClass: 'exp-domain--blue', summary: 'Led product marketing for a real estate platform — helping buyers find homes faster through clearer positioning, stronger acquisition, and alignment across product, sales, and design.', tags: ['CRM', 'Dashboard', 'Analytics', 'Marketing Automations', 'GTM'] },
+    { period: 'Jun 2023 – Jul 2024', title: 'Technical Product Owner', company: 'REACH (US)', location: 'Bangalore, India', domain: 'SaaS / eCommerce / Telecom', domainClass: 'exp-domain--teal', summary: 'Shipped features US customers relied on daily — from discovery and research through sprint delivery with engineering and design.', tags: ['Platform Launch', 'Dashboard Analytics', 'Client', 'Project Management'] },
+    { period: 'Jun 2022 – Feb 2023', title: 'Product Consultant', company: 'Replicacia & Lightsout Studio', location: 'Bangalore, India', domain: 'SaaS / eCommerce', domainClass: 'exp-domain--teal', summary: 'Helped early-stage startups find product-market fit with user-backed prioritization and go-to-market frameworks.', tags: ['B2C', 'B2B', 'Design', 'Low Code Platform', 'Project Management'] },
+    { period: 'Dec 2020 – May 2022', title: 'Product Specialist', company: 'Firstsource Pvt Ltd (UK)', location: 'Bangalore, India', domain: 'Telecom / Finance', domainClass: 'exp-domain--amber', summary: 'Supported UK telecom and finance customers at scale — exceeding targets while building playbooks that made every interaction clearer and faster.', tags: ['Sales', 'Customer Support', 'Finance', 'Process Management', 'Team Lead'] },
+    { period: 'Jun 2020 – Nov 2020', title: 'Project and Account Manager', company: 'Aparajitha Corporate Services Pvt. Ltd.', location: 'India', domain: 'Compliance / Finance', domainClass: 'exp-domain--amber', summary: 'Coordinated Pan-India compliance for Amazon suppliers — audits that protected 20 factories from closure and analytics that caught costly invoice errors early.', tags: ['Compliance', 'Auditor', 'Finance Management', 'Operations Management', 'Manufacturing'] },
   ],
   education: [
     { period: 'Jun 2025 – Jun 2026', title: 'Master\'s in Business Analytics', company: 'University at Buffalo School of Management, SUNY', location: 'New York, USA', domain: 'Analytics / AI', domainClass: 'exp-domain--blue', summary: 'AI in enterprise, consumer behavior, predictive analytics, and product management. Dashboard building and artificial intelligence.' },
@@ -44,9 +45,16 @@ export default function ExperienceSection() {
         <SectionHeader
           chapter="01"
           label="Experience"
-          title="Where I've worked"
-          desc="Professional roles, education, and community work across seven domains."
+          title="5+ years solving real user problems"
+          desc="Product, marketing, and analytics roles — always starting with what people need."
         />
+
+        <Reveal delay={1}>
+          <div className="exp-highlight">
+            <span className="exp-highlight-years">{YEARS_EXPERIENCE} years</span>
+            <p>Across SaaS, real estate, telecom, and AI — shipping work that saves users time and removes friction.</p>
+          </div>
+        </Reveal>
 
         <Reveal delay={2}>
           <div className="exp-tabs" role="tablist" aria-label="Experience categories">
