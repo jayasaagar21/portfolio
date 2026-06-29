@@ -20,7 +20,7 @@ export default function RecommendationsSection() {
     <section id="recommendations" className="section section--story">
       <div className="container">
         <SectionHeader
-          chapter="02"
+          chapter="04"
           label="Recommendations"
           title="What colleagues say"
           desc="Kind words from people I've worked with across product, marketing, and engineering."

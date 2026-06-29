@@ -52,9 +52,9 @@ export default function App() {
           <>
             <Hero />
             <ExperienceSection />
-            <RecommendationsSection />
             <ProjectsSection onProjectClick={goProject} />
             <CertificationsSection />
+            <RecommendationsSection />
             <ToolsSection />
             <ContactSection />
           </>

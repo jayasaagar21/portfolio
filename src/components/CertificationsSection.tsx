@@ -35,7 +35,7 @@ export default function CertificationsSection() {
   return (
     <section className="section section--alt">
       <div className="container">
-        <SectionHeader chapter="04" label="Certifications" title="Credentials & learning" />
+        <SectionHeader chapter="03" label="Certifications" title="Credentials & learning" />
 
         <div className="cert-layout">
           <div className="cert-providers">
