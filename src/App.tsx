@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ExperienceSection from './components/ExperienceSection';
+import RecommendationsSection from './components/RecommendationsSection';
 import ToolsSection from './components/ToolsSection';
 import ProjectsSection from './components/ProjectsSection';
 import CertificationsSection from './components/CertificationsSection';
@@ -51,6 +52,7 @@ export default function App() {
           <>
             <Hero />
             <ExperienceSection />
+            <RecommendationsSection />
             <ProjectsSection onProjectClick={goProject} />
             <CertificationsSection />
             <ToolsSection />

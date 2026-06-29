@@ -28,7 +28,7 @@ export default function ProjectsSection({ onProjectClick }: Props) {
     <section id="projects" className="section section--story">
       <div className="container">
         <SectionHeader
-          chapter="02"
+          chapter="03"
           label="Projects"
           title="Work that puts users first"
           desc="AI, analytics, and marketing — built to save time, reduce friction, and help people decide faster."

@@ -33,7 +33,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="section section--story section--contact">
       <div className="container">
-        <SectionHeader chapter="05" label="Contact" title="Get in touch" />
+        <SectionHeader chapter="06" label="Contact" title="Get in touch" />
 
         <div className="contact-grid">
           {contacts.map((c, i) => {
