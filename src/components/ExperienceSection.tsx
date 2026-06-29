@@ -3,7 +3,6 @@ import { type LucideIcon, Briefcase, GraduationCap, Users } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import Reveal from './Reveal';
 import { useMotion } from '../context/MotionContext';
-import { YEARS_EXPERIENCE } from '../data/portfolioContent';
 
 type Tab = 'professional' | 'education' | 'volunteering';
 
@@ -50,13 +49,6 @@ export default function ExperienceSection() {
         />
 
         <Reveal delay={1}>
-          <div className="exp-highlight">
-            <span className="exp-highlight-years">{YEARS_EXPERIENCE} years</span>
-            <p>Across SaaS, real estate, telecom, and AI — shipping work that saves users time and removes friction.</p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={2}>
           <div className="exp-tabs" role="tablist" aria-label="Experience categories">
             {tabs.map(({ id, label, icon: Icon }) => (
               <button

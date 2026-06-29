@@ -107,7 +107,6 @@ export function certYear(date: string): string {
 }
 
 export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';
-export const YEARS_EXPERIENCE = '5+';
 
 export type FeaturedProject = {
   id: string;
