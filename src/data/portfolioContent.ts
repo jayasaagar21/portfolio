@@ -108,8 +108,56 @@ export const CERTIFICATIONS: Certification[] = [
       { course: 'Multimodal AI & Cloning', skill: 'Multimodal AI and Cloning' },
     ],
   },
-  { title: 'International Certificate in Product Management', institution: 'Institute of Product Leadership', date: 'Nov 2022', theme: 'product', span: 4 },
-  { title: 'Professional Certificate in Product Management', institution: 'LinkedIn', date: 'Jun 2021', theme: 'product', span: 4 },
+  {
+    id: 'ipl-product-management',
+    title: 'International Certificate in Product Management',
+    institution: 'Institute of Product Leadership',
+    date: 'Nov 2022',
+    theme: 'product',
+    span: 6,
+    courses: [
+      {
+        course: 'Customer Insights',
+        skill: 'Develop strong customer insights & identify customer needs to define a compelling value proposition',
+      },
+      {
+        course: 'Manage Digital Products',
+        skill: 'Launch & Monetize Digital & SaaS Products with strong metrics-driven lifecycle management from acquisition to retention.',
+      },
+      {
+        course: 'UX & Prototyping',
+        skill: 'Ability to build a visual prototype to communicate product features & ideas internally and externally with customers.',
+      },
+      {
+        course: 'Agile Roadmapping',
+        skill: 'Ability to prioritize requirements to executable release, guide product development lifecycle through Agile, and build market validated roadmaps.',
+      },
+      {
+        course: 'Metrics that Matter',
+        skill: 'Understand the various metrics in customer acquisition, retention, and revenue. Define relevant north star metric for a product based on the product life-cycle.',
+      },
+      {
+        course: 'Prioritization',
+        skill: 'Apply data-driven prioritization techniques to maintain stakeholder alignment via product backlogs and enhance customer-focused value creation.',
+      },
+      {
+        course: 'Growth Techniques',
+        skill: 'Learn growth techniques for customer acquisition by developing a digital marketing plan leveraging social media tools & techniques',
+      },
+      {
+        course: 'Go-To-Market',
+        skill: 'Define & Execute GTM strategy by defining personas, positioning, marketing campaigns, and sales channels.',
+      },
+      {
+        course: 'Lean Development',
+        skill: 'Learn the practice of experimentation, hypothesis-driven development, data & metrics informed decision making in building B2B & B2C products & services',
+      },
+      {
+        course: 'Product Analytics',
+        skill: 'Analytics to track and measure user behavior, product health, and usage issues to make informed decisions in continuous product improvements.',
+      },
+    ],
+  },
   { title: 'Google Digital Marketing', institution: 'Google Digital Garage', date: 'Jun 2020', theme: 'marketing', span: 4 },
 ];
 

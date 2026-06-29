@@ -1651,6 +1651,7 @@ html[data-motion="static"] .hero-scroll-icon { animation: none; }
 
 .cert-card--analytics .cert-course-row:hover .cert-course-node { background: #0369a1; }
 .cert-card--ai .cert-course-row:hover .cert-course-node { background: #5b21b6; }
+.cert-card--product .cert-course-row:hover .cert-course-node { background: #44403c; }
 
 .cert-card-dot { color: var(--grey-300); }
 
