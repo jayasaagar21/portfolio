@@ -22,5 +22,5 @@ export const PROJECT_IMAGE_IDS: Record<string, number> = {
 
 export function projectImage(id: string, detail = false): string {
   const photoId = PROJECT_IMAGE_IDS[id];
-  return photoId ? pexels(photoId, detail ? 1200 : 800) : '';
+  return photoId ? pexels(photoId, detail ? 960 : 520) : '';
 }

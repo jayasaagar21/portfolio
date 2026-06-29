@@ -1,6 +1,7 @@
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { FEATURED_PROJECTS, PROJECT_CATEGORIES } from '../data/portfolioContent';
 import { projectImage } from '../data/projectImages';
 import Reveal from './Reveal';
 
@@ -25,6 +26,10 @@ type ProjectDetailData = {
   image: string;
   demoUrl?: string;
   demoLabel?: string;
+  hasCaseStudy?: boolean;
+  category?: string;
+  tags?: string[];
+  outcome?: string;
 };
 
 const hardcoded: Record<string, ProjectDetailData> = {
@@ -132,6 +137,7 @@ const hardcoded: Record<string, ProjectDetailData> = {
     image: projectImage('ai-analytics-paper', true),
     demoUrl: 'https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing',
     demoLabel: 'Read paper',
+    hasCaseStudy: true,
   },
   'fmcg-commercial-ad': {
     title: 'Commercial Ad for FMCG',
@@ -165,11 +171,24 @@ const hardcoded: Record<string, ProjectDetailData> = {
 export default function ProjectDetail({ projectId, onBack }: Props) {
   const [project, setProject] = useState<ProjectDetailData | null>(null);
 
+  const featured = useMemo(
+    () => FEATURED_PROJECTS.find(p => p.id === projectId),
+    [projectId]
+  );
+
   useEffect(() => {
     if (!projectId) return;
 
     if (hardcoded[projectId]) {
-      setProject(hardcoded[projectId]);
+      const base = hardcoded[projectId];
+      const card = FEATURED_PROJECTS.find(p => p.id === projectId);
+      setProject({
+        ...base,
+        category: card?.category,
+        tags: card?.tags,
+        outcome: card?.outcome,
+        hasCaseStudy: card?.hasCaseStudy ?? base.hasCaseStudy,
+      });
       return;
     }
 
@@ -194,6 +213,12 @@ export default function ProjectDetail({ projectId, onBack }: Props) {
     );
   }
 
+  const categoryLabel = project.category
+    ? PROJECT_CATEGORIES.find(c => c.id === project.category)?.label
+    : featured?.category
+      ? PROJECT_CATEGORIES.find(c => c.id === featured.category)?.label
+      : undefined;
+
   return (
     <div className="detail">
       <Reveal>
@@ -203,18 +228,38 @@ export default function ProjectDetail({ projectId, onBack }: Props) {
       </Reveal>
 
       <Reveal delay={1}>
-        <p className="detail-eyebrow">Case study</p>
-        <h1 className="detail-title">{project.title}</h1>
+        <div className="detail-head">
+          {categoryLabel && (
+            <span className={`detail-cat detail-cat--${project.category ?? featured?.category}`}>
+              {categoryLabel}
+            </span>
+          )}
+          <p className="detail-eyebrow">{project.hasCaseStudy ? 'Case study' : 'Project'}</p>
+          <h1 className="detail-title">{project.title}</h1>
+          <p className="detail-company">{project.company}</p>
+          {(project.outcome ?? featured?.outcome) && (
+            <p className="detail-outcome">{project.outcome ?? featured?.outcome}</p>
+          )}
+        </div>
       </Reveal>
 
       <Reveal delay={2}>
         <dl className="detail-meta">
-          <div><dt>Company</dt><dd>{project.company}</dd></div>
           <div><dt>Role</dt><dd>{project.role}</dd></div>
           <div><dt>Timeline</dt><dd>{project.timeline}</dd></div>
           <div><dt>Platform</dt><dd>{project.platform}</dd></div>
         </dl>
       </Reveal>
+
+      {(project.tags ?? featured?.tags)?.length ? (
+        <Reveal delay={2}>
+          <div className="detail-tags">
+            {(project.tags ?? featured?.tags)?.map(tag => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+        </Reveal>
+      ) : null}
 
       {project.demoUrl && (
         <Reveal delay={2}>

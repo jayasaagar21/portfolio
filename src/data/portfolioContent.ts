@@ -107,6 +107,10 @@ export function certYear(date: string): string {
 }
 
 export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';
+export const GITHUB_URL = 'https://github.com/jayasaagar21';
+export const RESUME_URL =
+  'https://drive.google.com/file/d/1SAcafa5IWNKXx4g9pDENW3AuMlvyexlB/view?usp=sharing';
+export const RESUME_DOWNLOAD_URL = RESUME_URL;
 
 export type FeaturedProject = {
   id: string;
@@ -120,6 +124,7 @@ export type FeaturedProject = {
   externalUrl: string;
   linkLabel: string;
   featured?: boolean;
+  hasCaseStudy?: boolean;
 };
 
 export const FEATURED_PROJECTS: FeaturedProject[] = [
@@ -133,6 +138,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: 'analytics',
     tags: ['AI Insights', 'Executive BI', 'Campaign Analytics'],
     image: projectImage('executive-ai-dashboard'),
+    externalUrl: 'https://lnkd.in/e4khpJAE',
     linkLabel: 'View dashboard',
     featured: true,
   },
@@ -146,6 +152,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: 'ai',
     tags: ['Agentic AI', 'Meetings', 'Task Automation'],
     image: projectImage('standup-ai'),
+    externalUrl: 'https://drive.google.com/file/d/1WST6DVlABAu1WWJOoSK9V9RG6KAvIEqT/view?usp=sharing',
     linkLabel: 'View prototype',
   },
   {
@@ -157,6 +164,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: 'ai',
     tags: ['Chatbot', 'EdTech', 'Student Experience'],
     image: projectImage('student-housing-copilot'),
+    externalUrl: 'https://vimeo.com/1130603790?share=copy&fl=sv&fe=c',
     linkLabel: 'Watch demo',
   },
   {
@@ -169,7 +177,9 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: 'analytics',
     tags: ['Research', 'AI + Analytics', 'Academic'],
     image: projectImage('ai-analytics-paper'),
+    externalUrl: 'https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing',
     linkLabel: 'Read paper',
+    hasCaseStudy: true,
   },
   {
     id: 'fmcg-commercial-ad',
@@ -181,6 +191,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     category: 'marketing',
     tags: ['Brand Film', 'FMCG', 'Creative'],
     image: projectImage('fmcg-commercial-ad'),
+    externalUrl: 'https://drive.google.com/file/d/1haXtxQ1a7le2lhG-HCB_5Cdzw1G8TB86/view?usp=sharing',
     linkLabel: 'Watch ad',
   },
 ];

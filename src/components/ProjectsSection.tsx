@@ -82,7 +82,8 @@ export default function ProjectsSection({ onProjectClick }: Props) {
                   href={project.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="proj-card-btn"
+                  className="proj-card-thumb"
+                  aria-label={`${project.linkLabel} — ${project.title}`}
                 >
                   <div className="proj-card-img">
                     {project.image && <img src={project.image} alt={project.title} loading="lazy" />}
@@ -97,7 +98,14 @@ export default function ProjectsSection({ onProjectClick }: Props) {
                       {PROJECT_CATEGORIES.find(c => c.id === project.category)?.label}
                     </span>
                   </div>
-                  <div className="proj-card-body">
+                </a>
+
+                <div className="proj-card-body">
+                  <button
+                    type="button"
+                    className="proj-card-main"
+                    onClick={() => onProjectClick(project.id)}
+                  >
                     <p className="proj-card-outcome">{project.outcome}</p>
                     <div className="proj-card-tags">
                       {project.tags.map(tag => (
@@ -107,19 +115,29 @@ export default function ProjectsSection({ onProjectClick }: Props) {
                     <h3 className="proj-card-title">{project.title}</h3>
                     <p className="proj-card-company">{project.company}</p>
                     <p className="proj-card-desc">{project.description}</p>
-                    <span className="proj-card-link">
-                      {project.linkLabel}
-                      <ArrowUpRight size={14} />
-                    </span>
-                  </div>
-                </a>
-                <button
-                  type="button"
-                  className="proj-card-detail"
-                  onClick={() => onProjectClick(project.id)}
-                >
-                  Case study
-                </button>
+                    <span className="proj-card-expand">View details</span>
+                  </button>
+
+                  <a
+                    href={project.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="proj-card-link"
+                  >
+                    {project.linkLabel}
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
+
+                {project.hasCaseStudy && (
+                  <button
+                    type="button"
+                    className="proj-card-detail"
+                    onClick={() => onProjectClick(project.id)}
+                  >
+                    Case study
+                  </button>
+                )}
               </article>
             </Reveal>
           ))}
