@@ -27,6 +27,17 @@ const experiences = {
     { period: 'Aug 2014 – Aug 2018', title: 'Bachelor of Engineering', company: 'Visvesvaraya Technological University', location: 'India', domain: 'Engineering', domainClass: 'exp-domain--amber', summary: 'Avions Club (3rd in World for RC competitions), Theatre team, Basketball Captain, Best research paper presentation (National), Best project for social innovation, Toastmasters International.' },
   ],
   volunteering: [
+    {
+      period: 'Nov 2025 – Jun 2026',
+      title: 'Product & Go-To-Market Lead',
+      company: 'Gnanalytica',
+      location: 'USA',
+      domain: 'SaaS / AI',
+      domainClass: 'exp-domain--teal',
+      summary:
+        'Leading an AI-based startup in product and go-to-market for 3 products — Standup AI (meeting intelligence and workflow automation), AI workshop (Workshop Dashboard), and Valytica (AI-powered valuation platform). Owned the full AI product cycle — problem definition, model-enabled features, pricing, testing, and launch — translating LLM automation capabilities into business outcomes for clients.',
+      tags: ['Standup AI', 'Workshop Dashboard', 'Valytica', 'GTM', 'LLM'],
+    },
     { period: 'Nov 2022 – Present', title: 'Ambassador Program at the Institute (API)', company: 'Institute of Product Leadership', location: 'India', domain: 'Education', domainClass: 'exp-domain--green', summary: 'Volunteer alumni ambassador creating high impact in the product and technology community. Organized virtual events, served as a panelist for aspiring product managers, and mentored incoming cohorts on product strategy and career transitions.' },
     { period: '2020 – 2021', title: 'Pandemic Innovation Initiative', company: 'Community Health Response', location: 'Bangalore, India', domain: 'Healthcare', domainClass: 'exp-domain--red', summary: 'Coordinated a volunteer-run effort to design and deploy a hospital queue management system during COVID-19. Led awareness campaigns across 15+ hospitals.' },
     { period: '2019 – 2020', title: 'Youth Mentorship Program', company: 'NGO — Education Access', location: 'Bangalore, India', domain: 'Education', domainClass: 'exp-domain--orange', summary: 'Mentored underprivileged students in digital literacy and career awareness. Designed curriculum and facilitated weekly sessions.' },

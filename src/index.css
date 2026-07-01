@@ -287,6 +287,24 @@ html[data-motion="static"] .panel-enter { animation: none; }
 
 .header-icon-btn:hover { background: var(--grey-100); }
 
+.header-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: none;
+  background: none;
+  color: var(--grey-600);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.header-menu-btn:hover {
+  color: var(--black);
+  background: var(--grey-100);
+}
+
 .header-back {
   display: inline-flex;
   align-items: center;
@@ -2563,7 +2581,40 @@ html[data-motion="static"] .reveal {
   .cert-list { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
 
-  .header-links { display: none; }
+  .header-links {
+    display: none;
+    position: fixed;
+    top: 53px;
+    left: 0;
+    right: 0;
+    padding: 8px var(--page-px) 16px;
+    background: var(--header-bg);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--grey-200);
+    box-shadow: 0 12px 32px var(--header-shadow);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    z-index: 99;
+  }
+
+  .header-links--open { display: flex; }
+
+  .header-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grey-100);
+  }
+
+  .header-links a::after { display: none; }
+
+  .header-link-resume {
+    margin-top: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .header-menu-btn { display: inline-flex; }
   .theme-toggle-label { display: none; }
   .theme-toggle-btn { padding: 6px 8px; }
 

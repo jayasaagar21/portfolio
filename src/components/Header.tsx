@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Settings } from 'lucide-react';
+import { ArrowLeft, Menu, Settings, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { RESUME_DOWNLOAD_URL } from '../data/portfolioContent';
@@ -15,6 +15,7 @@ const NAV_SECTIONS = ['experience', 'projects', 'tools', 'contact'];
 
 export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const activeSection = useScrollSpy(NAV_SECTIONS);
 
   useEffect(() => {
@@ -24,8 +25,21 @@ export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderPro
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!showNav) setMenuOpen(false);
+  }, [showNav]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <header className={`header${scrolled ? ' header--scrolled' : ''}`}>
+    <header className={`header${scrolled ? ' header--scrolled' : ''}${menuOpen ? ' header--menu-open' : ''}`}>
       <div className="header-inner">
         {showBack ? (
           <button onClick={onBack} className="header-back">
@@ -40,25 +54,39 @@ export default function Header({ onBack, showBack, onAdmin, showNav }: HeaderPro
 
         <nav className="header-nav">
           {showNav && (
-            <div className="header-links">
-              {NAV_SECTIONS.map(id => (
-                <a
-                  key={id}
-                  href={`#${id}`}
-                  className={activeSection === id ? 'active' : ''}
-                >
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
-                </a>
-              ))}
-              <a
-                href={RESUME_DOWNLOAD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="header-link-resume"
+            <>
+              <button
+                type="button"
+                className="header-menu-btn"
+                onClick={() => setMenuOpen(open => !open)}
+                aria-expanded={menuOpen}
+                aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               >
-                Download resume
-              </a>
-            </div>
+                {menuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+
+              <div className={`header-links${menuOpen ? ' header-links--open' : ''}`}>
+                {NAV_SECTIONS.map(id => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    className={activeSection === id ? 'active' : ''}
+                    onClick={closeMenu}
+                  >
+                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                  </a>
+                ))}
+                <a
+                  href={RESUME_DOWNLOAD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="header-link-resume"
+                  onClick={closeMenu}
+                >
+                  Download resume
+                </a>
+              </div>
+            </>
           )}
           <ThemeToggle />
           <button onClick={onAdmin} className="header-icon-btn" aria-label="Admin">
