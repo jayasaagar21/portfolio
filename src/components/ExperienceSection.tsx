@@ -31,7 +31,7 @@ const experiences = {
       period: 'Nov 2025 – Jun 2026',
       title: 'Product & Go-To-Market Lead',
       company: 'Gnanalytica',
-      location: 'USA',
+      location: 'Remote',
       domain: 'SaaS / AI',
       domainClass: 'exp-domain--teal',
       summary:
