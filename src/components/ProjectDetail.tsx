@@ -26,6 +26,8 @@ type ProjectDetailData = {
   image: string;
   demoUrl?: string;
   demoLabel?: string;
+  secondaryUrl?: string;
+  secondaryLabel?: string;
   hasCaseStudy?: boolean;
   category?: string;
   tags?: string[];
@@ -137,6 +139,8 @@ const hardcoded: Record<string, ProjectDetailData> = {
     image: projectImage('ai-analytics-paper', true),
     demoUrl: 'https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing',
     demoLabel: 'Read paper',
+    secondaryUrl: 'https://sofidr.jayasaagarc.com/',
+    secondaryLabel: 'View prototype',
     hasCaseStudy: true,
   },
   'fmcg-commercial-ad': {
@@ -263,14 +267,26 @@ export default function ProjectDetail({ projectId, onBack }: Props) {
 
       {project.demoUrl && (
         <Reveal delay={2}>
-          <a
-            href={project.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="detail-video-link"
-          >
-            {project.demoLabel ?? 'View project'} <ExternalLink size={14} />
-          </a>
+          <div className="detail-video-links">
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="detail-video-link"
+            >
+              {project.demoLabel ?? 'View project'} <ExternalLink size={14} />
+            </a>
+            {project.secondaryUrl && (
+              <a
+                href={project.secondaryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="detail-video-link"
+              >
+                {project.secondaryLabel ?? 'View prototype'} <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
         </Reveal>
       )}
 

@@ -200,6 +200,8 @@ export type FeaturedProject = {
   image: string;
   externalUrl: string;
   linkLabel: string;
+  secondaryUrl?: string;
+  secondaryLabel?: string;
   featured?: boolean;
   hasCaseStudy?: boolean;
 };
@@ -256,6 +258,8 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     image: projectImage('ai-analytics-paper'),
     externalUrl: 'https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing',
     linkLabel: 'Read paper',
+    secondaryUrl: 'https://sofidr.jayasaagarc.com/',
+    secondaryLabel: 'View prototype',
     hasCaseStudy: true,
   },
   {

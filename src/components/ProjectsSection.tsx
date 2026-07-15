@@ -118,15 +118,28 @@ export default function ProjectsSection({ onProjectClick }: Props) {
                     <span className="proj-card-expand">View details</span>
                   </button>
 
-                  <a
-                    href={project.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="proj-card-link"
-                  >
-                    {project.linkLabel}
-                    <ArrowUpRight size={14} />
-                  </a>
+                  <div className="proj-card-links">
+                    <a
+                      href={project.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="proj-card-link"
+                    >
+                      {project.linkLabel}
+                      <ArrowUpRight size={14} />
+                    </a>
+                    {project.secondaryUrl && (
+                      <a
+                        href={project.secondaryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="proj-card-link"
+                      >
+                        {project.secondaryLabel ?? 'View prototype'}
+                        <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
                 </div>
 
                 {project.hasCaseStudy && (
