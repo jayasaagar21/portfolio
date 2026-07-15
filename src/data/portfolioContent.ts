@@ -186,7 +186,7 @@ export function certYear(date: string): string {
 export const SITE_EXPERTISE = 'AI · Product · Marketing · Business Analytics';
 export const GITHUB_URL = 'https://github.com/jayasaagar21';
 export const RESUME_URL =
-  'https://drive.google.com/file/d/1SAcafa5IWNKXx4g9pDENW3AuMlvyexlB/view?usp=sharing';
+  'https://drive.google.com/file/d/1H3mGTUalnbOy2q2mX3WgpuSxf6C5OmU-/view?usp=sharing';
 export const RESUME_DOWNLOAD_URL = RESUME_URL;
 
 export type FeaturedProject = {
