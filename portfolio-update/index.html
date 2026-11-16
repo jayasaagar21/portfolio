@@ -4,113 +4,174 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jayasaagar Chandrashekar Stories</title>
+<meta name="description" content="AI products, product launches and go-to-market work by Jayasaagar Chandrashekar.">
+<meta property="og:title" content="Jayasaagar Chandrashekar">
+<meta property="og:description" content="AI products, product launches and go-to-market work, told as stories.">
+<meta property="og:image" content="https://www.jayasaagarc.com/og.jpg">
+<meta property="og:url" content="https://www.jayasaagarc.com/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2232%22 fill=%22%23FFC531%22/%3E%3Cg fill=%22none%22 stroke=%22%2317183F%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M39 25v15c0 8-5 13-12 13-5 0-8-3-9-7%22 stroke-width=%225.5%22/%3E%3Cpath d=%22M39 7l9 19-9-5-9 5z%22 fill=%22%2317183F%22 stroke-width=%222.5%22/%3E%3C/g%3E%3Cg fill=%22%2317183F%22%3E%3Ccircle cx=%2217%22 cy=%2238%22 r=%222.6%22/%3E%3Ccircle cx=%2219%22 cy=%2230.500%22 r=%222%22/%3E%3Ccircle cx=%2223%22 cy=%2224.500%22 r=%221.400%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: one fixed field of dots behind everything. Projects are tall
-   chapters with a pinned stage (words left, dots right) where scrolling pulls
-   the dots from scatter into the result. Then a flight path through the career,
-   flown by a paper plane, and a dark landing strip with ways to say hello. */
+/* Layout idea: four views behind one toggle (Work, Experience, Writing, Say hello).
+   A fixed field of dots sits behind all of them. Work is a short picker; choosing a
+   project opens its story, where scrolling pulls the dots from scatter into the result.
+   One light world throughout: ink type on a tinted ground that changes per view. */
 :root{
-  --fog:#E6E8EC;        /* the "before" world */
+  --fog:#E6E8EC;        /* work */
+  --air:#D5EBFF;        /* experience */
+  --paper:#E7DFFF;      /* writing */
+  --sun:#FFE7A3;        /* say hello */
   --ink:#17183F;        /* text and dots */
   --marigold:#FFC531;
-  --mint:#6FE3B0;
-  --sky:#7CC6FF;
-  --coral:#FF9079;
-  --lilac:#BDA8FF;
-  --air:#D5EBFF;
-  --paper:#E7DFFF;      /* behind the newsletter */        /* open sky behind the route */
-  --fg:var(--ink);
   --display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
   --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
   --gutter:clamp(18px,4.5vw,64px);
+  --line:color-mix(in srgb,var(--ink) 24%,transparent);
+  --tabs-h:0px;
   color-scheme:light;
 }
-html[data-dark]{--fg:var(--fog)}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--fog);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.5;overflow-x:hidden}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 a{color:inherit}
-:focus-visible{outline:3px solid currentColor;outline-offset:3px;border-radius:4px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
 h1,h2,h3,p,ul,ol{margin:0}
 ul,ol{padding:0;list-style:none}
+[hidden]{display:none!important}
 
 #field{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:none}
 .live #field{display:block}
+main{position:relative;z-index:3}
 
-/* top bar */
-.bar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--gutter);color:var(--fg);transition:color .4s}
+/* ---------- shared pieces ---------- */
+.h{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.3rem,6vw,4.6rem);line-height:.95;letter-spacing:-.03em;text-wrap:balance}
+.sub{max-width:52ch}
+.pill{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:9px 18px;font-weight:600;font-size:.98rem;text-decoration:none;text-align:center;transition:background .2s,color .2s,transform .25s cubic-bezier(.3,2,.5,1)}
+.pill:hover{transform:scale(1.05) rotate(-1deg)}
+.pill.solid{background:var(--ink);color:var(--fog)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.seg button{border-radius:999px;padding:8px 16px;font-weight:600;font-size:.95rem;text-align:center;transition:background .2s,color .2s}
+.seg button[aria-pressed="true"],.seg button[aria-current="page"]{background:var(--ink);color:var(--fog)}
+.rows{display:grid;max-width:1000px}
+.rows>*{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 22px;align-items:baseline;width:100%;padding:16px 14px;border-top:1.5px solid var(--line);border-radius:14px;text-decoration:none;transition:background .2s,padding .25s,transform .35s cubic-bezier(.3,2,.5,1)}
+.rows>*:hover,.rows>*:focus-visible{background:var(--accent,var(--marigold));padding-left:26px;transform:rotate(-.5deg)}
+.rows.numbered>*{grid-template-columns:2.6em minmax(0,1fr) auto}
+.rows .no{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1;grid-row:span 2}
+.rows .ti{font-family:var(--display);font-weight:650;font-size:clamp(1.15rem,2.2vw,1.65rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.rows .fi{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(1.05rem,2vw,1.5rem);white-space:nowrap;grid-row:span 2;align-self:center}
+.rows .de{font-size:.94rem;opacity:.8;grid-column:1}
+.rows.numbered .de{grid-column:2}
+@media (max-width:600px){.rows .fi{grid-row:auto;grid-column:1;font-size:1rem}.rows.numbered .fi{grid-column:2}}
+
+/* ---------- bar and the main toggle ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:10;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:color-mix(in srgb,#fff 22%,transparent);display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px var(--gutter)}
 .bar .name{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
 .mark{width:34px;height:34px;transition:transform .5s cubic-bezier(.3,2,.5,1)}
 .bar .name:hover .mark{transform:rotate(-14deg) scale(1.12)}
-.bar .right{display:flex;align-items:center;gap:18px}
-.bar .status{font-size:.9rem;opacity:.75}
-.pill{display:inline-block;border:1.5px solid currentColor;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem;text-decoration:none;transition:background .2s,color .2s,transform .2s}
-.pill:hover{background:var(--ink);color:var(--fog)}
-html[data-dark] .bar .pill:hover,.index .pill:hover{background:var(--fog);color:var(--ink)}
-@media (max-width:700px){.bar .status{display:none}}
-
-/* hero */
-.hero{position:relative;z-index:3;min-height:92svh;display:grid;align-content:center;padding:96px var(--gutter) 64px}
-.hero-inner{max-width:min(47vw,660px);display:grid;gap:22px}
-.hero h1{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.9rem,7.4vw,6.6rem);line-height:.92;letter-spacing:-.035em;text-wrap:balance}
-.hero .lead{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.3vw,1.9rem);line-height:1.2;letter-spacing:-.01em;text-wrap:balance}
-.hero .how{max-width:46ch;opacity:.8}
-.launch{display:flex;flex-wrap:wrap;gap:8px}
-.launch .pill:hover{background:var(--accent);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg)}
-.hero .keys{display:none;font-size:.92rem;opacity:.7}
-.live .hero .keys{display:block}
-kbd{font-family:var(--body);border:1.5px solid currentColor;border-radius:6px;padding:1px 7px;font-size:.85em}
+.tabs{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 @media (max-width:760px){
-  .hero-inner{max-width:none}
-  .live .hero{align-content:end;padding-top:46svh}
+  :root{--tabs-h:68px}
+  .tabs{position:fixed;left:10px;right:10px;bottom:10px;z-index:11;display:grid;grid-template-columns:repeat(4,1fr);background:color-mix(in srgb,var(--fog) 82%,transparent);border:1.5px solid var(--line)}
+  .tabs button{padding:11px 4px;font-size:.9rem}
+  #cats button{padding:7px 11px;font-size:.86rem}
+  .pname span,.note,.rail .dots{display:none}
+  .why{font-size:.92rem}
+  .links .pill{padding:7px 13px;font-size:.88rem}
+  body{font-size:1rem;padding-bottom:calc(var(--tabs-h) + 16px)}
 }
 
-/* project chapters: static version first (also the reduced-motion version) */
+/* ---------- views ---------- */
+.view{padding:104px var(--gutter) 90px;display:grid;gap:44px;align-content:start;min-height:100svh}
+.head{display:grid;gap:14px;justify-items:start}
+#v-work{padding:0;gap:0;min-height:0}
+
+/* work: hero + picker */
+.home{padding:104px var(--gutter) 80px;display:grid;gap:48px}
+.hero{min-height:min(62svh,560px);display:grid;align-content:center}
+.hero-inner{max-width:min(47vw,660px);display:grid;gap:20px}
+.hero h1{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.8rem,7.2vw,6.4rem);line-height:.92;letter-spacing:-.035em;text-wrap:balance}
+.hero .lead{font-family:var(--display);font-weight:400;font-size:clamp(1.25rem,2.3vw,1.9rem);line-height:1.2;letter-spacing:-.01em;text-wrap:balance}
+.picker{display:grid;gap:18px;justify-items:start}
+.picker .rows{justify-self:stretch}
+@media (max-width:760px){
+  .hero-inner{max-width:none}
+  .live .hero{align-content:end;padding-top:36svh;min-height:0}
+  .home{padding-top:70px;gap:36px}
+}
+
+/* two ways in */
+.ways-in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:1100px}
+.lens{display:grid;gap:12px;align-content:space-between;min-height:230px;padding:24px;border-radius:24px;background:color-mix(in srgb,#fff 82%,transparent);border:1.5px solid var(--line);transition:background .25s,transform .4s cubic-bezier(.3,2,.5,1)}
+.lens:hover,.lens:focus-visible{background:var(--accent);transform:translateY(-6px) rotate(var(--tilt,-1deg))}
+.lens:nth-child(2){--tilt:1deg}
+.lens .k{font-weight:600;font-size:.95rem}
+.lens b{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(1.9rem,3.6vw,3rem);line-height:.98;letter-spacing:-.025em;text-wrap:balance}
+.lens p{max-width:42ch}
+.lens .go{font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.all{display:grid;gap:18px;justify-items:start;margin-top:12px}
+.all .rows{justify-self:stretch}
+@media (max-width:700px){.ways-in{grid-template-columns:1fr}.lens{min-height:0;padding:20px}}
+
+/* a path: the story of one skill, told through its projects */
+.path{padding:104px var(--gutter) 80px;display:grid;gap:34px}
+.path-head{display:grid;gap:16px;justify-items:start;max-width:720px;min-height:min(46svh,440px);align-content:center}
+.path-head .lead{font-family:var(--display);font-size:clamp(1.2rem,2.1vw,1.7rem);line-height:1.22;letter-spacing:-.01em;text-wrap:balance;max-width:34ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{border:1.5px solid var(--ink);border-radius:999px;padding:5px 12px;font-size:.9rem;font-weight:600}
+.group-label{font-family:var(--display);font-weight:700;font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-.01em;margin:18px 0 4px}
+.path .rows .de b{font-weight:600}
+.rows>.group-label,.rows>.group-label:hover{display:block;padding:20px 0 4px;border:0;background:none;transform:none}
+.path-foot{display:flex;flex-wrap:wrap;gap:10px}
+@media (min-width:761px){.path-head{max-width:min(47vw,660px)}}
+@media (max-width:760px){.live .path{padding-top:36svh}.path-head{min-height:0}}
+
+/* where you are inside a path */
+.rail{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.92rem;font-weight:600}
+.rail .dots{display:flex;gap:6px}
+.rail .dots button{width:12px;height:12px;border-radius:999px;border:2px solid var(--ink);transition:width .3s,background .3s}
+.rail .dots button[aria-current]{background:var(--ink);width:28px}
+.why{font-weight:600;max-width:46ch}
+
+/* a project story: static version first (also the reduced-motion version) */
 .chapter{position:relative;background:var(--accent);--t:1}
-.stage{padding:72px var(--gutter);display:grid}
-.copy{max-width:570px;display:grid;gap:18px;align-content:center}
+.stage{padding:96px var(--gutter) 60px;display:grid}
+.copy{max-width:570px;display:grid;gap:16px;align-content:center}
+.back{justify-self:start;font-weight:600;font-size:.95rem;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
 .pname{font-family:var(--display);font-weight:700;font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1.15;letter-spacing:-.01em}
 .pname span{font-family:var(--body);font-weight:400;font-size:.95rem;letter-spacing:0;opacity:.8;display:block;margin-top:2px}
-.claim{display:grid;font-family:var(--display);font-size:clamp(2.1rem,4.9vw,4.4rem);line-height:.98;letter-spacing:-.03em;font-weight:calc(300 + var(--t) * 500);font-stretch:calc(100% - var(--t) * 22%);text-wrap:balance}
+.claim{display:grid;font-family:var(--display);font-size:clamp(2rem,4.8vw,4.3rem);line-height:.98;letter-spacing:-.03em;font-weight:calc(300 + var(--t) * 500);font-stretch:calc(100% - var(--t) * 22%);text-wrap:balance}
 .claim .was{opacity:.5;font-weight:300;font-stretch:100%}
-.beats-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.95rem;font-weight:600}
+.beats-nav{display:flex;gap:20px;flex-wrap:wrap;font-size:.95rem;font-weight:600}
 .beats-nav button{padding:4px 0;border-bottom:2.5px solid transparent;opacity:.5;transition:opacity .3s,border-color .3s}
 .beats{display:grid;gap:22px}
-.beat{display:grid;gap:14px;align-content:start}
+.beat{display:grid;gap:12px;align-content:start}
 .beat p{max-width:50ch}
 .beat .who{font-weight:600}
-.work li{padding:10px 0;border-top:1.5px solid color-mix(in srgb,var(--ink) 22%,transparent);max-width:50ch}
-.work li:last-child{border-bottom:1.5px solid color-mix(in srgb,var(--ink) 22%,transparent)}
-.figs{display:flex;flex-wrap:wrap;gap:14px 34px}
-.fig b{display:block;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(1.7rem,3vw,2.5rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.work li{padding:9px 0;border-top:1.5px solid var(--line);max-width:50ch}
+.work li:last-child{border-bottom:1.5px solid var(--line)}
+.figs{display:flex;flex-wrap:wrap;gap:12px 30px}
+.fig b{display:block;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .fig span{font-size:.92rem}
 .lesson{font-style:italic}
-.credit{font-size:.9rem;opacity:.75}
+.note{font-size:.9rem;opacity:.75}
 .links{display:flex;flex-wrap:wrap;gap:10px}
-.links .pill{background:var(--ink);color:var(--fog);border-color:var(--ink);padding:10px 20px;font-size:1rem}
-.links .pill:hover{transform:scale(1.05) rotate(-1deg)}
-.links .pill+.pill{background:none;color:var(--ink)}
 .screen{position:relative;max-width:640px;margin-top:24px;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:0 30px 60px -22px color-mix(in srgb,var(--ink) 60%,transparent)}
 .screen video,.screen img{display:block;width:100%;height:auto}
+.screen.tall{max-width:300px}
 .poster{display:block;position:relative;width:100%}
-.poster i{position:absolute;left:50%;top:50%;translate:-50% -50%;width:78px;height:78px;border-radius:50%;background:var(--marigold);display:grid;place-items:center;transition:scale .3s cubic-bezier(.3,2,.5,1)}
-.poster i::after{content:"";border-left:24px solid var(--ink);border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:7px}
+.poster i{position:absolute;left:50%;top:50%;translate:-50% -50%;width:74px;height:74px;border-radius:50%;background:var(--marigold);display:grid;place-items:center;transition:scale .3s cubic-bezier(.3,2,.5,1)}
+.poster i::after{content:"";border-left:22px solid var(--ink);border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
 .poster:hover i{scale:1.15}
-.playbtn{justify-self:start;background:var(--ink);color:var(--fog);border-radius:999px;padding:10px 20px;font-weight:600;transition:transform .2s}
-.playbtn:hover{transform:scale(1.05) rotate(-1deg)}
 
 /* live version: pinned stage, one beat at a time */
 .live .chapter{height:270vh;background:none;--t:0}
 .live .chapter.has-video{height:350vh}
+.live .stage{position:sticky;top:0;height:100svh;padding:76px var(--gutter) calc(var(--tabs-h) + 28px);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .live .copy{grid-column:1;grid-row:1}
-.live .screen{grid-column:2;grid-row:1;align-self:center;justify-self:center;width:min(100%,640px);margin:0;opacity:0;visibility:hidden;transform:scale(.78) rotate(-5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1),visibility 0s .5s}
-.live .chapter[data-beat="4"] .screen{opacity:1;visibility:visible;transform:rotate(-1.5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1)}
-.live .stage{position:sticky;top:0;height:100svh;z-index:3;padding:84px var(--gutter) 40px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .live .claim>*{grid-area:1/1;transition:opacity .5s,transform .5s,filter .5s}
 .live .claim .was{opacity:1;font-weight:inherit;font-stretch:inherit}
 .live .claim .now{opacity:0;transform:translateY(.35em)}
@@ -121,108 +182,88 @@ kbd{font-family:var(--body);border:1.5px solid currentColor;border-radius:6px;pa
 .live .chapter[data-beat="2"] .beat:nth-child(2),
 .live .chapter[data-beat="3"] .beat:nth-child(3),
 .live .chapter[data-beat="4"] .beat:nth-child(4){opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
-.live .beats{min-height:13em}
+.live .beats{min-height:12.5em}
 .chapter[data-beat="1"] .beats-nav button:nth-child(1),
 .chapter[data-beat="2"] .beats-nav button:nth-child(2),
 .chapter[data-beat="3"] .beats-nav button:nth-child(3),
 .chapter[data-beat="4"] .beats-nav button:nth-child(4){opacity:1;border-color:currentColor}
 html:not(.live) .beats-nav{display:none}
+.live .screen{grid-column:2;grid-row:1;align-self:center;justify-self:center;width:min(100%,640px);margin:0;opacity:0;visibility:hidden;transform:scale(.78) rotate(-5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1),visibility 0s .5s}
+.live .screen.tall{width:auto}
+.live .screen.tall video,.live .screen.tall img{height:min(70svh,620px);width:auto}
+.live .chapter[data-beat="4"] .screen{opacity:1;visibility:visible;transform:rotate(-1.5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1)}
 @media (max-width:760px){
-  .live .stage{grid-template-columns:1fr;padding-top:42svh;align-content:start}
-  .live .copy{gap:10px;align-content:start}
+  .live .stage{grid-template-columns:1fr;padding-top:39svh;align-content:start}
+  .live .copy{gap:9px;align-content:start}
   .live .beats{min-height:0}
-  .live .screen{position:absolute;top:66px;left:var(--gutter);right:var(--gutter);width:auto;grid-column:auto;grid-row:auto}
-  .live .screen video,.live .screen img{max-height:34svh;object-fit:contain}
-  .claim{font-size:clamp(1.7rem,7.6vw,2.5rem)}
-  body{font-size:1rem}
-  .work li{padding:6px 0}
+  .claim{font-size:clamp(1.6rem,7.2vw,2.4rem)}
+  .work li{padding:5px 0}
+  .fig b{font-size:1.45rem}
+  .figs{gap:8px 22px}
+  .live .screen{position:absolute;top:62px;left:var(--gutter);right:var(--gutter);width:auto;grid-column:auto;grid-row:auto;justify-self:auto}
+  .live .screen video,.live .screen img{max-height:32svh;object-fit:contain}
+  .live .screen.tall{left:50%;right:auto;translate:-50% 0}
+  .live .screen.tall video,.live .screen.tall img{height:32svh}
 }
 
-/* the route: experience as a flight path */
-.route{position:relative;z-index:3;background:var(--air);padding:110px var(--gutter) 120px}
-.live .route{background:none}
-.route-head{max-width:640px;display:grid;gap:12px;margin-bottom:72px}
-.route h2,.notes h2,.finale h2{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.4rem,6vw,5rem);line-height:.95;letter-spacing:-.03em}
-.route-map{position:relative;display:grid;gap:64px}
+/* experience: a flight path, then strengths */
+.route-map{position:relative;display:grid;gap:56px}
 .route-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .route-map .ghost{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:2 9;stroke-linecap:round;opacity:.35}
 .route-map .flown{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
 .route-map .plane{fill:var(--ink)}
 html:not(.live) .route-map .plane{display:none}
-.stop{position:relative;width:min(46%,520px);display:grid;gap:8px}
+.stop{position:relative;width:min(46%,520px);display:grid;gap:6px}
 .stop:nth-child(even){margin-left:auto}
 .stop .pin{position:absolute;top:10px;width:18px;height:18px;border-radius:50%;border:3px solid var(--ink);background:var(--air);transition:background .3s,transform .4s cubic-bezier(.3,2.2,.5,1)}
 .stop:nth-child(odd) .pin{left:calc(100% + 5vw)}
 .stop:nth-child(even) .pin{right:calc(100% + 5vw)}
 .stop.reached .pin{background:var(--accent);transform:scale(1.5)}
 .stop .when{font-size:.92rem;font-weight:600}
-.stop h3{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.02;letter-spacing:-.02em}
+.stop h3{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.04;letter-spacing:-.02em}
 .stop .org{font-weight:600}
-.stop p.did{max-width:48ch}
-.stop .more{justify-self:start;font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.chip{border:1.5px solid var(--ink);border-radius:14px;padding:8px 14px;line-height:1.15;transition:background .3s,transform .5s cubic-bezier(.3,2.4,.5,1)}
-.chip b{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:1.35rem;letter-spacing:-.01em;display:block}
+.chip{border:1.5px solid var(--ink);border-radius:14px;padding:7px 13px;line-height:1.15;transition:background .3s,transform .5s cubic-bezier(.3,2.4,.5,1)}
+.chip b{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:1.3rem;letter-spacing:-.01em;display:block}
 .chip span{font-size:.85rem}
 .stop.reached .chip{background:var(--accent);transform:rotate(var(--tilt,-1.5deg)) scale(1.04)}
 .stop.reached .chip:nth-child(even){--tilt:1.5deg}
+.stop details{margin-top:4px}
+.stop summary{cursor:pointer;font-weight:600;font-size:.95rem;width:max-content;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;list-style:none}
+.stop summary::-webkit-details-marker{display:none}
+.stop details p{max-width:48ch;margin-top:8px}
+.stop .more{font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;margin-top:8px}
 @media (max-width:760px){
-  .route-map{gap:48px}
-  .stop,.stop:nth-child(even){width:auto;margin-left:0;padding-left:44px}
+  .route-map{gap:44px}
+  .stop,.stop:nth-child(even){width:auto;margin-left:0;padding-left:42px}
   .stop:nth-child(n) .pin{left:4px;right:auto}
 }
-
-/* the newsletter, as a small blog */
-.notes{position:relative;z-index:3;background:var(--paper);padding:100px var(--gutter) 110px;display:grid;gap:44px}
-.live .notes{background:none}
-.notes-head{max-width:640px;display:grid;gap:12px;justify-items:start}
-.notes-head .pill{background:var(--ink);color:var(--fog);border-color:var(--ink);padding:10px 20px;font-size:1rem}
-.notes-head .pill:hover{transform:scale(1.05) rotate(-1deg)}
-.eps{display:grid;max-width:980px}
-.eps a{display:grid;grid-template-columns:3.2em minmax(0,1fr) auto;gap:6px 22px;align-items:baseline;padding:18px 14px;border-top:1.5px solid color-mix(in srgb,var(--ink) 25%,transparent);border-radius:14px;text-decoration:none;transition:background .2s,padding .25s,transform .35s cubic-bezier(.3,2,.5,1)}
-.eps a:hover,.eps a:focus-visible{background:var(--accent);padding-left:26px;transform:rotate(-.6deg)}
-.eps .no{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;font-variant-numeric:tabular-nums}
-.eps .ti{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.7rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
-.eps .da{font-size:.92rem;opacity:.8;white-space:nowrap}
-@media (max-width:600px){.eps a{grid-template-columns:2.6em minmax(0,1fr)}.eps .da{grid-column:2}}
-
-/* landing: strengths, then ways to say hello */
-.finale{position:relative;z-index:3;background:var(--ink);color:var(--fog);padding:110px var(--gutter) 80px;display:grid;gap:64px}
-.live .finale{background:none}
-.finale .sub{opacity:.75;margin-top:10px}
-.skills{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px 56px;align-items:start}
+.good{display:grid;gap:26px;border-top:1.5px solid var(--line);padding-top:48px}
+.skills{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px 56px;align-items:start}
 .skill-list{display:grid}
-.skill-list button{text-align:left;font-family:var(--display);font-weight:300;font-size:clamp(1.35rem,2.9vw,2.4rem);line-height:1.12;letter-spacing:-.02em;padding:12px 0;border-top:1.5px solid color-mix(in srgb,var(--fog) 25%,transparent);opacity:.55;transition:opacity .25s,font-weight .25s,color .25s}
+.skill-list button{font-family:var(--display);font-weight:300;font-size:clamp(1.25rem,2.6vw,2.1rem);line-height:1.12;letter-spacing:-.02em;padding:11px 0;border-top:1.5px solid var(--line);opacity:.6;transition:opacity .25s,font-weight .25s}
 .skill-list button:hover{opacity:.9}
-.skill-list button[aria-pressed="true"]{opacity:1;font-weight:700;color:var(--marigold)}
-.proof{position:sticky;top:90px;display:grid;gap:10px}
+.skill-list button[aria-pressed="true"]{opacity:1;font-weight:750}
+.proof{display:grid;gap:8px}
 .proof p{opacity:.75;font-size:.95rem}
-.proof button{display:flex;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--fog) 9%,transparent);transition:background .2s,color .2s,transform .2s}
-.proof button:hover{background:var(--accent);color:var(--ink);transform:translateX(6px)}
+.proof button{display:flex;justify-content:space-between;gap:16px;width:100%;padding:13px 16px;border-radius:14px;background:color-mix(in srgb,var(--ink) 7%,transparent);transition:background .2s,transform .2s}
+.proof button:hover{background:var(--accent);transform:translateX(6px)}
 .proof button b{font-weight:600}
 .proof button span{font-family:var(--display);font-weight:700;white-space:nowrap}
-.hello{display:grid;gap:26px;border-top:1.5px solid color-mix(in srgb,var(--fog) 25%,transparent);padding-top:48px}
-.ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.way{display:grid;gap:6px;align-content:space-between;min-height:150px;text-align:left;text-decoration:none;padding:18px;border-radius:20px;background:color-mix(in srgb,var(--fog) 9%,transparent);transition:background .2s,color .2s,transform .35s cubic-bezier(.3,2,.5,1)}
+@media (max-width:760px){.skills{grid-template-columns:1fr}}
+
+/* say hello */
+.ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:1100px}
+.way{display:grid;gap:6px;align-content:space-between;min-height:150px;text-decoration:none;padding:18px;border-radius:20px;background:color-mix(in srgb,#fff 55%,transparent);transition:background .2s,transform .35s cubic-bezier(.3,2,.5,1)}
 .way b{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.05;letter-spacing:-.02em}
 .way span{font-size:.92rem;opacity:.85;overflow-wrap:anywhere}
-.way:hover{background:var(--accent);color:var(--ink);transform:translateY(-6px) rotate(var(--tilt,-1.5deg))}
+.way:hover{background:var(--accent);transform:translateY(-6px) rotate(var(--tilt,-1.5deg))}
 .way:nth-child(even){--tilt:1.5deg}
-.way.first{background:var(--marigold);color:var(--ink)}
-.also{font-size:.95rem;opacity:.8}
+.way.first{background:var(--ink);color:var(--fog)}
+.way.first:hover{background:var(--ink)}
+.also{font-size:.95rem}
 @media (max-width:900px){.ways{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:760px){.skills{grid-template-columns:1fr}.proof{position:static}}
 @media (max-width:420px){.ways{grid-template-columns:1fr}.way{min-height:0}}
-
-/* index overlay */
-.index{position:fixed;inset:0;z-index:20;background:var(--ink);color:var(--fog);overflow-y:auto;padding:76px var(--gutter) 40px;display:none}
-.index[open]{display:block}
-.index .close{position:fixed;top:14px;right:var(--gutter)}
-.index li button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 20px;align-items:baseline;width:100%;text-align:left;padding:14px 12px;border-top:1.5px solid color-mix(in srgb,var(--fog) 22%,transparent);border-radius:10px;transition:background .15s,color .15s,padding .2s}
-.index li button:hover,.index li button:focus-visible{background:var(--accent);color:var(--ink);padding-left:24px}
-.index .t{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.3rem,3.4vw,2.4rem);line-height:1.05;letter-spacing:-.02em}
-.index .f{font-family:var(--display);font-weight:700;font-size:clamp(1rem,2vw,1.5rem);white-space:nowrap}
-.index .p{grid-column:1/-1;font-size:.92rem;opacity:.8}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -232,77 +273,88 @@ html:not(.live) .route-map .plane{display:none}
 
 <header class="bar">
   <button class="name" id="home"><svg class="mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#FFC531"/><g fill="none" stroke="#17183F" stroke-linecap="round" stroke-linejoin="round"><path d="M39 25v15c0 8-5 13-12 13-5 0-8-3-9-7" stroke-width="5.5"/><path d="M39 7l9 19-9-5-9 5z" fill="#17183F" stroke-width="2.5"/></g><g fill="#17183F"><circle cx="17" cy="38" r="2.6"/><circle cx="19" cy="30.500" r="2"/><circle cx="23" cy="24.500" r="1.400"/></g></svg>Jayasaagar C</button>
-  <div class="right">
-    <span class="status" id="status" aria-live="polite"></span>
-    <button class="pill" id="openIndex" aria-haspopup="dialog">Explore</button>
-  </div>
+  <nav class="seg tabs" id="tabs" aria-label="Sections">
+    <button data-view="work">Work</button>
+    <button data-view="experience">Experience</button>
+    <button data-view="writing">Writing</button>
+    <button data-view="hello">Say hello</button>
+  </nav>
 </header>
 
 <main>
-  <section class="hero" id="top">
-    <div class="hero-inner">
-      <h1>Jayasaagar Chandrashekar</h1>
-      <p class="lead">I build AI products, dashboards and campaigns for the person on the other side of the screen.</p>
-      <p class="how">Pick a project and watch the mess resolve. Or scroll: the projects come first, then the route that got me here.</p>
-      <div class="launch" id="launch"></div>
-      <p class="keys">Use <kbd>←</kbd> <kbd>→</kbd> to jump around. Click anywhere to scatter the dots.</p>
+  <section class="view" id="v-work">
+    <div class="home" id="homeBlock">
+      <div class="hero">
+        <div class="hero-inner">
+          <h1>Jayasaagar Chandrashekar</h1>
+          <p class="lead">I build AI products, dashboards and campaigns for the person on the other side of the screen.</p>
+        </div>
+      </div>
+      <div class="picker">
+        <h2 class="h">Two ways in</h2>
+        <div class="ways-in" id="lenses"></div>
+      </div>
+      <div class="all">
+        <h2 class="h">Or browse every project</h2>
+        <div class="seg" id="cats" aria-label="Filter projects"></div>
+        <div class="rows" id="projectRows"></div>
+      </div>
     </div>
+    <div id="paths"></div>
+    <div id="stories"></div>
   </section>
 
-  <div id="stories"></div>
-
-  <section class="route" id="route">
-    <div class="route-head">
-      <h2>The route so far</h2>
-      <p>My college RC aircraft club placed third in the world, so a plane felt right. Follow it from the first runway to where I am now.</p>
+  <section class="view" id="v-experience" hidden>
+    <div class="head">
+      <h2 class="h">The route so far</h2>
+      <p class="sub">My college RC aircraft club placed third in the world, so a plane felt right. Scroll to fly it from the first runway to now.</p>
     </div>
     <ol class="route-map" id="routeMap"></ol>
-  </section>
-
-  <section class="notes" id="writing">
-    <div class="notes-head">
-      <h2>Exploring AI</h2>
-      <p>My monthly LinkedIn newsletter. A personal review of anything in AI that I have tried and tested, written for anyone finding their way into the space.</p>
-      <a class="pill" href="https://www.linkedin.com/newsletters/7440519183827689472/" target="_blank" rel="noopener">Subscribe on LinkedIn</a>
-    </div>
-    <div class="eps" id="eps"></div>
-  </section>
-
-  <section class="finale" id="good-at">
-    <div>
-      <h2>What I'm good at</h2>
-      <p class="sub">Pick one to see the work that proves it.</p>
-    </div>
-    <div class="skills">
-      <div class="skill-list" id="skillList"></div>
-      <div class="proof" id="proof"></div>
-    </div>
-    <div class="hello" id="hello">
-      <h2>Pick a way to say hello</h2>
-      <div class="ways">
-        <a class="way first" href="https://www.linkedin.com/in/jayasaagarc/" target="_blank" rel="noopener"><b>Message me on LinkedIn</b><span>The fastest way to reach me</span></a>
-        <a class="way" style="--accent:var(--mint)" href="https://calendly.com/jayasaagarc/connect-with-me" target="_blank" rel="noopener"><b>Book a call</b><span>Choose a time on my calendar</span></a>
-        <button class="way" style="--accent:var(--sky)" id="copyMail"><b>Copy my email</b><span id="mailText">jayasaagar21@gmail.com</span></button>
-        <a class="way" style="--accent:var(--coral)" href="https://drive.google.com/file/d/1H3mGTUalnbOy2q2mX3WgpuSxf6C5OmU-/view?usp=sharing" target="_blank" rel="noopener"><b>Read my résumé</b><span>The one-page version of all this</span></a>
+    <div class="good">
+      <div class="head">
+        <h2 class="h">What I'm good at</h2>
+        <p class="sub">Pick one to see the work that proves it.</p>
       </div>
-      <p class="also">Also on <a href="https://github.com/jayasaagar21" target="_blank" rel="noopener">GitHub</a>, and I write the <a href="https://www.linkedin.com/newsletters/7440519183827689472/" target="_blank" rel="noopener">Exploring AI</a> newsletter.</p>
+      <div class="skills">
+        <div class="skill-list" id="skillList"></div>
+        <div class="proof" id="proof"></div>
+      </div>
     </div>
+  </section>
+
+  <section class="view" id="v-writing" hidden>
+    <div class="head">
+      <h2 class="h">Exploring AI</h2>
+      <p class="sub">My monthly LinkedIn newsletter. A personal review of anything in AI that I have tried and tested.</p>
+      <a class="pill solid" href="https://www.linkedin.com/newsletters/7440519183827689472/" target="_blank" rel="noopener">Subscribe on LinkedIn</a>
+    </div>
+    <div class="rows numbered" id="eps"></div>
+  </section>
+
+  <section class="view" id="v-hello" hidden>
+    <div class="head">
+      <h2 class="h">Pick a way to say hello</h2>
+      <p class="sub">Is there someone on the other side of your product who is still stuck? I would like to hear about them.</p>
+    </div>
+    <div class="ways">
+      <a class="way first" href="https://www.linkedin.com/in/jayasaagarc/" target="_blank" rel="noopener"><b>Message me on LinkedIn</b><span>The fastest way to reach me</span></a>
+      <a class="way" style="--accent:#6FE3B0" href="https://calendly.com/jayasaagarc/connect-with-me" target="_blank" rel="noopener"><b>Book a call</b><span>Choose a time on my calendar</span></a>
+      <button class="way" style="--accent:#7CC6FF" id="copyMail"><b>Copy my email</b><span id="mailText">jayasaagar21@gmail.com</span></button>
+      <a class="way" style="--accent:#FF9079" href="https://drive.google.com/file/d/1H3mGTUalnbOy2q2mX3WgpuSxf6C5OmU-/view?usp=sharing" target="_blank" rel="noopener"><b>Read my résumé</b><span>The one-page version</span></a>
+    </div>
+    <p class="also">Also on <a href="https://github.com/jayasaagar21" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 </main>
 
-<div class="index" id="index" role="dialog" aria-modal="true" aria-label="Explore">
-  <button class="pill close" id="closeIndex">Close</button>
-  <ul id="indexList"></ul>
-</div>
-
-<noscript><p style="padding:24px">This portfolio needs JavaScript to show its stories.</p></noscript>
+<noscript><p style="padding:90px 24px">This portfolio needs JavaScript to show its stories.</p></noscript>
 
 <script>
 /* ------------------------------------------------------------------
-   PROJECTS. To add one, copy a block and edit it.
+   PROJECTS. To add one, copy a block and edit it, then list its id in
+   PATHS below so it shows up on the launch or go-to-market path.
    shape: text the dots resolve into ("$1M+", "24/7"), or one of
-          "clock" | "bars" | "trend" | "play" | "plane"
-   links: [label, url] pairs. The first is the main button.
+          "clock" | "bars" | "trend" | "play" | "house" | "leaf" | "atom"
+   links: [label, url] pairs.   video/poster: optional files in media/.
 ------------------------------------------------------------------- */
 const STORIES = [
   { id:"standup-ai", name:"Standup AI", kind:"AI meeting intelligence, built at Gnanalytica. Product lead.", shape:"clock",
@@ -311,53 +363,92 @@ const STORIES = [
     problem:"Teams lost hours repeating status updates, and still left the room without clear owners or follow-through.",
     work:["A brief before every meeting, so people walk in prepared","A live agenda that keeps the room on track and captures decisions","Proposed action items you confirm, sent on to Slack and Linear"],
     figs:[["Hours to minutes","meeting time"],["Live","task assignment"]],
-    lesson:"The best meeting tool respects people's time and leaves everyone knowing what happens next.",
-    video:"media/standup.mp4", poster:"media/standup.jpg", videoNote:"Six minutes inside the working product, from sign-in to the knowledge graph.",
+    video:"media/standup.mp4", poster:"media/standup.jpg", videoNote:"Six minutes inside the working product.",
     links:[["Visit Standup AI","https://standup.gnanalytica.com"]] },
-
-  { id:"exec-dashboard", name:"Executive Analytics Dashboard for Campaigns", kind:"Campaign and lead intelligence. Product manager.", shape:"bars",
-    person:"For the leader waiting on a report",
-    was:"Many reports, no answer.", now:"From many reports to decisions.",
-    problem:"Executives waited on analysts to turn raw campaign and lead reports into decisions. The insight arrived too late to use.",
-    work:["Collects eight exports: ads, organic social, GA4, Search Console, invoices and CRM","Joins the sources that share a key and explains what changed in plain words","Turns an insight into action: email the owner, book the meeting, track the follow-up"],
-    figs:[["Days to minutes","reporting cycle"],["8 sources","in one view"]],
-    lesson:"People adopt a dashboard when the first screen answers their question.",
-    video:"media/dashboard.mp4", poster:"media/dashboard.jpg", videoNote:"The end-to-end run: collect, connect, visualise, explain, act, ask.",
-    links:[["Open the dashboard","https://lnkd.in/e4khpJAE"]] },
 
   { id:"valytica", name:"Valytica", kind:"AI property valuation for India, built at Gnanalytica. AI product manager.", shape:"house",
     person:"For the property valuer buried in documents",
     was:"Valuation reports, built by hand.", now:"Documents in, report out.",
     problem:"A valuer assembles each report by hand from deeds, site visits and government records. It is slow, and the checking never ends.",
-    work:["AI that reads the property documents and drafts the valuation report","Valuation, compliance and report generation managed in one place","Owned the product cycle: problem definition, pricing, testing and launch"],
-    figs:[["End to end","from documents to finished report"]],
-    links:[["Watch the demo","https://youtu.be/Iu3BZY6boU0"]] },
+    work:["Reads the deed and proposes each field, with every figure traceable to its clause","Pulls the state's land and registration portals into one verification list","A site-visit checklist, then fair market, realisable and distress values worked out"],
+    figs:[["End to end","from sale deed to valuation"]],
+    video:"media/valytica.mp4", poster:"media/valytica.jpg", videoNote:"Five minutes: one case from sale deed to valuation.",
+    links:[["Watch on YouTube","https://youtu.be/Iu3BZY6boU0"]] },
 
-  { id:"reach", name:"Device-commerce marketplace", kind:"The adoption story. Built at REACH for T-Mobile and other clients. Technical product owner.", shape:"9/10",
+  { id:"first-principles", name:"First Principles Studio", kind:"A voice-first studio for testing ideas from first principles.", shape:"atom",
+    person:"For the founder with an idea and nobody to argue with",
+    was:"An idea, untested.", now:"Pulled apart, scored, decided.",
+    problem:"Ideas get built before anyone checks the physics, the market or the customer. By the time the gaps show, the money is spent.",
+    work:["Pick an expert, from physicist to regulator, and talk the idea through by voice or text","A Scribe sorts every statement into facts, assumptions and open questions, and draws the block diagram","Market, product and customer fit, a RICE score, a pursue-or-not verdict and a report"],
+    figs:[["7 experts","from physicist to regulator"],["1 verdict","pursue or not, with the reasons"]],
+    video:"media/principles.mp4", poster:"media/principles.jpg", videoNote:"One idea, a solar cold box for street vendors, taken through the studio.",
+    links:[["See the code","https://github.com/jayasaagar21/first-principles-studio"]] },
+
+  { id:"exec-dashboard", name:"Executive Analytics Dashboard", kind:"Campaign and lead intelligence. Product manager.", shape:"bars",
+    person:"For the leader waiting on a report",
+    was:"Many reports, no answer.", now:"From many reports to decisions.",
+    problem:"Executives waited on analysts to turn raw campaign and lead reports into decisions. The insight arrived too late to use.",
+    work:["Collects eight exports: ads, organic social, GA4, Search Console, invoices and CRM","Joins the sources that share a key and explains what changed in plain words","Turns an insight into action: email the owner, book the meeting, track the follow-up"],
+    figs:[["Days to minutes","reporting cycle"],["8 sources","in one view"]],
+    video:"media/dashboard.mp4", poster:"media/dashboard.jpg", videoNote:"The end-to-end run: collect, connect, explain, act.",
+    links:[["Open the dashboard","https://lnkd.in/e4khpJAE"]] },
+
+  { id:"pascal", name:"Pascal", kind:"An app for a sustainable lifestyle, with a two-sided events marketplace.", shape:"leaf",
+    person:"For anyone trying to use less plastic",
+    was:"Plastic you never see.", now:"Every gram, counted.",
+    problem:"Most of us have no idea how much plastic we get through in a day, so there is nothing to act on. And an events marketplace only works when both sides show up.",
+    work:["Log everyday items by size. Each one already has its weight in grams","An impact ring and weekly charts show where you stand","Alternative products, events and a community help you switch"],
+    figs:[["200 to 300","active users, no paid acquisition"],["65%","repeat engagement"],["Week 1","broke even on event revenue"]],
+    video:"media/pascal.mp4", poster:"media/pascal.jpg", tall:true, videoNote:"The whole app in 79 seconds.",
+    links:[] },
+
+  { id:"reach", name:"Device-commerce marketplace", kind:"The adoption story. Built at REACH for T-Mobile and other clients.", shape:"9/10",
     person:"For the clients who had to launch it to their own customers",
     was:"Built is not the same as adopted.", now:"9 of 10 clients adopted it.",
     problem:"The growth problem was attach and adoption, not build. A device-commerce platform only pays off if the installed client base launches it to their own customers.",
-    work:["Ran the adoption side of the platform launch across the client base","Grew the base: retained all six accounts including T-Mobile, and won three new ones","Built reporting that made problems visible before clients escalated"],
-    figs:[["9 of 10","existing clients adopted"],["$1M+","marketplace revenue in three months"],["95","NPS"],["+40%","recurring revenue"],["+20%","organisational revenue"]],
-    lesson:"90% client satisfaction held through a major service disruption.",
+    work:["Ran the adoption side of the platform launch across the client base","Retained all six accounts including T-Mobile, and won three new ones","Built reporting that made problems visible before clients escalated"],
+    figs:[["9 of 10","clients adopted"],["$1M+","revenue in three months"],["95","NPS"],["+40%","recurring revenue"]],
     links:[] },
 
-  { id:"ankura", name:"Growth engine for a $16M housing account", kind:"The diagnosis story. Built at Ankura Homes. Growth manager.", shape:"+36%",
+  { id:"ankura", name:"Growth engine for a $16M account", kind:"The diagnosis story. Built at Ankura Homes.", shape:"+36%",
     person:"For seven teams sharing one funnel",
     was:"A funnel nobody could see.", now:"36% more qualified leads.",
     problem:"Seven teams each owned a piece of the funnel, with no shared source of truth. Lead data was fragmented, so nothing downstream could be measured or tested.",
     work:["Rebuilt the lead data and put dashboards on top, before touching conversion","Treated lead quality as the experiment, not the creative","Added health scores and ROI dashboards, so at-risk accounts surfaced before renewal"],
-    figs:[["+36%","qualified leads"],["+80%","lead-query resolution"],["+60%","engagement"],["22%","shorter sales cycle"],["$3M","profit contributed to"]],
-    lesson:"I fixed the measurement layer first. The conversion numbers moved because the funnel became legible.",
+    figs:[["+36%","qualified leads"],["+80%","query resolution"],["22%","shorter sales cycle"],["$3M","profit contributed to"]],
     links:[] },
 
-  { id:"pascal", name:"Pascal", kind:"An app for a sustainable lifestyle.", shape:"leaf",
-    person:"For anyone trying to use less plastic",
-    was:"Plastic you never see.", now:"Every gram, counted.",
-    problem:"Most of us have no idea how much plastic we get through in a day, so there is nothing to act on.",
-    work:["Log everyday items by size. Each one already has its weight in grams","An impact ring and weekly charts show where you stand","Alternative products, events and a community help you switch"],
-    figs:[["155.3 g","logged from three items in the demo"],["79 seconds","to see the whole app"]],
-    links:[["Open the walkthrough","https://claude.ai/artifact/MWPPQ8AJrLcCe4hmiLXS2C"]] },
+  { id:"low-code", name:"Low-code platform, vision to launch", kind:"Built at Replicacia Technologies. Product consultant.", shape:"3",
+    person:"For the first customers of a product that did not exist yet",
+    was:"A vision, and no customers.", now:"Three customers before launch.",
+    problem:"A low-code platform had to earn its first customers before there was a finished product to show them.",
+    work:["Joined the founder's office as an intern and was promoted to full-time","Ran 200+ user feedback cycles to decide what to build","Owned roadmap, pricing and go-to-market from vision to launch"],
+    figs:[["3","customers before launch"],["200+","feedback cycles"]],
+    links:[] },
+
+  { id:"sky", name:"Launch and retention for Sky", kind:"Built at Firstsource for Sky, UK. Product and sales associate.", shape:"85",
+    person:"For the Sky customer on the line",
+    was:"NPS sat at 30.", now:"NPS reached 85.",
+    problem:"Sky's offerings needed the right customer segments at launch, and a team that could keep customers once they joined.",
+    work:["Defined the launch and go-to-market strategy for Sky's offerings","Picked the target segments and structured adoption to speed up revenue","Mentored a 200-member team on retention, conversion and resolution"],
+    figs:[["30 to 85","NPS"],["200","people mentored"]],
+    links:[] },
+
+  { id:"rhm", name:"Voice AI and CRM for RHM", kind:"Built for RHM Innovations, representing the University at Buffalo. Business consultant.", shape:"+30%",
+    person:"For the customer waiting on a reply",
+    was:"A reply took two days.", now:"Now it is instant.",
+    problem:"Customers waited two days for a response before they could buy, and the purchase cycle dragged.",
+    work:["Developed a Voice AI and a website marketplace","Launched HubSpot CRM with go-to-market automations","Shortened the purchase cycle and lifted purchases"],
+    figs:[["+30%","monthly sales"],["2 days to instant","response time"]],
+    links:[] },
+
+  { id:"housing-copilot", name:"Student Housing Co-pilot", kind:"AI chatbot. Product manager.", shape:"24/7",
+    person:"For the student lost between portals",
+    was:"Housing help meant portals, emails and queues.", now:"Now it is one conversation.",
+    problem:"Students pieced together housing and campus logistics from scattered portals, emails and office hours.",
+    work:["Guidance on options, deadlines and requirements","Campus questions answered in plain language","Open when offices are closed or queues are long"],
+    figs:[["24/7","student access"],["1","place to ask"]],
+    links:[["Watch the demo","https://vimeo.com/1130603790"]] },
 
   { id:"cleaning-data", name:"Cleaning Data", kind:"Data quality and ML preprocessing. Research paper and prototype.", shape:"trend",
     person:"For the analyst handed messy data",
@@ -367,48 +458,73 @@ const STORIES = [
     figs:[["Selected","abstract, International Business Analytics"]],
     links:[["Open the project","https://lnkd.in/gWZ3qm-Y"],["Try the prototype","https://sofidr.jayasaagarc.com/"],["Read the paper","https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing"]] },
 
-  { id:"housing-copilot", name:"Next Gen Student Housing Co-pilot", kind:"AI chatbot. Product manager.", shape:"24/7",
-    person:"For the student lost between portals",
-    was:"Housing help meant portals, emails and queues.", now:"Now it is one conversation.",
-    problem:"Students pieced together housing and campus logistics from scattered portals, emails and office hours.",
-    work:["Guidance on options, deadlines and requirements","Campus questions answered in plain language","Open when offices are closed or queues are long"],
-    figs:[["24/7","student access"],["1","place to ask"]],
-    lesson:"It should feel like asking a helpful upperclassman, not filing a ticket.",
-    links:[["Watch the demo","https://vimeo.com/1130603790"]] },
-
   { id:"cricket-chips", name:"Cricket Chips commercial", kind:"Brand film for an FMCG snack. Creative and marketing.", shape:"play",
     person:"For the gym-goer who skips the eco aisle",
     was:"Eco snacks felt niche and preachy.", now:"Fuel your body. Save the planet.",
     problem:"Eco-conscious snacks often fail to connect with mainstream fitness audiences.",
     work:["Cinematic film craft for a snack category","Sustainability woven into the product story","Cricket Chips framed as performance snacking"],
-    figs:[["15 seconds","from gym to mountain trail"],["Premium","positioning for an eco snack"]],
-    lesson:"Great FMCG creative starts with the person holding the product.",
+    figs:[["15 seconds","from gym to mountain trail"]],
     video:"media/chips.mp4", poster:"media/chips.jpg", videoNote:"The full ad. Fifteen seconds.",
     links:[] }
 ];
 
-/* EXPERIENCE, oldest first. figs: [number, label] pairs. */
+/* PATHS: the two ways in. Each step is [project id, the stage it shows, why it is on this path].
+   A step with only a string is a group heading. */
+const PATHS = {
+  launch:{ short:"Product launch", title:"Launching products, 0 to 1", shape:"rocket", accent:"#FFC531",
+    teaser:"From an empty page to a product people sign up for. Six launches, in the order I learned them.",
+    lead:"Every launch starts the same way for me: find one person who is stuck, prove they care, then ship the smallest thing that gets them unstuck.",
+    tags:["Problem discovery","User research","MVP scoping","Pricing","Launch planning","AI product design"],
+    steps:[
+      ["low-code","Listen before building","My first 0 to 1: a platform that had to win customers before it existed."],
+      ["pascal","Prove both sides show up","A consumer app and a two-sided marketplace, launched with no paid budget."],
+      ["housing-copilot","Design for one person","An AI product scoped around one student's worst week."],
+      ["standup-ai","Ship something that works","Taken from an idea to a product teams sign in to and use."],
+      ["valytica","Build for one profession","An AI product shaped around how valuers actually work."],
+      ["first-principles","Test the next idea in the open","My newest build: a studio for pulling ideas apart before they cost money."]
+    ] },
+  growth:{ short:"Go to market", title:"Going to market and growing", shape:"growth", accent:"#6FE3B0",
+    teaser:"Marketing that gets a product adopted, and the data work that shows what is working.",
+    lead:"Launch is the start. Growth is getting the right people to adopt it, and being able to see, in the data, why they did.",
+    tags:["Segmentation","Positioning","CRM and automation","Adoption","Funnel analytics","Dashboards"],
+    steps:[
+      "Marketing and go-to-market",
+      ["sky","Segment and launch","Picked the segments and shaped adoption for a telecom launch."],
+      ["reach","Drive adoption","Getting an installed client base to launch a new platform."],
+      ["rhm","Automate the follow-up","The CRM and automations that cut response time to instant."],
+      ["pascal","Grow by word of mouth","Hundreds of active users with no paid acquisition."],
+      ["cricket-chips","Tell the story","Positioning and creative for a hard-to-sell category."],
+      "Data-driven analytics",
+      ["ankura","Fix the measurement first","The diagnosis story: make the funnel visible, then improve it."],
+      ["exec-dashboard","Turn reports into decisions","Campaign and lead data, turned into the next action."],
+      ["cleaning-data","Trust the data underneath","Research on making messy data reliable enough to decide on."]
+    ] }
+};
+const PATH_KEYS=Object.keys(PATHS);
+const stepsOf=k=>PATHS[k].steps.filter(s=>Array.isArray(s));
+
+/* EXPERIENCE, oldest first. figs: [number, label] pairs. story: a project id to link to. */
 const ROUTE = [
-  { id:"vtu", when:"2014 to 2018", title:"Engineering student", org:"Visvesvaraya Technological University, India",
+  { id:"vtu", when:"2014 to 2018", title:"Engineering student", org:"Visvesvaraya Technological University",
     did:"Flew RC aircraft with Avions Club, captained the basketball team, acted in the theatre team and joined Toastmasters. Won best research paper presentation at national level.",
     figs:[["3rd","in the world, RC competitions"]] },
-  { id:"sky", when:"Dec 2020 to May 2022", title:"Product and sales associate, Sky", org:"Firstsource, India (UK client)",
-    did:"Defined the launch and go-to-market strategy for Sky's offerings, and mentored a 200-member team on retention, conversion and resolution. On the side, coordinated a volunteer hospital queue system during COVID-19.",
-    figs:[["30 to 85","NPS"],["200","people mentored"],["15+","hospitals reached"]] },
-  { id:"low-code", when:"Jun 2022 to May 2023", title:"Product consultant, low-code platform", org:"Replicacia Technologies, India",
-    did:"Joined the founder's office as an intern and was promoted to full-time. Owned the non-technical product lifecycle from vision to launch: roadmap, pricing and go-to-market.",
+  { id:"sky", story:"sky", when:"2020 to 2022", title:"Product and sales associate", org:"Firstsource, for Sky",
+    did:"Defined the launch and go-to-market strategy for Sky's offerings, and mentored a 200-member team on retention, conversion and resolution. On the side, coordinated a volunteer hospital queue system across 15+ hospitals during COVID-19.",
+    figs:[["30 to 85","NPS"],["200","people mentored"]] },
+  { id:"low-code", story:"low-code", when:"2022 to 2023", title:"Product consultant", org:"Replicacia Technologies",
+    did:"Joined the founder's office as an intern and was promoted to full-time. Owned a low-code platform's non-technical lifecycle from vision to launch: roadmap, pricing and go-to-market.",
     figs:[["200+","user feedback cycles"],["3","customers before launch"]] },
-  { id:"reach", story:"reach", when:"Jun 2023 to Jul 2024", title:"Technical product owner", org:"REACH, India (US client)",
-    did:"Ran the adoption side of a device-commerce platform launch for T-Mobile and other clients, and shipped the analytics and reporting behind it.",
-    figs:[["9 of 10","clients adopted"],["$1M+","revenue in three months"],["+40%","recurring revenue"]] },
-  { id:"ankura", story:"ankura", when:"Sep 2024 to May 2025", title:"Growth manager", org:"Ankura Homes, India",
+  { id:"reach", story:"reach", when:"2023 to 2024", title:"Technical product owner", org:"REACH, for T-Mobile and others",
+    did:"Ran the adoption side of a device-commerce platform launch, and shipped the analytics and reporting behind it.",
+    figs:[["9 of 10","clients adopted"],["$1M+","revenue in three months"]] },
+  { id:"ankura", story:"ankura", when:"2024 to 2025", title:"Growth manager", org:"Ankura Homes",
     did:"Fixed the measurement layer of a seven-team funnel on a $16M account, then owned activation and retention with health scores and ROI dashboards.",
-    figs:[["+36%","qualified leads"],["22%","shorter sales cycle"],["$3M","profit contributed to"]] },
-  { id:"rhm", when:"Jun 2025 to Jun 2026", title:"Master's in Business Analytics, and business consultant", org:"RHM Innovations, and University at Buffalo, USA",
-    did:"Studied AI in the enterprise, predictive analytics and product management. Represented the university at RHM, building a Voice AI, a website marketplace and a HubSpot CRM with go-to-market automations.",
+    figs:[["+36%","qualified leads"],["$3M","profit contributed to"]] },
+  { id:"rhm", story:"rhm", when:"2025 to 2026", title:"Business consultant, and a master's", org:"RHM Innovations, University at Buffalo",
+    did:"Studied business analytics at Buffalo. Represented the university at RHM, building a Voice AI, a website marketplace and a HubSpot CRM with go-to-market automations.",
     figs:[["+30%","monthly sales"],["2 days to instant","response time"]] },
-  { id:"gnanalytica", story:"valytica", when:"Nov 2025 to now", title:"AI product manager", org:"Gnanalytica, remote",
-    did:"Led product and go-to-market for an AI startup: Standup AI, the Workshop Dashboard and Valytica. Owned the full cycle from problem definition to pricing, testing and launch.",
+  { id:"gnanalytica", story:"valytica", when:"2025 to now", title:"AI product manager", org:"Gnanalytica",
+    did:"Lead product and go-to-market for an AI startup: Standup AI, the Workshop Dashboard and Valytica. Own the full cycle from problem definition to pricing, testing and launch.",
     figs:[["3","AI products taken to market"]] }
 ];
 
@@ -423,100 +539,164 @@ const EPISODES = [
 ];
 
 const SKILLS = [
-  ["AI products people can try", ["standup-ai","valytica","exec-dashboard","housing-copilot","rhm"]],
-  ["Dashboards that answer the first question", ["exec-dashboard","cleaning-data","reach"]],
-  ["Go-to-market and CRM automation", ["rhm","ankura","sky","gnanalytica"]],
-  ["Listening to users before building", ["low-code","housing-copilot","standup-ai"]],
-  ["Owning a product from roadmap to revenue", ["reach","ankura","low-code"]],
-  ["Brand stories that sell", ["cricket-chips","ankura"]]
+  ["Launching products from 0 to 1", ["low-code","pascal","standup-ai","valytica"]],
+  ["Go-to-market and CRM automation", ["sky","reach","rhm"]],
+  ["Dashboards that answer the first question", ["exec-dashboard","ankura","cleaning-data"]],
+  ["Listening to users before building", ["low-code","housing-copilot","first-principles"]],
+  ["Growing without a paid budget", ["pascal","reach"]],
+  ["Brand stories that sell", ["cricket-chips","pascal"]]
 ];
 
 const ACCENTS = ["#FFC531","#6FE3B0","#7CC6FF","#FF9079","#BDA8FF"];
-const FOG="#E6E8EC", INK="#17183F", AIR="#D5EBFF", PAPER="#E7DFFF";
+const VIEW_BG = {work:"#E6E8EC",experience:"#D5EBFF",writing:"#E7DFFF",hello:"#FFE7A3"};
+const INK="#17183F";
 const $ = (s,r=document)=>r.querySelector(s);
 const el = (tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
 const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LIVE = !matchMedia("(prefers-reduced-motion: reduce)").matches;
-const smoothly = LIVE?"smooth":"auto";
 if(LIVE) document.documentElement.classList.add("live");
 
-/* ---------- build the projects ---------- */
-const storiesEl=$("#stories"), chapters=[], launch=$("#launch");
-let heroHover=null;
+let view="work", story=-1, path=null, lensOpen=null, hoverStory=null, hoverLens=null;
+
+/* ---------- projects: home list, story chapters ---------- */
+const storiesEl=$("#stories"), chapters=[], rowsEl=$("#projectRows"), catsEl=$("#cats");
+const inPath=(id,k)=>stepsOf(k).some(s=>s[0]===id);
 STORIES.forEach((s,i)=>{
   s.accent=ACCENTS[i%ACCENTS.length];
-  const c=el("section","chapter"+(s.video?" has-video":"")); c.id=s.id; c.style.setProperty("--accent",s.accent); c.dataset.beat="1";
+  const c=el("section","chapter"+(s.video?" has-video":"")); c.id="story-"+s.id; c.hidden=true;
+  c.style.setProperty("--accent",s.accent); c.dataset.beat="1";
+  const nav=s.video?[[".03","The person"],[".3","The work"],[".58","The change"],[".88","See it"]]:[[".04","The person"],[".38","The work"],[".8","The change"]];
   c.innerHTML=`
   <div class="stage"><div class="copy">
+    <div class="rail" hidden></div>
     <h2 class="pname">${esc(s.name)}<span>${esc(s.kind)}</span></h2>
+    <p class="why" hidden></p>
     <p class="claim"><span class="was">${esc(s.was)}</span><span class="now">${esc(s.now)}</span></p>
-    <div class="beats-nav">${s.video?`<button data-f=".03">The person</button><button data-f=".3">The work</button><button data-f=".58">The change</button><button data-f=".88">See it</button>`:`<button data-f=".04">The person</button><button data-f=".38">The work</button><button data-f=".8">The change</button>`}</div>
+    <div class="beats-nav">${nav.map(n=>`<button data-f="${n[0]}">${n[1]}</button>`).join("")}</div>
     <div class="beats">
       <div class="beat"><p class="who">${esc(s.person)}</p><p>${esc(s.problem)}</p></div>
       <div class="beat"><ul class="work">${s.work.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
-      <div class="beat">
-        <div class="figs">${s.figs.map(f=>`<div class="fig"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div>
-        ${s.lesson?`<p class="lesson">${esc(s.lesson)}</p>`:""}
-      </div>
-      ${s.video?`<div class="beat"><p>${esc(s.videoNote)}</p><button class="playbtn">Play the demo</button><p class="credit">Nothing loads until you press play.</p></div>`:""}
+      <div class="beat"><div class="figs">${s.figs.map(f=>`<div class="fig"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div></div>
+      ${s.video?`<div class="beat"><p>${esc(s.videoNote)}</p><p class="note">Nothing loads until you press play.</p></div>`:""}
     </div>
-    <p class="links">${s.links.map(l=>`<a class="pill" href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join("")}</p>
-  </div>${s.video?`<div class="screen"><button class="poster" aria-label="Play the ${esc(s.name)} demo"><img src="${esc(s.poster)}" alt="" loading="lazy"><i></i></button></div>`:""}</div>`;
-  const pb=c.querySelector(".playbtn"), scr=c.querySelector(".screen");
-  if(pb) pb.onclick=scr.firstChild.onclick=()=>{
-    let vid=scr.querySelector("video");
-    if(!vid){vid=document.createElement("video");vid.src=s.video;vid.poster=s.poster;vid.controls=true;vid.playsInline=true;scr.replaceChildren(vid)}
-    vid.play().catch(()=>{});
-  };
-  c.querySelectorAll(".beats-nav button").forEach(b=>b.onclick=()=>goStory(i,+b.dataset.f));
+    <p class="links">${s.video?`<button class="pill solid playbtn">Play the demo</button>`:""}${s.links.map((l,k)=>`<a class="pill${!s.video&&k===0?" solid":""}" href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join("")}<button class="pill nextbtn"></button></p>
+    <button class="back"></button>
+  </div>${s.video?`<div class="screen${s.tall?" tall":""}"><button class="poster" aria-label="Play the ${esc(s.name)} demo"><img src="${esc(s.poster)}" alt="" loading="lazy"><i></i></button></div>`:""}</div>`;
+  const scr=c.querySelector(".screen");
+  if(scr){
+    const play=()=>{
+      let vid=scr.querySelector("video");
+      if(!vid){vid=document.createElement("video");vid.src=s.video;vid.poster=s.poster;vid.controls=true;vid.playsInline=true;scr.replaceChildren(vid)}
+      vid.play().catch(()=>{});
+      if(LIVE&&c.dataset.beat!=="4") toBeat(i,.88);
+    };
+    c.querySelector(".playbtn").onclick=scr.firstChild.onclick=play;
+  }
+  c.querySelectorAll(".beats-nav button").forEach(b=>b.onclick=()=>toBeat(i,+b.dataset.f));
   storiesEl.appendChild(c); chapters.push(c);
 
-  const b=el("button","pill",esc(s.name)); b.style.setProperty("--accent",s.accent);
-  b.onmouseenter=b.onfocus=()=>heroHover=i; b.onmouseleave=b.onblur=()=>heroHover=null;
-  b.onclick=()=>{heroHover=null;goStory(i)}; launch.appendChild(b);
+  const r=el("button",null,`<span class="ti">${esc(s.name)}</span><span class="fi">${esc(s.figs[0][0])}</span><span class="de">${esc(s.now)}</span>`);
+  r.style.setProperty("--accent",s.accent); r.dataset.paths=PATH_KEYS.filter(k=>inPath(s.id,k)).join(" ");
+  r.onmouseenter=r.onfocus=()=>hoverStory=i; r.onmouseleave=r.onblur=()=>hoverStory=null;
+  r.onclick=()=>go(s.id); rowsEl.appendChild(r);
+});
+function toBeat(i,frac){
+  const c=chapters[i]; if(!LIVE||c.hidden) return;
+  scrollTo({top:c.getBoundingClientRect().top+scrollY+frac*(c.offsetHeight-innerHeight),behavior:"smooth"});
+}
+[["All",""],...PATH_KEYS.map(k=>[PATHS[k].short,k])].forEach(([label,k],n)=>{
+  const b=el("button",null,esc(label)); b.setAttribute("aria-pressed",n===0);
+  b.onclick=()=>{
+    [...catsEl.children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+    [...rowsEl.children].forEach(r=>r.hidden=!!k&&!r.dataset.paths.split(" ").includes(k));
+  };
+  catsEl.appendChild(b);
 });
 
-function goStory(i,frac=.04){
-  const c=chapters[i]; if(!c) return;
-  if(!LIVE){c.scrollIntoView();return}
-  const top=c.getBoundingClientRect().top+scrollY+frac*(c.offsetHeight-innerHeight);
-  scrollTo({top,behavior:"smooth"});
-}
-const goTo=id=>{const e=document.getElementById(id);if(e)scrollTo({top:e.getBoundingClientRect().top+scrollY-90,behavior:smoothly})};
-$("#home").onclick=()=>scrollTo({top:0,behavior:smoothly});
+/* ---------- the two paths: home cards and path pages ---------- */
+const lensesEl=$("#lenses"), pathsEl=$("#paths"), pathEls={};
+PATH_KEYS.forEach(k=>{
+  const P=PATHS[k], steps=stepsOf(k);
+  const card=el("button","lens",`<span class="k">${esc(P.short)} · ${steps.length} projects</span><b>${esc(P.title)}</b><p>${esc(P.teaser)}</p><span class="go">Follow this path</span>`);
+  card.style.setProperty("--accent",P.accent);
+  card.onmouseenter=card.onfocus=()=>hoverLens=k; card.onmouseleave=card.onblur=()=>hoverLens=null;
+  card.onclick=()=>go(k); lensesEl.appendChild(card);
 
-/* ---------- build the route ---------- */
+  const sec=el("div","path"); sec.hidden=true; sec.style.setProperty("--accent",P.accent);
+  sec.innerHTML=`<div class="path-head"><button class="back">All projects</button><h2 class="h">${esc(P.title)}</h2><p class="lead">${esc(P.lead)}</p><div class="tags">${P.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div><button class="pill solid start">Start the story</button></div><div class="rows numbered"></div><div class="path-foot"></div>`;
+  sec.querySelector(".back").onclick=()=>go("work");
+  sec.querySelector(".start").onclick=()=>go(k+"-"+steps[0][0]);
+  const rows=sec.querySelector(".rows"); let n=0;
+  P.steps.forEach(st=>{
+    if(!Array.isArray(st)){rows.appendChild(el("p","group-label",esc(st)));return}
+    const si=STORIES.findIndex(x=>x.id===st[0]), s=STORIES[si]; n++;
+    const r=el("button",null,`<span class="no">${n}</span><span class="ti">${esc(st[1])}</span><span class="fi">${esc(s.figs[0][0])}</span><span class="de"><b>${esc(s.name)}.</b> ${esc(st[2])}</span>`);
+    r.style.setProperty("--accent",s.accent);
+    r.onmouseenter=r.onfocus=()=>hoverStory=si; r.onmouseleave=r.onblur=()=>hoverStory=null;
+    r.onclick=()=>go(k+"-"+st[0]); rows.appendChild(r);
+  });
+  const other=PATH_KEYS.find(x=>x!==k);
+  sec.querySelector(".path-foot").innerHTML=`<button class="pill solid">Start the story</button><button class="pill">Switch to ${esc(PATHS[other].short.toLowerCase())}</button>`;
+  const [s1,s2]=sec.querySelectorAll(".path-foot .pill");
+  s1.onclick=()=>go(k+"-"+steps[0][0]); s2.onclick=()=>go(other);
+  pathsEl.appendChild(sec); pathEls[k]=sec;
+});
+
+/* fill a story's path rail, back and next buttons for how it was opened */
+function dressStory(i){
+  const c=chapters[i], s=STORIES[i], rail=c.querySelector(".rail"), why=c.querySelector(".why");
+  const back=c.querySelector(".back"), next=c.querySelector(".nextbtn");
+  if(path){
+    const steps=stepsOf(path), at=steps.findIndex(x=>x[0]===s.id), P=PATHS[path];
+    rail.hidden=false; why.hidden=false; why.textContent=steps[at][1]+". "+steps[at][2];
+    rail.innerHTML=`<span>${esc(P.short)} · ${at+1} of ${steps.length}</span><span class="dots">${steps.map((x,j)=>`<button aria-label="${esc(STORIES.find(y=>y.id===x[0]).name)}"${j===at?' aria-current="step"':""}></button>`).join("")}</span>`;
+    rail.querySelectorAll(".dots button").forEach((b,j)=>b.onclick=()=>go(path+"-"+steps[j][0]));
+    back.textContent="Back to the path"; back.onclick=()=>go(path);
+    if(at<steps.length-1){const nx=STORIES.find(y=>y.id===steps[at+1][0]);next.textContent="Next: "+nx.name;next.onclick=()=>go(path+"-"+nx.id)}
+    else{const other=PATH_KEYS.find(x=>x!==path);
+      if(path===PATH_KEYS[0]){next.textContent="Next path: "+PATHS[other].short.toLowerCase();next.onclick=()=>go(other)}
+      else{next.textContent="Next: my experience";next.onclick=()=>go("experience")}}
+  }else{
+    rail.hidden=true; why.hidden=true;
+    back.textContent="All projects"; back.onclick=()=>go("work");
+    const nx=STORIES[(i+1)%STORIES.length]; next.textContent="Next: "+nx.name; next.onclick=()=>go(nx.id);
+  }
+}
+
+/* ---------- experience ---------- */
 const routeMap=$("#routeMap"), stops=[];
 ROUTE.forEach((r,i)=>{
   const li=el("li","stop"+(LIVE?"":" reached")); li.id="stop-"+r.id; li.style.setProperty("--accent",ACCENTS[i%ACCENTS.length]);
-  li.innerHTML=`<span class="pin"></span><p class="when">${esc(r.when)}</p><h3>${esc(r.title)}</h3><p class="org">${esc(r.org)}</p><p class="did">${esc(r.did)}</p>
-  <div class="chips">${r.figs.map(f=>`<div class="chip"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div>${r.story?`<button class="more">See the full story</button>`:""}`;
-  if(r.story) li.querySelector(".more").onclick=()=>goStory(STORIES.findIndex(s=>s.id===r.story));
+  li.innerHTML=`<span class="pin"></span><p class="when">${esc(r.when)}</p><h3>${esc(r.title)}</h3><p class="org">${esc(r.org)}</p>
+  <div class="chips">${r.figs.map(f=>`<div class="chip"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div>
+  <details><summary>What I did</summary><p>${esc(r.did)}</p>${r.story?`<button class="more">See the full story</button>`:""}</details>`;
+  if(r.story) li.querySelector(".more").onclick=()=>go(r.story);
+  li.querySelector("details").addEventListener("toggle",()=>buildRoute());
   routeMap.appendChild(li); stops.push(li);
 });
-const NS="http://www.w3.org/2000/svg";
-const svg=document.createElementNS(NS,"svg"); svg.setAttribute("aria-hidden","true");
+const svg=document.createElementNS("http://www.w3.org/2000/svg","svg"); svg.setAttribute("aria-hidden","true");
 svg.innerHTML=`<path class="ghost"/><path class="flown"/><path class="plane" d="M-14,-10 L16,0 L-14,10 L-7,0 Z"/>`;
 routeMap.appendChild(svg);
 const ghost=svg.children[0], flown=svg.children[1], plane=svg.children[2];
 let routeLen=0, stopLens=[];
 function buildRoute(){
+  if(view!=="experience") return;
   const box=routeMap.getBoundingClientRect();
   const pts=stops.map(s=>{const d=s.querySelector(".pin").getBoundingClientRect();return[d.left+d.width/2-box.left,d.top+d.height/2-box.top]});
-  let d=`M${pts[0][0]},${pts[0][1]-70} L${pts[0][0]},${pts[0][1]}`;
+  let d=`M${pts[0][0]},${pts[0][1]-60} L${pts[0][0]},${pts[0][1]}`;
   for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],m=(a[1]+b[1])/2;d+=` C${a[0]},${m} ${b[0]},${m} ${b[0]},${b[1]}`}
-  const last=pts[pts.length-1]; d+=` L${last[0]},${last[1]+90}`;
+  const last=pts[pts.length-1]; d+=` L${last[0]},${last[1]+80}`;
   ghost.setAttribute("d",d); flown.setAttribute("d",d);
   routeLen=flown.getTotalLength();
   stopLens=pts.map(p=>{let lo=0,hi=routeLen;for(let k=0;k<22;k++){const m=(lo+hi)/2;flown.getPointAtLength(m).y<p[1]?lo=m:hi=m}return lo});
   flown.style.strokeDasharray=routeLen;
   flown.style.strokeDashoffset=LIVE?routeLen:0;
 }
-buildRoute(); addEventListener("resize",buildRoute);
+addEventListener("resize",buildRoute);
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(buildRoute);
 function flyRoute(H){
+  if(!routeLen) return;
   const r=routeMap.getBoundingClientRect();
-  if(r.bottom<-200||r.top>H+200) return;
   const prog=Math.min(1,Math.max(0,(H*.55-r.top)/r.height)), L=prog*routeLen;
   flown.style.strokeDashoffset=routeLen-L;
   const a=flown.getPointAtLength(L), b=flown.getPointAtLength(Math.min(routeLen,L+3));
@@ -525,44 +705,29 @@ function flyRoute(H){
   stops.forEach((s,i)=>s.classList.toggle("reached",stopLens[i]<=L+6));
 }
 
-/* ---------- newsletter ---------- */
-EPISODES.forEach((e,i)=>{
-  const a=el("a",null,`<span class="no">${e[0]}</span><span class="ti">${esc(e[1])}</span><span class="da">${esc(e[2])}</span>`);
-  a.href=e[3];a.target="_blank";a.rel="noopener";a.setAttribute("aria-label",`Episode ${e[0]}: ${e[1]}`);
-  a.style.setProperty("--accent",ACCENTS[i%ACCENTS.length]);$("#eps").appendChild(a);
-});
-
-/* ---------- explore overlay ---------- */
-const indexEl=$("#index"), indexList=$("#indexList");
-function addIndex(t,f,p,accent,fn){
-  const li=el("li"), b=el("button",null,`<span class="t">${esc(t)}</span><span class="f">${esc(f)}</span><span class="p">${esc(p)}</span>`);
-  b.style.setProperty("--accent",accent); b.onclick=()=>{closeIndex();fn()}; li.appendChild(b); indexList.appendChild(li);
-}
-STORIES.forEach((s,i)=>addIndex(s.name,s.figs[0][0],s.person,s.accent,()=>goStory(i)));
-addIndex("The route so far",ROUTE.length+" stops","Experience and results, flown by a small plane","#D5EBFF",()=>goTo("route"));
-addIndex("Exploring AI",EPISODES.length+" episodes","My monthly newsletter on AI I have tried and tested","#E7DFFF",()=>goTo("writing"));
-addIndex("What I'm good at",SKILLS.length+" strengths","Each one linked to the work that proves it",ACCENTS[4],()=>goTo("good-at"));
-addIndex("Say hello","4 ways","LinkedIn, a call, email or my résumé",ACCENTS[0],()=>goTo("hello"));
-function openIndex(){indexEl.setAttribute("open","");document.body.style.overflow="hidden";$("#closeIndex").focus()}
-function closeIndex(){indexEl.removeAttribute("open");document.body.style.overflow="";$("#openIndex").focus()}
-$("#openIndex").onclick=openIndex; $("#closeIndex").onclick=closeIndex;
-
-/* ---------- what I'm good at ---------- */
 const skillList=$("#skillList"), proof=$("#proof");
 function pickSkill(k){
   [...skillList.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===k));
   proof.innerHTML=`<p>Shown in ${SKILLS[k][1].length} places</p>`;
   SKILLS[k][1].forEach((id,n)=>{
-    const i=STORIES.findIndex(s=>s.id===id), r=ROUTE.find(x=>x.id===id), it=STORIES[i]||r; if(!it) return;
-    const b=el("button",null,`<b>${esc(it.name||it.org.split(",")[0])}</b><span>${esc(it.figs[0][0])}</span>`);
+    const s=STORIES.find(x=>x.id===id), r=ROUTE.find(x=>x.id===id), it=s||r; if(!it) return;
+    const b=el("button",null,`<b>${esc(it.name||it.org)}</b><span>${esc(it.figs[0][0])}</span>`);
     b.style.setProperty("--accent",it.accent||ACCENTS[n%ACCENTS.length]);
-    b.onclick=()=>i>=0?goStory(i,.8):goTo("stop-"+id); proof.appendChild(b);
+    b.onclick=()=>{ if(s) go(id); else document.getElementById("stop-"+id).scrollIntoView({behavior:LIVE?"smooth":"auto",block:"center"}) };
+    proof.appendChild(b);
   });
 }
-SKILLS.forEach((sk,k)=>{const b=el("button",null,esc(sk[0]));b.onclick=()=>pickSkill(k);b.onmouseenter=()=>pickSkill(k);skillList.appendChild(b)});
+SKILLS.forEach((sk,k)=>{const b=el("button",null,esc(sk[0]));b.onclick=()=>pickSkill(k);skillList.appendChild(b)});
 pickSkill(0);
 
-/* ---------- copy email ---------- */
+/* ---------- writing ---------- */
+EPISODES.forEach((e,i)=>{
+  const a=el("a",null,`<span class="no">${e[0]}</span><span class="ti">${esc(e[1])}</span><span class="fi"></span><span class="de">${esc(e[2])}</span>`);
+  a.href=e[3];a.target="_blank";a.rel="noopener";a.setAttribute("aria-label",`Episode ${e[0]}: ${e[1]}`);
+  a.style.setProperty("--accent",ACCENTS[i%ACCENTS.length]);$("#eps").appendChild(a);
+});
+
+/* ---------- say hello ---------- */
 $("#copyMail").onclick=async()=>{
   const label=$("#copyMail b");
   try{await navigator.clipboard.writeText("jayasaagar21@gmail.com");label.textContent="Copied"}
@@ -570,28 +735,64 @@ $("#copyMail").onclick=async()=>{
   setTimeout(()=>label.textContent="Copy my email",2200);
 };
 
-/* ---------- keyboard ---------- */
-let current=-1; const n=STORIES.length;
+/* ---------- routing: one view at a time, kept in the URL hash ----------
+   #work #experience #writing #hello · #launch #growth (a path) ·
+   #<project> or #launch-<project> / #growth-<project> (a story, inside a path) */
+const VIEWS=["work","experience","writing","hello"];
+function go(name){ if(location.hash.slice(1)===name) render(); else location.hash=name; }
+function render(){
+  const h=location.hash.slice(1);
+  path=null; lensOpen=null; let sid=h;
+  if(PATH_KEYS.includes(h)) lensOpen=h;
+  else for(const k of PATH_KEYS) if(h.startsWith(k+"-")&&inPath(h.slice(k.length+1),k)){path=k;sid=h.slice(k.length+1)}
+  const si=STORIES.findIndex(s=>s.id===sid);
+  story=lensOpen?-1:si;
+  view=(story>=0||lensOpen)?"work":VIEWS.includes(h)?h:"work";
+  hoverStory=null; hoverLens=null;
+  VIEWS.forEach(v=>document.getElementById("v-"+v).hidden=v!==view);
+  $("#homeBlock").hidden=story>=0||!!lensOpen;
+  PATH_KEYS.forEach(k=>pathEls[k].hidden=k!==lensOpen);
+  chapters.forEach((c,i)=>{c.hidden=i!==story; if(c.hidden){const v=c.querySelector("video"); if(v)v.pause()}});
+  if(story>=0) dressStory(story);
+  [...$("#tabs").children].forEach(b=>b.dataset.view===view?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+  if(!LIVE) document.body.style.backgroundColor=story>=0?STORIES[story].accent:lensOpen?PATHS[lensOpen].accent:VIEW_BG[view];
+  scrollTo(0,0);
+  if(view==="experience") requestAnimationFrame(buildRoute);
+}
+[...$("#tabs").children].forEach(b=>b.onclick=()=>go(b.dataset.view));
+$("#home").onclick=()=>go("work");
+addEventListener("hashchange",render);
+render();
+
 addEventListener("keydown",e=>{
-  if(e.key==="Escape"&&indexEl.hasAttribute("open")){closeIndex();return}
-  if(indexEl.hasAttribute("open")||e.metaKey||e.ctrlKey||e.altKey) return;
-  if(e.key==="ArrowRight"){e.preventDefault();current<n-1?goStory(current+1):current===n-1?goTo("route"):goTo("good-at")}
-  if(e.key==="ArrowLeft"){e.preventDefault();current>n?goTo("route"):current===n?goStory(n-1):current>0?goStory(current-1):scrollTo({top:0,behavior:smoothly})}
+  if(story<0||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==="Escape"){go(path||"work");return}
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft") return;
+  e.preventDefault();
+  const d=e.key==="ArrowRight"?1:-1;
+  if(path){const st=stepsOf(path),at=st.findIndex(x=>x[0]===STORIES[story].id),j=at+d; if(j>=0&&j<st.length) go(path+"-"+st[j][0]); return}
+  const n=STORIES.length; go(STORIES[(story+d+n)%n].id);
 });
 
 /* ---------- the dot field ---------- */
 if(LIVE){
   const cv=$("#field"), ctx=cv.getContext("2d");
-  const N=innerWidth<760?750:1500, S=220;
+  const N=innerWidth<760?700:1500, S=220;
   let W=0,H=0,dpr=1;
   const rnd=(()=>{let a=20261115;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}})();
   const P=Array.from({length:N},()=>({sx:rnd(),sy:rnd(),ph:rnd(),r:1.3+rnd()*1.5,x:0,y:0,vx:0,vy:0}));
 
   const SHAPES={
+    rocket(c){c.beginPath();c.moveTo(S*.5,S*.03);c.quadraticCurveTo(S*.74,S*.22,S*.68,S*.62);c.lineTo(S*.32,S*.62);c.quadraticCurveTo(S*.26,S*.22,S*.5,S*.03);c.fill();
+      c.beginPath();c.moveTo(S*.33,S*.42);c.lineTo(S*.14,S*.74);c.lineTo(S*.34,S*.66);c.fill();
+      c.beginPath();c.moveTo(S*.67,S*.42);c.lineTo(S*.86,S*.74);c.lineTo(S*.66,S*.66);c.fill();
+      c.beginPath();c.moveTo(S*.39,S*.68);c.quadraticCurveTo(S*.5,S*1,S*.61,S*.68);c.fill();
+      c.globalCompositeOperation="destination-out";c.beginPath();c.arc(S*.5,S*.3,S*.07,0,7);c.fill();c.globalCompositeOperation="source-over"},
+    growth(c){[.24,.42,.62].forEach((v,i)=>c.fillRect(S*(.08+i*.22),S*(.97-v),S*.15,S*v));c.lineWidth=S*.065;c.lineCap=c.lineJoin="round";c.beginPath();c.moveTo(S*.06,S*.52);c.lineTo(S*.36,S*.3);c.lineTo(S*.54,S*.4);c.lineTo(S*.86,S*.12);c.stroke();c.beginPath();c.moveTo(S*.97,S*.03);c.lineTo(S*.95,S*.3);c.lineTo(S*.7,S*.06);c.closePath();c.fill()},
+    atom(c){c.lineWidth=S*.045;c.save();c.translate(S/2,S/2);for(const a of [0,Math.PI/3,-Math.PI/3]){c.beginPath();c.ellipse(0,0,S*.45,S*.16,a,0,7);c.stroke()}c.beginPath();c.arc(0,0,S*.08,0,7);c.fill();c.restore()},
     person(c){c.beginPath();c.arc(S/2,S*.3,S*.17,0,7);c.fill();c.beginPath();c.ellipse(S/2,S*.98,S*.36,S*.44,0,Math.PI,0);c.fill()},
     house(c){c.beginPath();c.moveTo(S*.5,S*.06);c.lineTo(S*.97,S*.46);c.lineTo(S*.84,S*.46);c.lineTo(S*.84,S*.94);c.lineTo(S*.58,S*.94);c.lineTo(S*.58,S*.66);c.lineTo(S*.42,S*.66);c.lineTo(S*.42,S*.94);c.lineTo(S*.16,S*.94);c.lineTo(S*.16,S*.46);c.lineTo(S*.03,S*.46);c.closePath();c.fill()},
     leaf(c){c.beginPath();c.moveTo(S*.14,S*.9);c.quadraticCurveTo(S*.02,S*.2,S*.9,S*.08);c.quadraticCurveTo(S*.96,S*.92,S*.14,S*.9);c.fill();c.globalCompositeOperation="destination-out";c.lineWidth=S*.035;c.beginPath();c.moveTo(S*.16,S*.88);c.lineTo(S*.72,S*.3);c.stroke();c.globalCompositeOperation="source-over"},
-    plane(c){c.beginPath();c.moveTo(S*.04,S*.42);c.lineTo(S*.96,S*.1);c.lineTo(S*.6,S*.92);c.lineTo(S*.46,S*.58);c.closePath();c.fill()},
     clock(c){c.lineWidth=S*.075;c.lineCap="round";c.beginPath();c.arc(S/2,S/2,S*.41,0,7);c.stroke();c.beginPath();c.moveTo(S/2,S/2);c.lineTo(S/2,S*.24);c.moveTo(S/2,S/2);c.lineTo(S*.66,S*.58);c.stroke()},
     bars(c){[.28,.48,.7,.96].forEach((h,i)=>c.fillRect(S*(.06+i*.235),S*(1-h),S*.17,S*h))},
     trend(c){c.lineWidth=S*.085;c.lineCap=c.lineJoin="round";c.beginPath();c.moveTo(S*.07,S*.86);c.lineTo(S*.32,S*.6);c.lineTo(S*.5,S*.7);c.lineTo(S*.86,S*.2);c.stroke();c.beginPath();c.arc(S*.86,S*.2,S*.1,0,7);c.fill()},
@@ -610,12 +811,13 @@ if(LIVE){
   }
   const FORM={hero:sample("person")};
   STORIES.forEach(s=>FORM[s.id]=sample(s.shape));
+  PATH_KEYS.forEach(k=>FORM["path-"+k]=sample(PATHS[k].shape));
 
   function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
   resize();addEventListener("resize",resize);
   P.forEach(p=>{p.x=p.sx*W;p.y=p.sy*H});
   const ptr={x:-999,y:-999}; let burst=null;
-  addEventListener("pointermove",e=>{ptr.x=e.clientX;ptr.y=e.clientY});
+  addEventListener("pointermove",e=>{if(e.pointerType!=="touch"){ptr.x=e.clientX;ptr.y=e.clientY}});
   addEventListener("pointerleave",()=>{ptr.x=ptr.y=-999});
   addEventListener("pointerdown",e=>{burst={x:e.clientX,y:e.clientY}});
 
@@ -623,55 +825,38 @@ if(LIVE){
   const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
   const rgb=a=>`rgb(${a.map(Math.round).join(",")})`;
   const clamp=x=>x<0?0:x>1?1:x, smooth=(a,b,x)=>{x=clamp((x-a)/(b-a));return x*x*(3-2*x)};
-  const cFog=hex(FOG), cInk=hex(INK), cGold=hex(ACCENTS[0]), cAir=hex(AIR), cPaper=hex(PAPER);
-  let bg=cFog.slice(), dot=cInk.slice();
-  const hero=$("#top"), route=$("#route"), notes=$("#writing"), finale=$("#good-at"), statusEl=$("#status"), root=document.documentElement;
-  let lastStatus="", playing=null;
+  const cFog=hex(VIEW_BG.work), cInk=hex(INK);
+  let bg=cFog.slice(), playing=null;
 
   function frame(now){
-    const tm=now/1000, mid=H/2;
-    let form=FORM.hero, f=0, tBg=cFog, tDot=cInk, dark=false, status="", quiet=false, want=null;
-    current=-1;
-    const fr=finale.getBoundingClientRect(), rr=route.getBoundingClientRect();
-    if(fr.top<H*.9){ tBg=cInk; tDot=cGold; dark=true; quiet=true; current=n+1; status="What I'm good at"; }
-    else if(notes.getBoundingClientRect().top<H*.75){ tBg=cPaper; quiet=true; current=n; status="Exploring AI"; }
-    else if(rr.top<H*.75){ tBg=cAir; quiet=true; current=n; status="The route so far"; }
-    else{
-      const hr=hero.getBoundingClientRect();
-      if(hr.bottom>mid){
-        f=1-smooth(.05,.6,-hr.top/hr.height);
-        if(heroHover!=null){form=FORM[STORIES[heroHover].id];tBg=mix(cFog,hex(STORIES[heroHover].accent),.75*f)}
-      }
-      else for(let i=0;i<chapters.length;i++){
-        const c=chapters[i], r=c.getBoundingClientRect();
-        if(r.top<=mid&&r.bottom>mid){
-          const p=clamp(-r.top/(r.height-H));
-          const v=!!STORIES[i].video;
-          const g=smooth(v?.22:.3,v?.46:.62,p)*(1-smooth(.95,1,p));
-          f=v?g*(1-smooth(.68,.76,p)):g;
-          form=FORM[STORIES[i].id]; tBg=mix(cFog,hex(STORIES[i].accent),g);
-          c.style.setProperty("--t",g.toFixed(3));
-          const beat=v?(p<.18?"1":p<.42?"2":p<.72?"3":"4"):(p<.24?"1":p<.56?"2":"3");
-          if(c.dataset.beat!==beat)c.dataset.beat=beat;
-          if(g>.5)c.dataset.after="";else delete c.dataset.after;
-          if(beat==="4")want=c.querySelector("video");
-          current=i; status=`Project ${i+1} of ${n}: ${STORIES[i].name}`;
-          break;
-        }
-      }
-    }
-    flyRoute(H);
+    const tm=now/1000;
+    let form=FORM.hero, f=0, tBg=hex(VIEW_BG[view]), quiet=view!=="work", want=null;
+    if(view==="work"&&story<0){
+      f=1-smooth(0,.45,scrollY/H);
+      if(lensOpen){form=FORM["path-"+lensOpen];tBg=mix(cFog,hex(PATHS[lensOpen].accent),.55)}
+      if(hoverLens){form=FORM["path-"+hoverLens];f=Math.max(f,.92);tBg=mix(cFog,hex(PATHS[hoverLens].accent),.6)}
+      else if(hoverStory!=null){form=FORM[STORIES[hoverStory].id];f=Math.max(f,.92);tBg=mix(cFog,hex(STORIES[hoverStory].accent),.7)}
+    }else if(view==="work"){
+      const c=chapters[story], s=STORIES[story], r=c.getBoundingClientRect();
+      const p=clamp(-r.top/(r.height-H)), v=!!s.video;
+      const g=smooth(v?.22:.3,v?.46:.62,p);
+      f=v?g*(1-smooth(.68,.76,p)):g;
+      form=FORM[s.id]; tBg=mix(cFog,hex(s.accent),Math.max(g,.18));
+      c.style.setProperty("--t",g.toFixed(3));
+      const beat=v?(p<.18?"1":p<.42?"2":p<.72?"3":"4"):(p<.24?"1":p<.56?"2":"3");
+      if(c.dataset.beat!==beat)c.dataset.beat=beat;
+      if(g>.5)c.dataset.after="";else delete c.dataset.after;
+      if(beat==="4")want=c.querySelector("video");
+    }else if(view==="experience") flyRoute(H);
     if(want!==playing){if(playing)playing.pause();playing=want}
-    if(status!==lastStatus){statusEl.textContent=lastStatus=status}
-    if(dark!==root.hasAttribute("data-dark")) dark?root.setAttribute("data-dark",""):root.removeAttribute("data-dark");
-    bg=mix(bg,tBg,.12); dot=mix(dot,tDot,.12);
+    bg=mix(bg,tBg,.12);
     document.body.style.backgroundColor=rgb(bg);
 
     const mobile=W<760;
-    const s=mobile?Math.min(W*.78,H*.31):Math.min(W*.4,H*.62);
-    const bx=mobile?(W-s)/2:W*.53+(W*.43-s)/2, by=mobile?H*.09:(H-s)/2+16;
+    const s=mobile?Math.min(W*.74,H*.28):Math.min(W*.4,H*.62);
+    const bx=mobile?(W-s)/2:W*.53+(W*.43-s)/2, by=mobile?H*.085:(H-s)/2+16;
 
-    ctx.clearRect(0,0,W,H); ctx.fillStyle=rgb(dot);
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=rgb(cInk);
     for(let i=0;i<N;i++){
       const p=P[i];
       const fi=clamp(f*1.35-p.ph*.35), e=fi*fi*(3-2*fi);
@@ -682,7 +867,7 @@ if(LIVE){
       if(d2<16900){const d=Math.sqrt(d2)||1, k=(130-d)/130*2.2;p.vx+=dx/d*k;p.vy+=dy/d*k}
       if(burst){const ux=p.x-burst.x, uy=p.y-burst.y, u=Math.hypot(ux,uy)||1;if(u<340){const k=(340-u)/340*46;p.vx+=ux/u*k;p.vy+=uy/u*k}}
       p.vx*=.8;p.vy*=.8;p.x+=p.vx;p.y+=p.vy;
-      ctx.globalAlpha=quiet?(dark?.35:.16):.22+.78*e;
+      ctx.globalAlpha=quiet?.15:.2+.8*e;
       ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.3);ctx.fill();
     }
     burst=null;
