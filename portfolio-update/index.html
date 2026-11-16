@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jayasaagar Chandrashekar Stories</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2232%22 fill=%22%23FFC531%22/%3E%3Cg fill=%22none%22 stroke=%22%2317183F%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M39 25v15c0 8-5 13-12 13-5 0-8-3-9-7%22 stroke-width=%225.5%22/%3E%3Cpath d=%22M39 7l9 19-9-5-9 5z%22 fill=%22%2317183F%22 stroke-width=%222.5%22/%3E%3C/g%3E%3Cg fill=%22%2317183F%22%3E%3Ccircle cx=%2217%22 cy=%2238%22 r=%222.6%22/%3E%3Ccircle cx=%2219%22 cy=%2230.500%22 r=%222%22/%3E%3Ccircle cx=%2223%22 cy=%2224.500%22 r=%221.400%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one fixed field of dots behind everything. Projects are tall
+   chapters with a pinned stage (words left, dots right) where scrolling pulls
+   the dots from scatter into the result. Then a flight path through the career,
+   flown by a paper plane, and a dark landing strip with ways to say hello. */
+:root{
+  --fog:#E6E8EC;        /* the "before" world */
+  --ink:#17183F;        /* text and dots */
+  --marigold:#FFC531;
+  --mint:#6FE3B0;
+  --sky:#7CC6FF;
+  --coral:#FF9079;
+  --lilac:#BDA8FF;
+  --air:#D5EBFF;
+  --paper:#E7DFFF;      /* behind the newsletter */        /* open sky behind the route */
+  --fg:var(--ink);
+  --display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --gutter:clamp(18px,4.5vw,64px);
+  color-scheme:light;
+}
+html[data-dark]{--fg:var(--fog)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--fog);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.5;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid currentColor;outline-offset:3px;border-radius:4px}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+
+#field{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:none}
+.live #field{display:block}
+
+/* top bar */
+.bar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--gutter);color:var(--fg);transition:color .4s}
+.bar .name{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.mark{width:34px;height:34px;transition:transform .5s cubic-bezier(.3,2,.5,1)}
+.bar .name:hover .mark{transform:rotate(-14deg) scale(1.12)}
+.bar .right{display:flex;align-items:center;gap:18px}
+.bar .status{font-size:.9rem;opacity:.75}
+.pill{display:inline-block;border:1.5px solid currentColor;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.pill:hover{background:var(--ink);color:var(--fog)}
+html[data-dark] .bar .pill:hover,.index .pill:hover{background:var(--fog);color:var(--ink)}
+@media (max-width:700px){.bar .status{display:none}}
+
+/* hero */
+.hero{position:relative;z-index:3;min-height:92svh;display:grid;align-content:center;padding:96px var(--gutter) 64px}
+.hero-inner{max-width:min(47vw,660px);display:grid;gap:22px}
+.hero h1{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.9rem,7.4vw,6.6rem);line-height:.92;letter-spacing:-.035em;text-wrap:balance}
+.hero .lead{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.3vw,1.9rem);line-height:1.2;letter-spacing:-.01em;text-wrap:balance}
+.hero .how{max-width:46ch;opacity:.8}
+.launch{display:flex;flex-wrap:wrap;gap:8px}
+.launch .pill:hover{background:var(--accent);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg)}
+.hero .keys{display:none;font-size:.92rem;opacity:.7}
+.live .hero .keys{display:block}
+kbd{font-family:var(--body);border:1.5px solid currentColor;border-radius:6px;padding:1px 7px;font-size:.85em}
+@media (max-width:760px){
+  .hero-inner{max-width:none}
+  .live .hero{align-content:end;padding-top:46svh}
+}
+
+/* project chapters: static version first (also the reduced-motion version) */
+.chapter{position:relative;background:var(--accent);--t:1}
+.stage{padding:72px var(--gutter);display:grid}
+.copy{max-width:570px;display:grid;gap:18px;align-content:center}
+.pname{font-family:var(--display);font-weight:700;font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1.15;letter-spacing:-.01em}
+.pname span{font-family:var(--body);font-weight:400;font-size:.95rem;letter-spacing:0;opacity:.8;display:block;margin-top:2px}
+.claim{display:grid;font-family:var(--display);font-size:clamp(2.1rem,4.9vw,4.4rem);line-height:.98;letter-spacing:-.03em;font-weight:calc(300 + var(--t) * 500);font-stretch:calc(100% - var(--t) * 22%);text-wrap:balance}
+.claim .was{opacity:.5;font-weight:300;font-stretch:100%}
+.beats-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.95rem;font-weight:600}
+.beats-nav button{padding:4px 0;border-bottom:2.5px solid transparent;opacity:.5;transition:opacity .3s,border-color .3s}
+.beats{display:grid;gap:22px}
+.beat{display:grid;gap:14px;align-content:start}
+.beat p{max-width:50ch}
+.beat .who{font-weight:600}
+.work li{padding:10px 0;border-top:1.5px solid color-mix(in srgb,var(--ink) 22%,transparent);max-width:50ch}
+.work li:last-child{border-bottom:1.5px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+.figs{display:flex;flex-wrap:wrap;gap:14px 34px}
+.fig b{display:block;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(1.7rem,3vw,2.5rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fig span{font-size:.92rem}
+.lesson{font-style:italic}
+.credit{font-size:.9rem;opacity:.75}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.links .pill{background:var(--ink);color:var(--fog);border-color:var(--ink);padding:10px 20px;font-size:1rem}
+.links .pill:hover{transform:scale(1.05) rotate(-1deg)}
+.links .pill+.pill{background:none;color:var(--ink)}
+.screen{position:relative;max-width:640px;margin-top:24px;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:0 30px 60px -22px color-mix(in srgb,var(--ink) 60%,transparent)}
+.screen video,.screen img{display:block;width:100%;height:auto}
+.poster{display:block;position:relative;width:100%}
+.poster i{position:absolute;left:50%;top:50%;translate:-50% -50%;width:78px;height:78px;border-radius:50%;background:var(--marigold);display:grid;place-items:center;transition:scale .3s cubic-bezier(.3,2,.5,1)}
+.poster i::after{content:"";border-left:24px solid var(--ink);border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:7px}
+.poster:hover i{scale:1.15}
+.playbtn{justify-self:start;background:var(--ink);color:var(--fog);border-radius:999px;padding:10px 20px;font-weight:600;transition:transform .2s}
+.playbtn:hover{transform:scale(1.05) rotate(-1deg)}
+
+/* live version: pinned stage, one beat at a time */
+.live .chapter{height:270vh;background:none;--t:0}
+.live .chapter.has-video{height:350vh}
+.live .copy{grid-column:1;grid-row:1}
+.live .screen{grid-column:2;grid-row:1;align-self:center;justify-self:center;width:min(100%,640px);margin:0;opacity:0;visibility:hidden;transform:scale(.78) rotate(-5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1),visibility 0s .5s}
+.live .chapter[data-beat="4"] .screen{opacity:1;visibility:visible;transform:rotate(-1.5deg);transition:opacity .5s,transform .65s cubic-bezier(.3,1.6,.5,1)}
+.live .stage{position:sticky;top:0;height:100svh;z-index:3;padding:84px var(--gutter) 40px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.live .claim>*{grid-area:1/1;transition:opacity .5s,transform .5s,filter .5s}
+.live .claim .was{opacity:1;font-weight:inherit;font-stretch:inherit}
+.live .claim .now{opacity:0;transform:translateY(.35em)}
+.live .chapter[data-after] .was{opacity:0;transform:translateY(-.35em);filter:blur(6px)}
+.live .chapter[data-after] .now{opacity:1;transform:none}
+.live .beats>.beat{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .45s,transform .45s,visibility 0s .45s}
+.live .chapter[data-beat="1"] .beat:nth-child(1),
+.live .chapter[data-beat="2"] .beat:nth-child(2),
+.live .chapter[data-beat="3"] .beat:nth-child(3),
+.live .chapter[data-beat="4"] .beat:nth-child(4){opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
+.live .beats{min-height:13em}
+.chapter[data-beat="1"] .beats-nav button:nth-child(1),
+.chapter[data-beat="2"] .beats-nav button:nth-child(2),
+.chapter[data-beat="3"] .beats-nav button:nth-child(3),
+.chapter[data-beat="4"] .beats-nav button:nth-child(4){opacity:1;border-color:currentColor}
+html:not(.live) .beats-nav{display:none}
+@media (max-width:760px){
+  .live .stage{grid-template-columns:1fr;padding-top:42svh;align-content:start}
+  .live .copy{gap:10px;align-content:start}
+  .live .beats{min-height:0}
+  .live .screen{position:absolute;top:66px;left:var(--gutter);right:var(--gutter);width:auto;grid-column:auto;grid-row:auto}
+  .live .screen video,.live .screen img{max-height:34svh;object-fit:contain}
+  .claim{font-size:clamp(1.7rem,7.6vw,2.5rem)}
+  body{font-size:1rem}
+  .work li{padding:6px 0}
+}
+
+/* the route: experience as a flight path */
+.route{position:relative;z-index:3;background:var(--air);padding:110px var(--gutter) 120px}
+.live .route{background:none}
+.route-head{max-width:640px;display:grid;gap:12px;margin-bottom:72px}
+.route h2,.notes h2,.finale h2{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(2.4rem,6vw,5rem);line-height:.95;letter-spacing:-.03em}
+.route-map{position:relative;display:grid;gap:64px}
+.route-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.route-map .ghost{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:2 9;stroke-linecap:round;opacity:.35}
+.route-map .flown{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.route-map .plane{fill:var(--ink)}
+html:not(.live) .route-map .plane{display:none}
+.stop{position:relative;width:min(46%,520px);display:grid;gap:8px}
+.stop:nth-child(even){margin-left:auto}
+.stop .pin{position:absolute;top:10px;width:18px;height:18px;border-radius:50%;border:3px solid var(--ink);background:var(--air);transition:background .3s,transform .4s cubic-bezier(.3,2.2,.5,1)}
+.stop:nth-child(odd) .pin{left:calc(100% + 5vw)}
+.stop:nth-child(even) .pin{right:calc(100% + 5vw)}
+.stop.reached .pin{background:var(--accent);transform:scale(1.5)}
+.stop .when{font-size:.92rem;font-weight:600}
+.stop h3{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.02;letter-spacing:-.02em}
+.stop .org{font-weight:600}
+.stop p.did{max-width:48ch}
+.stop .more{justify-self:start;font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1.5px solid var(--ink);border-radius:14px;padding:8px 14px;line-height:1.15;transition:background .3s,transform .5s cubic-bezier(.3,2.4,.5,1)}
+.chip b{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:1.35rem;letter-spacing:-.01em;display:block}
+.chip span{font-size:.85rem}
+.stop.reached .chip{background:var(--accent);transform:rotate(var(--tilt,-1.5deg)) scale(1.04)}
+.stop.reached .chip:nth-child(even){--tilt:1.5deg}
+@media (max-width:760px){
+  .route-map{gap:48px}
+  .stop,.stop:nth-child(even){width:auto;margin-left:0;padding-left:44px}
+  .stop:nth-child(n) .pin{left:4px;right:auto}
+}
+
+/* the newsletter, as a small blog */
+.notes{position:relative;z-index:3;background:var(--paper);padding:100px var(--gutter) 110px;display:grid;gap:44px}
+.live .notes{background:none}
+.notes-head{max-width:640px;display:grid;gap:12px;justify-items:start}
+.notes-head .pill{background:var(--ink);color:var(--fog);border-color:var(--ink);padding:10px 20px;font-size:1rem}
+.notes-head .pill:hover{transform:scale(1.05) rotate(-1deg)}
+.eps{display:grid;max-width:980px}
+.eps a{display:grid;grid-template-columns:3.2em minmax(0,1fr) auto;gap:6px 22px;align-items:baseline;padding:18px 14px;border-top:1.5px solid color-mix(in srgb,var(--ink) 25%,transparent);border-radius:14px;text-decoration:none;transition:background .2s,padding .25s,transform .35s cubic-bezier(.3,2,.5,1)}
+.eps a:hover,.eps a:focus-visible{background:var(--accent);padding-left:26px;transform:rotate(-.6deg)}
+.eps .no{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;font-variant-numeric:tabular-nums}
+.eps .ti{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.7rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.eps .da{font-size:.92rem;opacity:.8;white-space:nowrap}
+@media (max-width:600px){.eps a{grid-template-columns:2.6em minmax(0,1fr)}.eps .da{grid-column:2}}
+
+/* landing: strengths, then ways to say hello */
+.finale{position:relative;z-index:3;background:var(--ink);color:var(--fog);padding:110px var(--gutter) 80px;display:grid;gap:64px}
+.live .finale{background:none}
+.finale .sub{opacity:.75;margin-top:10px}
+.skills{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px 56px;align-items:start}
+.skill-list{display:grid}
+.skill-list button{text-align:left;font-family:var(--display);font-weight:300;font-size:clamp(1.35rem,2.9vw,2.4rem);line-height:1.12;letter-spacing:-.02em;padding:12px 0;border-top:1.5px solid color-mix(in srgb,var(--fog) 25%,transparent);opacity:.55;transition:opacity .25s,font-weight .25s,color .25s}
+.skill-list button:hover{opacity:.9}
+.skill-list button[aria-pressed="true"]{opacity:1;font-weight:700;color:var(--marigold)}
+.proof{position:sticky;top:90px;display:grid;gap:10px}
+.proof p{opacity:.75;font-size:.95rem}
+.proof button{display:flex;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--fog) 9%,transparent);transition:background .2s,color .2s,transform .2s}
+.proof button:hover{background:var(--accent);color:var(--ink);transform:translateX(6px)}
+.proof button b{font-weight:600}
+.proof button span{font-family:var(--display);font-weight:700;white-space:nowrap}
+.hello{display:grid;gap:26px;border-top:1.5px solid color-mix(in srgb,var(--fog) 25%,transparent);padding-top:48px}
+.ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.way{display:grid;gap:6px;align-content:space-between;min-height:150px;text-align:left;text-decoration:none;padding:18px;border-radius:20px;background:color-mix(in srgb,var(--fog) 9%,transparent);transition:background .2s,color .2s,transform .35s cubic-bezier(.3,2,.5,1)}
+.way b{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.05;letter-spacing:-.02em}
+.way span{font-size:.92rem;opacity:.85;overflow-wrap:anywhere}
+.way:hover{background:var(--accent);color:var(--ink);transform:translateY(-6px) rotate(var(--tilt,-1.5deg))}
+.way:nth-child(even){--tilt:1.5deg}
+.way.first{background:var(--marigold);color:var(--ink)}
+.also{font-size:.95rem;opacity:.8}
+@media (max-width:900px){.ways{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.skills{grid-template-columns:1fr}.proof{position:static}}
+@media (max-width:420px){.ways{grid-template-columns:1fr}.way{min-height:0}}
+
+/* index overlay */
+.index{position:fixed;inset:0;z-index:20;background:var(--ink);color:var(--fog);overflow-y:auto;padding:76px var(--gutter) 40px;display:none}
+.index[open]{display:block}
+.index .close{position:fixed;top:14px;right:var(--gutter)}
+.index li button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 20px;align-items:baseline;width:100%;text-align:left;padding:14px 12px;border-top:1.5px solid color-mix(in srgb,var(--fog) 22%,transparent);border-radius:10px;transition:background .15s,color .15s,padding .2s}
+.index li button:hover,.index li button:focus-visible{background:var(--accent);color:var(--ink);padding-left:24px}
+.index .t{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:clamp(1.3rem,3.4vw,2.4rem);line-height:1.05;letter-spacing:-.02em}
+.index .f{font-family:var(--display);font-weight:700;font-size:clamp(1rem,2vw,1.5rem);white-space:nowrap}
+.index .p{grid-column:1/-1;font-size:.92rem;opacity:.8}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <button class="name" id="home"><svg class="mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#FFC531"/><g fill="none" stroke="#17183F" stroke-linecap="round" stroke-linejoin="round"><path d="M39 25v15c0 8-5 13-12 13-5 0-8-3-9-7" stroke-width="5.5"/><path d="M39 7l9 19-9-5-9 5z" fill="#17183F" stroke-width="2.5"/></g><g fill="#17183F"><circle cx="17" cy="38" r="2.6"/><circle cx="19" cy="30.500" r="2"/><circle cx="23" cy="24.500" r="1.400"/></g></svg>Jayasaagar C</button>
+  <div class="right">
+    <span class="status" id="status" aria-live="polite"></span>
+    <button class="pill" id="openIndex" aria-haspopup="dialog">Explore</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <h1>Jayasaagar Chandrashekar</h1>
+      <p class="lead">I build AI products, dashboards and campaigns for the person on the other side of the screen.</p>
+      <p class="how">Pick a project and watch the mess resolve. Or scroll: the projects come first, then the route that got me here.</p>
+      <div class="launch" id="launch"></div>
+      <p class="keys">Use <kbd>←</kbd> <kbd>→</kbd> to jump around. Click anywhere to scatter the dots.</p>
+    </div>
+  </section>
+
+  <div id="stories"></div>
+
+  <section class="route" id="route">
+    <div class="route-head">
+      <h2>The route so far</h2>
+      <p>My college RC aircraft club placed third in the world, so a plane felt right. Follow it from the first runway to where I am now.</p>
+    </div>
+    <ol class="route-map" id="routeMap"></ol>
+  </section>
+
+  <section class="notes" id="writing">
+    <div class="notes-head">
+      <h2>Exploring AI</h2>
+      <p>My monthly LinkedIn newsletter. A personal review of anything in AI that I have tried and tested, written for anyone finding their way into the space.</p>
+      <a class="pill" href="https://www.linkedin.com/newsletters/7440519183827689472/" target="_blank" rel="noopener">Subscribe on LinkedIn</a>
+    </div>
+    <div class="eps" id="eps"></div>
+  </section>
+
+  <section class="finale" id="good-at">
+    <div>
+      <h2>What I'm good at</h2>
+      <p class="sub">Pick one to see the work that proves it.</p>
+    </div>
+    <div class="skills">
+      <div class="skill-list" id="skillList"></div>
+      <div class="proof" id="proof"></div>
+    </div>
+    <div class="hello" id="hello">
+      <h2>Pick a way to say hello</h2>
+      <div class="ways">
+        <a class="way first" href="https://www.linkedin.com/in/jayasaagarc/" target="_blank" rel="noopener"><b>Message me on LinkedIn</b><span>The fastest way to reach me</span></a>
+        <a class="way" style="--accent:var(--mint)" href="https://calendly.com/jayasaagarc/connect-with-me" target="_blank" rel="noopener"><b>Book a call</b><span>Choose a time on my calendar</span></a>
+        <button class="way" style="--accent:var(--sky)" id="copyMail"><b>Copy my email</b><span id="mailText">jayasaagar21@gmail.com</span></button>
+        <a class="way" style="--accent:var(--coral)" href="https://drive.google.com/file/d/1H3mGTUalnbOy2q2mX3WgpuSxf6C5OmU-/view?usp=sharing" target="_blank" rel="noopener"><b>Read my résumé</b><span>The one-page version of all this</span></a>
+      </div>
+      <p class="also">Also on <a href="https://github.com/jayasaagar21" target="_blank" rel="noopener">GitHub</a>, and I write the <a href="https://www.linkedin.com/newsletters/7440519183827689472/" target="_blank" rel="noopener">Exploring AI</a> newsletter.</p>
+    </div>
+  </section>
+</main>
+
+<div class="index" id="index" role="dialog" aria-modal="true" aria-label="Explore">
+  <button class="pill close" id="closeIndex">Close</button>
+  <ul id="indexList"></ul>
+</div>
+
+<noscript><p style="padding:24px">This portfolio needs JavaScript to show its stories.</p></noscript>
+
+<script>
+/* ------------------------------------------------------------------
+   PROJECTS. To add one, copy a block and edit it.
+   shape: text the dots resolve into ("$1M+", "24/7"), or one of
+          "clock" | "bars" | "trend" | "play" | "plane"
+   links: [label, url] pairs. The first is the main button.
+------------------------------------------------------------------- */
+const STORIES = [
+  { id:"standup-ai", name:"Standup AI", kind:"AI meeting intelligence, built at Gnanalytica. Product lead.", shape:"clock",
+    person:"For the team stuck in a standup",
+    was:"Standups ate hours.", now:"Now they end in commitments.",
+    problem:"Teams lost hours repeating status updates, and still left the room without clear owners or follow-through.",
+    work:["A brief before every meeting, so people walk in prepared","A live agenda that keeps the room on track and captures decisions","Proposed action items you confirm, sent on to Slack and Linear"],
+    figs:[["Hours to minutes","meeting time"],["Live","task assignment"]],
+    lesson:"The best meeting tool respects people's time and leaves everyone knowing what happens next.",
+    video:"media/standup.mp4", poster:"media/standup.jpg", videoNote:"Six minutes inside the working product, from sign-in to the knowledge graph.",
+    links:[["Visit Standup AI","https://standup.gnanalytica.com"]] },
+
+  { id:"exec-dashboard", name:"Executive Analytics Dashboard for Campaigns", kind:"Campaign and lead intelligence. Product manager.", shape:"bars",
+    person:"For the leader waiting on a report",
+    was:"Many reports, no answer.", now:"From many reports to decisions.",
+    problem:"Executives waited on analysts to turn raw campaign and lead reports into decisions. The insight arrived too late to use.",
+    work:["Collects eight exports: ads, organic social, GA4, Search Console, invoices and CRM","Joins the sources that share a key and explains what changed in plain words","Turns an insight into action: email the owner, book the meeting, track the follow-up"],
+    figs:[["Days to minutes","reporting cycle"],["8 sources","in one view"]],
+    lesson:"People adopt a dashboard when the first screen answers their question.",
+    video:"media/dashboard.mp4", poster:"media/dashboard.jpg", videoNote:"The end-to-end run: collect, connect, visualise, explain, act, ask.",
+    links:[["Open the dashboard","https://lnkd.in/e4khpJAE"]] },
+
+  { id:"valytica", name:"Valytica", kind:"AI property valuation for India, built at Gnanalytica. AI product manager.", shape:"house",
+    person:"For the property valuer buried in documents",
+    was:"Valuation reports, built by hand.", now:"Documents in, report out.",
+    problem:"A valuer assembles each report by hand from deeds, site visits and government records. It is slow, and the checking never ends.",
+    work:["AI that reads the property documents and drafts the valuation report","Valuation, compliance and report generation managed in one place","Owned the product cycle: problem definition, pricing, testing and launch"],
+    figs:[["End to end","from documents to finished report"]],
+    links:[["Watch the demo","https://youtu.be/Iu3BZY6boU0"]] },
+
+  { id:"reach", name:"Device-commerce marketplace", kind:"The adoption story. Built at REACH for T-Mobile and other clients. Technical product owner.", shape:"9/10",
+    person:"For the clients who had to launch it to their own customers",
+    was:"Built is not the same as adopted.", now:"9 of 10 clients adopted it.",
+    problem:"The growth problem was attach and adoption, not build. A device-commerce platform only pays off if the installed client base launches it to their own customers.",
+    work:["Ran the adoption side of the platform launch across the client base","Grew the base: retained all six accounts including T-Mobile, and won three new ones","Built reporting that made problems visible before clients escalated"],
+    figs:[["9 of 10","existing clients adopted"],["$1M+","marketplace revenue in three months"],["95","NPS"],["+40%","recurring revenue"],["+20%","organisational revenue"]],
+    lesson:"90% client satisfaction held through a major service disruption.",
+    links:[] },
+
+  { id:"ankura", name:"Growth engine for a $16M housing account", kind:"The diagnosis story. Built at Ankura Homes. Growth manager.", shape:"+36%",
+    person:"For seven teams sharing one funnel",
+    was:"A funnel nobody could see.", now:"36% more qualified leads.",
+    problem:"Seven teams each owned a piece of the funnel, with no shared source of truth. Lead data was fragmented, so nothing downstream could be measured or tested.",
+    work:["Rebuilt the lead data and put dashboards on top, before touching conversion","Treated lead quality as the experiment, not the creative","Added health scores and ROI dashboards, so at-risk accounts surfaced before renewal"],
+    figs:[["+36%","qualified leads"],["+80%","lead-query resolution"],["+60%","engagement"],["22%","shorter sales cycle"],["$3M","profit contributed to"]],
+    lesson:"I fixed the measurement layer first. The conversion numbers moved because the funnel became legible.",
+    links:[] },
+
+  { id:"pascal", name:"Pascal", kind:"An app for a sustainable lifestyle.", shape:"leaf",
+    person:"For anyone trying to use less plastic",
+    was:"Plastic you never see.", now:"Every gram, counted.",
+    problem:"Most of us have no idea how much plastic we get through in a day, so there is nothing to act on.",
+    work:["Log everyday items by size. Each one already has its weight in grams","An impact ring and weekly charts show where you stand","Alternative products, events and a community help you switch"],
+    figs:[["155.3 g","logged from three items in the demo"],["79 seconds","to see the whole app"]],
+    links:[["Open the walkthrough","https://claude.ai/artifact/MWPPQ8AJrLcCe4hmiLXS2C"]] },
+
+  { id:"cleaning-data", name:"Cleaning Data", kind:"Data quality and ML preprocessing. Research paper and prototype.", shape:"trend",
+    person:"For the analyst handed messy data",
+    was:"Messy data in.", now:"Model-ready data out.",
+    problem:"Complex, messy data rarely turns into decisions on its own. This work explores how AI and analytics together can close that gap.",
+    work:["A study of how AI and data analytics strengthen each other","A working prototype anyone can try","Written up as a paper"],
+    figs:[["Selected","abstract, International Business Analytics"]],
+    links:[["Open the project","https://lnkd.in/gWZ3qm-Y"],["Try the prototype","https://sofidr.jayasaagarc.com/"],["Read the paper","https://drive.google.com/file/d/1TGXOPtKYQKDycYKO22fSuhcUGIIFjowR/view?usp=sharing"]] },
+
+  { id:"housing-copilot", name:"Next Gen Student Housing Co-pilot", kind:"AI chatbot. Product manager.", shape:"24/7",
+    person:"For the student lost between portals",
+    was:"Housing help meant portals, emails and queues.", now:"Now it is one conversation.",
+    problem:"Students pieced together housing and campus logistics from scattered portals, emails and office hours.",
+    work:["Guidance on options, deadlines and requirements","Campus questions answered in plain language","Open when offices are closed or queues are long"],
+    figs:[["24/7","student access"],["1","place to ask"]],
+    lesson:"It should feel like asking a helpful upperclassman, not filing a ticket.",
+    links:[["Watch the demo","https://vimeo.com/1130603790"]] },
+
+  { id:"cricket-chips", name:"Cricket Chips commercial", kind:"Brand film for an FMCG snack. Creative and marketing.", shape:"play",
+    person:"For the gym-goer who skips the eco aisle",
+    was:"Eco snacks felt niche and preachy.", now:"Fuel your body. Save the planet.",
+    problem:"Eco-conscious snacks often fail to connect with mainstream fitness audiences.",
+    work:["Cinematic film craft for a snack category","Sustainability woven into the product story","Cricket Chips framed as performance snacking"],
+    figs:[["15 seconds","from gym to mountain trail"],["Premium","positioning for an eco snack"]],
+    lesson:"Great FMCG creative starts with the person holding the product.",
+    video:"media/chips.mp4", poster:"media/chips.jpg", videoNote:"The full ad. Fifteen seconds.",
+    links:[] }
+];
+
+/* EXPERIENCE, oldest first. figs: [number, label] pairs. */
+const ROUTE = [
+  { id:"vtu", when:"2014 to 2018", title:"Engineering student", org:"Visvesvaraya Technological University, India",
+    did:"Flew RC aircraft with Avions Club, captained the basketball team, acted in the theatre team and joined Toastmasters. Won best research paper presentation at national level.",
+    figs:[["3rd","in the world, RC competitions"]] },
+  { id:"sky", when:"Dec 2020 to May 2022", title:"Product and sales associate, Sky", org:"Firstsource, India (UK client)",
+    did:"Defined the launch and go-to-market strategy for Sky's offerings, and mentored a 200-member team on retention, conversion and resolution. On the side, coordinated a volunteer hospital queue system during COVID-19.",
+    figs:[["30 to 85","NPS"],["200","people mentored"],["15+","hospitals reached"]] },
+  { id:"low-code", when:"Jun 2022 to May 2023", title:"Product consultant, low-code platform", org:"Replicacia Technologies, India",
+    did:"Joined the founder's office as an intern and was promoted to full-time. Owned the non-technical product lifecycle from vision to launch: roadmap, pricing and go-to-market.",
+    figs:[["200+","user feedback cycles"],["3","customers before launch"]] },
+  { id:"reach", story:"reach", when:"Jun 2023 to Jul 2024", title:"Technical product owner", org:"REACH, India (US client)",
+    did:"Ran the adoption side of a device-commerce platform launch for T-Mobile and other clients, and shipped the analytics and reporting behind it.",
+    figs:[["9 of 10","clients adopted"],["$1M+","revenue in three months"],["+40%","recurring revenue"]] },
+  { id:"ankura", story:"ankura", when:"Sep 2024 to May 2025", title:"Growth manager", org:"Ankura Homes, India",
+    did:"Fixed the measurement layer of a seven-team funnel on a $16M account, then owned activation and retention with health scores and ROI dashboards.",
+    figs:[["+36%","qualified leads"],["22%","shorter sales cycle"],["$3M","profit contributed to"]] },
+  { id:"rhm", when:"Jun 2025 to Jun 2026", title:"Master's in Business Analytics, and business consultant", org:"RHM Innovations, and University at Buffalo, USA",
+    did:"Studied AI in the enterprise, predictive analytics and product management. Represented the university at RHM, building a Voice AI, a website marketplace and a HubSpot CRM with go-to-market automations.",
+    figs:[["+30%","monthly sales"],["2 days to instant","response time"]] },
+  { id:"gnanalytica", story:"valytica", when:"Nov 2025 to now", title:"AI product manager", org:"Gnanalytica, remote",
+    did:"Led product and go-to-market for an AI startup: Standup AI, the Workshop Dashboard and Valytica. Owned the full cycle from problem definition to pricing, testing and launch.",
+    figs:[["3","AI products taken to market"]] }
+];
+
+/* NEWSLETTER, newest first: [episode, title, date, url] */
+const EPISODES = [
+  [6,"One Prompt vs Multiple Prompts: What I Learnt While Building","Oct 2026","https://www.linkedin.com/pulse/episode-6-one-prompt-vs-multiple-prompts-what-i-ai-chandrashekar-xcg2e"],
+  [5,"The Collaborator Mindset","Aug 2026","https://www.linkedin.com/pulse/episode-5-collaborator-mindset-jayasaagar-chandrashekar-xrqac"],
+  [4,"From Passenger to Driver: Why you aren't actually \"behind\" on AI","Jul 2026","https://www.linkedin.com/pulse/episode-4-from-passenger-driver-why-you-arent-ai-chandrashekar-ztdxc"],
+  [3,"Can AI Build & Market a Product?","Jun 2026","https://www.linkedin.com/pulse/episode-3-can-ai-build-market-product-jayasaagar-chandrashekar-4w4xc"],
+  [2,"The Beauty of Storytelling in AI","Apr 2026","https://www.linkedin.com/pulse/beauty-storytelling-ai-part-2-jayasaagar-chandrashekar-fcj9e"],
+  [1,"Why am I doing this?","","https://www.linkedin.com/pulse/episode-1-why-am-i-doing-jayasaagar-chandrashekar-ajvse"]
+];
+
+const SKILLS = [
+  ["AI products people can try", ["standup-ai","valytica","exec-dashboard","housing-copilot","rhm"]],
+  ["Dashboards that answer the first question", ["exec-dashboard","cleaning-data","reach"]],
+  ["Go-to-market and CRM automation", ["rhm","ankura","sky","gnanalytica"]],
+  ["Listening to users before building", ["low-code","housing-copilot","standup-ai"]],
+  ["Owning a product from roadmap to revenue", ["reach","ankura","low-code"]],
+  ["Brand stories that sell", ["cricket-chips","ankura"]]
+];
+
+const ACCENTS = ["#FFC531","#6FE3B0","#7CC6FF","#FF9079","#BDA8FF"];
+const FOG="#E6E8EC", INK="#17183F", AIR="#D5EBFF", PAPER="#E7DFFF";
+const $ = (s,r=document)=>r.querySelector(s);
+const el = (tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LIVE = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+const smoothly = LIVE?"smooth":"auto";
+if(LIVE) document.documentElement.classList.add("live");
+
+/* ---------- build the projects ---------- */
+const storiesEl=$("#stories"), chapters=[], launch=$("#launch");
+let heroHover=null;
+STORIES.forEach((s,i)=>{
+  s.accent=ACCENTS[i%ACCENTS.length];
+  const c=el("section","chapter"+(s.video?" has-video":"")); c.id=s.id; c.style.setProperty("--accent",s.accent); c.dataset.beat="1";
+  c.innerHTML=`
+  <div class="stage"><div class="copy">
+    <h2 class="pname">${esc(s.name)}<span>${esc(s.kind)}</span></h2>
+    <p class="claim"><span class="was">${esc(s.was)}</span><span class="now">${esc(s.now)}</span></p>
+    <div class="beats-nav">${s.video?`<button data-f=".03">The person</button><button data-f=".3">The work</button><button data-f=".58">The change</button><button data-f=".88">See it</button>`:`<button data-f=".04">The person</button><button data-f=".38">The work</button><button data-f=".8">The change</button>`}</div>
+    <div class="beats">
+      <div class="beat"><p class="who">${esc(s.person)}</p><p>${esc(s.problem)}</p></div>
+      <div class="beat"><ul class="work">${s.work.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+      <div class="beat">
+        <div class="figs">${s.figs.map(f=>`<div class="fig"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div>
+        ${s.lesson?`<p class="lesson">${esc(s.lesson)}</p>`:""}
+      </div>
+      ${s.video?`<div class="beat"><p>${esc(s.videoNote)}</p><button class="playbtn">Play the demo</button><p class="credit">Nothing loads until you press play.</p></div>`:""}
+    </div>
+    <p class="links">${s.links.map(l=>`<a class="pill" href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join("")}</p>
+  </div>${s.video?`<div class="screen"><button class="poster" aria-label="Play the ${esc(s.name)} demo"><img src="${esc(s.poster)}" alt="" loading="lazy"><i></i></button></div>`:""}</div>`;
+  const pb=c.querySelector(".playbtn"), scr=c.querySelector(".screen");
+  if(pb) pb.onclick=scr.firstChild.onclick=()=>{
+    let vid=scr.querySelector("video");
+    if(!vid){vid=document.createElement("video");vid.src=s.video;vid.poster=s.poster;vid.controls=true;vid.playsInline=true;scr.replaceChildren(vid)}
+    vid.play().catch(()=>{});
+  };
+  c.querySelectorAll(".beats-nav button").forEach(b=>b.onclick=()=>goStory(i,+b.dataset.f));
+  storiesEl.appendChild(c); chapters.push(c);
+
+  const b=el("button","pill",esc(s.name)); b.style.setProperty("--accent",s.accent);
+  b.onmouseenter=b.onfocus=()=>heroHover=i; b.onmouseleave=b.onblur=()=>heroHover=null;
+  b.onclick=()=>{heroHover=null;goStory(i)}; launch.appendChild(b);
+});
+
+function goStory(i,frac=.04){
+  const c=chapters[i]; if(!c) return;
+  if(!LIVE){c.scrollIntoView();return}
+  const top=c.getBoundingClientRect().top+scrollY+frac*(c.offsetHeight-innerHeight);
+  scrollTo({top,behavior:"smooth"});
+}
+const goTo=id=>{const e=document.getElementById(id);if(e)scrollTo({top:e.getBoundingClientRect().top+scrollY-90,behavior:smoothly})};
+$("#home").onclick=()=>scrollTo({top:0,behavior:smoothly});
+
+/* ---------- build the route ---------- */
+const routeMap=$("#routeMap"), stops=[];
+ROUTE.forEach((r,i)=>{
+  const li=el("li","stop"+(LIVE?"":" reached")); li.id="stop-"+r.id; li.style.setProperty("--accent",ACCENTS[i%ACCENTS.length]);
+  li.innerHTML=`<span class="pin"></span><p class="when">${esc(r.when)}</p><h3>${esc(r.title)}</h3><p class="org">${esc(r.org)}</p><p class="did">${esc(r.did)}</p>
+  <div class="chips">${r.figs.map(f=>`<div class="chip"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join("")}</div>${r.story?`<button class="more">See the full story</button>`:""}`;
+  if(r.story) li.querySelector(".more").onclick=()=>goStory(STORIES.findIndex(s=>s.id===r.story));
+  routeMap.appendChild(li); stops.push(li);
+});
+const NS="http://www.w3.org/2000/svg";
+const svg=document.createElementNS(NS,"svg"); svg.setAttribute("aria-hidden","true");
+svg.innerHTML=`<path class="ghost"/><path class="flown"/><path class="plane" d="M-14,-10 L16,0 L-14,10 L-7,0 Z"/>`;
+routeMap.appendChild(svg);
+const ghost=svg.children[0], flown=svg.children[1], plane=svg.children[2];
+let routeLen=0, stopLens=[];
+function buildRoute(){
+  const box=routeMap.getBoundingClientRect();
+  const pts=stops.map(s=>{const d=s.querySelector(".pin").getBoundingClientRect();return[d.left+d.width/2-box.left,d.top+d.height/2-box.top]});
+  let d=`M${pts[0][0]},${pts[0][1]-70} L${pts[0][0]},${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],m=(a[1]+b[1])/2;d+=` C${a[0]},${m} ${b[0]},${m} ${b[0]},${b[1]}`}
+  const last=pts[pts.length-1]; d+=` L${last[0]},${last[1]+90}`;
+  ghost.setAttribute("d",d); flown.setAttribute("d",d);
+  routeLen=flown.getTotalLength();
+  stopLens=pts.map(p=>{let lo=0,hi=routeLen;for(let k=0;k<22;k++){const m=(lo+hi)/2;flown.getPointAtLength(m).y<p[1]?lo=m:hi=m}return lo});
+  flown.style.strokeDasharray=routeLen;
+  flown.style.strokeDashoffset=LIVE?routeLen:0;
+}
+buildRoute(); addEventListener("resize",buildRoute);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(buildRoute);
+function flyRoute(H){
+  const r=routeMap.getBoundingClientRect();
+  if(r.bottom<-200||r.top>H+200) return;
+  const prog=Math.min(1,Math.max(0,(H*.55-r.top)/r.height)), L=prog*routeLen;
+  flown.style.strokeDashoffset=routeLen-L;
+  const a=flown.getPointAtLength(L), b=flown.getPointAtLength(Math.min(routeLen,L+3));
+  const ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI + Math.sin(performance.now()/260)*5;
+  plane.setAttribute("transform",`translate(${a.x},${a.y}) rotate(${L>=routeLen-3?90:ang})`);
+  stops.forEach((s,i)=>s.classList.toggle("reached",stopLens[i]<=L+6));
+}
+
+/* ---------- newsletter ---------- */
+EPISODES.forEach((e,i)=>{
+  const a=el("a",null,`<span class="no">${e[0]}</span><span class="ti">${esc(e[1])}</span><span class="da">${esc(e[2])}</span>`);
+  a.href=e[3];a.target="_blank";a.rel="noopener";a.setAttribute("aria-label",`Episode ${e[0]}: ${e[1]}`);
+  a.style.setProperty("--accent",ACCENTS[i%ACCENTS.length]);$("#eps").appendChild(a);
+});
+
+/* ---------- explore overlay ---------- */
+const indexEl=$("#index"), indexList=$("#indexList");
+function addIndex(t,f,p,accent,fn){
+  const li=el("li"), b=el("button",null,`<span class="t">${esc(t)}</span><span class="f">${esc(f)}</span><span class="p">${esc(p)}</span>`);
+  b.style.setProperty("--accent",accent); b.onclick=()=>{closeIndex();fn()}; li.appendChild(b); indexList.appendChild(li);
+}
+STORIES.forEach((s,i)=>addIndex(s.name,s.figs[0][0],s.person,s.accent,()=>goStory(i)));
+addIndex("The route so far",ROUTE.length+" stops","Experience and results, flown by a small plane","#D5EBFF",()=>goTo("route"));
+addIndex("Exploring AI",EPISODES.length+" episodes","My monthly newsletter on AI I have tried and tested","#E7DFFF",()=>goTo("writing"));
+addIndex("What I'm good at",SKILLS.length+" strengths","Each one linked to the work that proves it",ACCENTS[4],()=>goTo("good-at"));
+addIndex("Say hello","4 ways","LinkedIn, a call, email or my résumé",ACCENTS[0],()=>goTo("hello"));
+function openIndex(){indexEl.setAttribute("open","");document.body.style.overflow="hidden";$("#closeIndex").focus()}
+function closeIndex(){indexEl.removeAttribute("open");document.body.style.overflow="";$("#openIndex").focus()}
+$("#openIndex").onclick=openIndex; $("#closeIndex").onclick=closeIndex;
+
+/* ---------- what I'm good at ---------- */
+const skillList=$("#skillList"), proof=$("#proof");
+function pickSkill(k){
+  [...skillList.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===k));
+  proof.innerHTML=`<p>Shown in ${SKILLS[k][1].length} places</p>`;
+  SKILLS[k][1].forEach((id,n)=>{
+    const i=STORIES.findIndex(s=>s.id===id), r=ROUTE.find(x=>x.id===id), it=STORIES[i]||r; if(!it) return;
+    const b=el("button",null,`<b>${esc(it.name||it.org.split(",")[0])}</b><span>${esc(it.figs[0][0])}</span>`);
+    b.style.setProperty("--accent",it.accent||ACCENTS[n%ACCENTS.length]);
+    b.onclick=()=>i>=0?goStory(i,.8):goTo("stop-"+id); proof.appendChild(b);
+  });
+}
+SKILLS.forEach((sk,k)=>{const b=el("button",null,esc(sk[0]));b.onclick=()=>pickSkill(k);b.onmouseenter=()=>pickSkill(k);skillList.appendChild(b)});
+pickSkill(0);
+
+/* ---------- copy email ---------- */
+$("#copyMail").onclick=async()=>{
+  const label=$("#copyMail b");
+  try{await navigator.clipboard.writeText("jayasaagar21@gmail.com");label.textContent="Copied"}
+  catch(e){const r=document.createRange();r.selectNodeContents($("#mailText"));const s=getSelection();s.removeAllRanges();s.addRange(r);label.textContent="Selected, press copy"}
+  setTimeout(()=>label.textContent="Copy my email",2200);
+};
+
+/* ---------- keyboard ---------- */
+let current=-1; const n=STORIES.length;
+addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&indexEl.hasAttribute("open")){closeIndex();return}
+  if(indexEl.hasAttribute("open")||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==="ArrowRight"){e.preventDefault();current<n-1?goStory(current+1):current===n-1?goTo("route"):goTo("good-at")}
+  if(e.key==="ArrowLeft"){e.preventDefault();current>n?goTo("route"):current===n?goStory(n-1):current>0?goStory(current-1):scrollTo({top:0,behavior:smoothly})}
+});
+
+/* ---------- the dot field ---------- */
+if(LIVE){
+  const cv=$("#field"), ctx=cv.getContext("2d");
+  const N=innerWidth<760?750:1500, S=220;
+  let W=0,H=0,dpr=1;
+  const rnd=(()=>{let a=20261115;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}})();
+  const P=Array.from({length:N},()=>({sx:rnd(),sy:rnd(),ph:rnd(),r:1.3+rnd()*1.5,x:0,y:0,vx:0,vy:0}));
+
+  const SHAPES={
+    person(c){c.beginPath();c.arc(S/2,S*.3,S*.17,0,7);c.fill();c.beginPath();c.ellipse(S/2,S*.98,S*.36,S*.44,0,Math.PI,0);c.fill()},
+    house(c){c.beginPath();c.moveTo(S*.5,S*.06);c.lineTo(S*.97,S*.46);c.lineTo(S*.84,S*.46);c.lineTo(S*.84,S*.94);c.lineTo(S*.58,S*.94);c.lineTo(S*.58,S*.66);c.lineTo(S*.42,S*.66);c.lineTo(S*.42,S*.94);c.lineTo(S*.16,S*.94);c.lineTo(S*.16,S*.46);c.lineTo(S*.03,S*.46);c.closePath();c.fill()},
+    leaf(c){c.beginPath();c.moveTo(S*.14,S*.9);c.quadraticCurveTo(S*.02,S*.2,S*.9,S*.08);c.quadraticCurveTo(S*.96,S*.92,S*.14,S*.9);c.fill();c.globalCompositeOperation="destination-out";c.lineWidth=S*.035;c.beginPath();c.moveTo(S*.16,S*.88);c.lineTo(S*.72,S*.3);c.stroke();c.globalCompositeOperation="source-over"},
+    plane(c){c.beginPath();c.moveTo(S*.04,S*.42);c.lineTo(S*.96,S*.1);c.lineTo(S*.6,S*.92);c.lineTo(S*.46,S*.58);c.closePath();c.fill()},
+    clock(c){c.lineWidth=S*.075;c.lineCap="round";c.beginPath();c.arc(S/2,S/2,S*.41,0,7);c.stroke();c.beginPath();c.moveTo(S/2,S/2);c.lineTo(S/2,S*.24);c.moveTo(S/2,S/2);c.lineTo(S*.66,S*.58);c.stroke()},
+    bars(c){[.28,.48,.7,.96].forEach((h,i)=>c.fillRect(S*(.06+i*.235),S*(1-h),S*.17,S*h))},
+    trend(c){c.lineWidth=S*.085;c.lineCap=c.lineJoin="round";c.beginPath();c.moveTo(S*.07,S*.86);c.lineTo(S*.32,S*.6);c.lineTo(S*.5,S*.7);c.lineTo(S*.86,S*.2);c.stroke();c.beginPath();c.arc(S*.86,S*.2,S*.1,0,7);c.fill()},
+    play(c){c.lineWidth=S*.07;c.beginPath();c.arc(S/2,S/2,S*.42,0,7);c.stroke();c.beginPath();c.moveTo(S*.4,S*.3);c.lineTo(S*.72,S*.5);c.lineTo(S*.4,S*.7);c.closePath();c.fill()}
+  };
+  function sample(shape){
+    const o=document.createElement("canvas");o.width=o.height=S;const c=o.getContext("2d",{willReadFrequently:true});
+    c.fillStyle=c.strokeStyle="#000";
+    if(SHAPES[shape]) SHAPES[shape](c);
+    else{const ff='"Arial Black","Helvetica Neue",Arial,sans-serif';c.font="900 100px "+ff;const w=c.measureText(shape).width;const fs=Math.min(100*S*.97/w,S*.8);c.font=`900 ${fs}px ${ff}`;c.textAlign="center";c.textBaseline="middle";c.fillText(shape,S/2,S/2)}
+    const d=c.getImageData(0,0,S,S).data, pts=[];
+    for(let y=0;y<S;y++)for(let x=0;x<S;x++)if(d[(y*S+x)*4+3]>128)pts.push(x,y);
+    const out=new Float32Array(N*2), m=pts.length/2||1;
+    for(let i=0;i<N;i++){const k=(rnd()*m|0)*2;out[i*2]=((pts[k]||S/2)+rnd())/S;out[i*2+1]=((pts[k+1]||S/2)+rnd())/S}
+    return out;
+  }
+  const FORM={hero:sample("person")};
+  STORIES.forEach(s=>FORM[s.id]=sample(s.shape));
+
+  function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  resize();addEventListener("resize",resize);
+  P.forEach(p=>{p.x=p.sx*W;p.y=p.sy*H});
+  const ptr={x:-999,y:-999}; let burst=null;
+  addEventListener("pointermove",e=>{ptr.x=e.clientX;ptr.y=e.clientY});
+  addEventListener("pointerleave",()=>{ptr.x=ptr.y=-999});
+  addEventListener("pointerdown",e=>{burst={x:e.clientX,y:e.clientY}});
+
+  const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+  const rgb=a=>`rgb(${a.map(Math.round).join(",")})`;
+  const clamp=x=>x<0?0:x>1?1:x, smooth=(a,b,x)=>{x=clamp((x-a)/(b-a));return x*x*(3-2*x)};
+  const cFog=hex(FOG), cInk=hex(INK), cGold=hex(ACCENTS[0]), cAir=hex(AIR), cPaper=hex(PAPER);
+  let bg=cFog.slice(), dot=cInk.slice();
+  const hero=$("#top"), route=$("#route"), notes=$("#writing"), finale=$("#good-at"), statusEl=$("#status"), root=document.documentElement;
+  let lastStatus="", playing=null;
+
+  function frame(now){
+    const tm=now/1000, mid=H/2;
+    let form=FORM.hero, f=0, tBg=cFog, tDot=cInk, dark=false, status="", quiet=false, want=null;
+    current=-1;
+    const fr=finale.getBoundingClientRect(), rr=route.getBoundingClientRect();
+    if(fr.top<H*.9){ tBg=cInk; tDot=cGold; dark=true; quiet=true; current=n+1; status="What I'm good at"; }
+    else if(notes.getBoundingClientRect().top<H*.75){ tBg=cPaper; quiet=true; current=n; status="Exploring AI"; }
+    else if(rr.top<H*.75){ tBg=cAir; quiet=true; current=n; status="The route so far"; }
+    else{
+      const hr=hero.getBoundingClientRect();
+      if(hr.bottom>mid){
+        f=1-smooth(.05,.6,-hr.top/hr.height);
+        if(heroHover!=null){form=FORM[STORIES[heroHover].id];tBg=mix(cFog,hex(STORIES[heroHover].accent),.75*f)}
+      }
+      else for(let i=0;i<chapters.length;i++){
+        const c=chapters[i], r=c.getBoundingClientRect();
+        if(r.top<=mid&&r.bottom>mid){
+          const p=clamp(-r.top/(r.height-H));
+          const v=!!STORIES[i].video;
+          const g=smooth(v?.22:.3,v?.46:.62,p)*(1-smooth(.95,1,p));
+          f=v?g*(1-smooth(.68,.76,p)):g;
+          form=FORM[STORIES[i].id]; tBg=mix(cFog,hex(STORIES[i].accent),g);
+          c.style.setProperty("--t",g.toFixed(3));
+          const beat=v?(p<.18?"1":p<.42?"2":p<.72?"3":"4"):(p<.24?"1":p<.56?"2":"3");
+          if(c.dataset.beat!==beat)c.dataset.beat=beat;
+          if(g>.5)c.dataset.after="";else delete c.dataset.after;
+          if(beat==="4")want=c.querySelector("video");
+          current=i; status=`Project ${i+1} of ${n}: ${STORIES[i].name}`;
+          break;
+        }
+      }
+    }
+    flyRoute(H);
+    if(want!==playing){if(playing)playing.pause();playing=want}
+    if(status!==lastStatus){statusEl.textContent=lastStatus=status}
+    if(dark!==root.hasAttribute("data-dark")) dark?root.setAttribute("data-dark",""):root.removeAttribute("data-dark");
+    bg=mix(bg,tBg,.12); dot=mix(dot,tDot,.12);
+    document.body.style.backgroundColor=rgb(bg);
+
+    const mobile=W<760;
+    const s=mobile?Math.min(W*.78,H*.31):Math.min(W*.4,H*.62);
+    const bx=mobile?(W-s)/2:W*.53+(W*.43-s)/2, by=mobile?H*.09:(H-s)/2+16;
+
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=rgb(dot);
+    for(let i=0;i<N;i++){
+      const p=P[i];
+      const fi=clamp(f*1.35-p.ph*.35), e=fi*fi*(3-2*fi);
+      const cx=(p.sx+.035*Math.sin(tm*.35+p.ph*40))*W, cy=(p.sy+.035*Math.cos(tm*.28+p.ph*55))*H;
+      const tx=cx+(bx+form[i*2]*s-cx)*e, ty=cy+(by+form[i*2+1]*s-cy)*e;
+      p.vx+=(tx-p.x)*.055; p.vy+=(ty-p.y)*.055;
+      const dx=p.x-ptr.x, dy=p.y-ptr.y, d2=dx*dx+dy*dy;
+      if(d2<16900){const d=Math.sqrt(d2)||1, k=(130-d)/130*2.2;p.vx+=dx/d*k;p.vy+=dy/d*k}
+      if(burst){const ux=p.x-burst.x, uy=p.y-burst.y, u=Math.hypot(ux,uy)||1;if(u<340){const k=(340-u)/340*46;p.vx+=ux/u*k;p.vy+=uy/u*k}}
+      p.vx*=.8;p.vy*=.8;p.x+=p.vx;p.y+=p.vy;
+      ctx.globalAlpha=quiet?(dark?.35:.16):.22+.78*e;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.3);ctx.fill();
+    }
+    burst=null;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>
