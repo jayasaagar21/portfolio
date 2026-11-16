@@ -1,3 +1,5 @@
-# portfolio
+# Jayasaagar Chandrashekar portfolio
 
-[![Open in Bolt](https://bolt.new/static/open-in-bolt.svg)](https://bolt.new/~/sb1-ljf5scgq)
+The source of [jayasaagarc.com](https://www.jayasaagarc.com).
+
+The site lives in `portfolio-update/`: `index.html` is the whole page, and `public/` holds the demo videos, posters and the link-preview image. Vercel serves that folder as set in `vercel.json`.
